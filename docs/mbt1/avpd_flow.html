@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBT-AvPD 治疗流程图</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    line-height: 1.6;
+  }
+  .header {
+    text-align: center;
+    padding: 40px 20px 20px;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-bottom: 2px solid #334155;
+  }
+  .header h1 {
+    font-size: 2em;
+    background: linear-gradient(90deg, #60a5fa, #a78bfa, #f472b6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+  }
+  .header p {
+    color: #94a3b8;
+    font-size: 0.95em;
+  }
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px 20px;
+  }
+  .section {
+    margin-bottom: 50px;
+    background: #1e293b;
+    border-radius: 16px;
+    border: 1px solid #334155;
+    overflow: hidden;
+  }
+  .section-title {
+    padding: 20px 30px;
+    font-size: 1.3em;
+    font-weight: 700;
+    background: linear-gradient(90deg, #1e3a5f, #1e293b);
+    border-bottom: 1px solid #334155;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-title .badge {
+    display: inline-block;
+    background: #3b82f6;
+    color: white;
+    border-radius: 6px;
+    padding: 2px 10px;
+    font-size: 0.7em;
+    font-weight: 600;
+  }
+  .section-title .badge.a { background: #8b5cf6; }
+  .section-title .badge.b { background: #06b6d4; }
+  .section-title .badge.c { background: #f59e0b; color: #1e293b; }
+  .section-title .badge.d { background: #10b981; }
+  .section-title .badge.e { background: #ef4444; }
+  .section-title .badge.decision { background: #ec4899; }
+  .section-title .badge.compare { background: #6366f1; }
+  .diagram-wrap {
+    padding: 30px;
+    overflow-x: auto;
+  }
+  .mermaid {
+    display: flex;
+    justify-content: center;
+  }
+  .mermaid svg {
+    max-width: 100%;
+  }
+  .note {
+    padding: 0 30px 20px;
+    color: #94a3b8;
+    font-size: 0.85em;
+  }
+  .note strong { color: #f59e0b; }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    padding: 30px;
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+  .grid .section { margin-bottom: 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🧠 MBT-AvPD 治疗流程图</h1>
+  <p>基于 Cambridge Guide to MBT, Chapter 8: Avoidant Personality Disorder</p>
+</div>
+
+<div class="container">
+
+<!-- ===== 1. 心理化维度失衡 ===== -->
+<div class="section">
+  <div class="section-title"><span class="badge">诊断</span> 核心心理化维度失衡剖面</div>
+  <div class="diagram-wrap">
+    <pre class="mermaid">
+graph TD
+    subgraph AvPD["AvPD 心理化维度失衡"]
+        A["🔵 自动/控制维度"]
+        B["🟢 认知/情感维度"]
+        C["🟡 内部/外部维度"]
+        D["🔴 自我/他者维度"]
+    end
+
+    A --> A1["偏自动：低反思功能<br/>低内隐/外显反思功能"]
+    A --> A2["或过度控制：<br/>过度心理化/理智化"]
+
+    B --> B1["偏认知，情感心理化严重不足"]
+    B --> B2["述情障碍 50-60%"]
+    B --> B3["情感表达抑制<br/>情绪分享困难"]
+
+    C --> C1["过度依赖外部线索"]
+    C --> C2["内感受觉知断裂<br/>岛叶-前扣带回连接受损"]
+    C --> C3["面部表情误分类<br/>恐惧识别障碍"]
+
+    D --> D1["自我心理化过度主导"]
+    D --> D2["自我中心偏差<br/>egocentricity bias"]
+    D --> D3["第三人称视角固化<br/>我-mode"]
+    D --> D4["他者心理状态<br/>被自我状态填充"]
+
+    style AvPD fill:#1e293b,stroke:#60a5fa,stroke-width:2px
+    style A fill:#1e3a5f,stroke:#3b82f6,color:#93c5fd
+    style B fill:#1a3a2a,stroke:#10b981,color:#6ee7b7
+    style C fill:#3a3a1a,stroke:#f59e0b,color:#fcd34d
+    style D fill:#3a1a1a,stroke:#ef4444,color:#fca5a5
+    </pre>
+  </div>
+</div>
+
+<!-- ===== 2. 治疗总流程 ===== -->
+<div class="section">
+  <div class="section-title"><span class="badge">总览</span> 治疗三阶段总流程</div>
+  <div class="diagram-wrap">
+    <pre class="mermaid">
+flowchart TB
+    START(["患者进入治疗"]) --> PHASE1
+
+    subgraph PHASE1["📋 阶段一：评估与个案概念化"]
+        A1["评估访谈<br/>识别低心理化/过度心理化模式"]
+        A2["识别依恋策略<br/>恐惧型依恋 = 高焦虑 + 高回避"]
+        A3["反移情觉察<br/>不足→羞耻→不耐烦→愤怒"]
+        A4["替代路径探索<br/>通过物理世界进入主观性"]
+        A5["建立共同配方<br/>6焦点 + 副作用预警"]
+        A1 --> A2 --> A3 --> A4 --> A5
+    end
+
+    PHASE1 --> PHASE2
+
+    subgraph PHASE2["🔧 阶段二：核心干预"]
+        direction TB
+        B_A["A线：降低内心之眼<br/>对抗自我中心偏差"]
+        B_B["B线：校准内部/外部<br/>游戏与角色扮演"]
+        B_C["C线：对抗假装模式<br/>温和替代挑战"]
+        B_D["D线：记忆精细化<br/>第一人称意象"]
+        B_E["E线：反关系回应<br/>治疗师自我监测"]
+    end
+
+    PHASE2 --> LOOP{"进展评估"}
+    LOOP -->|卡住| REF["回到配方参照点<br/>寻求督导"]
+    REF --> PHASE2
+    LOOP -->|改善| PHASE3
+
+    subgraph PHASE3["🎯 阶段三：督导与维持"]
+        C1["定期督导<br/>防止共谋/维持情感活力"]
+        C2["结束期评估<br/>回避是否减少？他者心理化增强？"]
+        C1 --> C2
+    end
+
+    C2 --> END(["治疗结束"])
+
+    style PHASE1 fill:#1e293b,stroke:#8b5cf6,stroke-width:2px
+    style PHASE2 fill:#1e293b,stroke:#3b82f6,stroke-width:2px
+    style PHASE3 fill:#1e293b,stroke:#10b981,stroke-width:2px
+    style LOOP fill:#3a1a2a,stroke:#ec4899,color:#f9a8d4
+    style REF fill:#3a2a1a,stroke:#f59e0b,color:#fcd34d
+    </pre>
+  </div>
+</div>
+
+<!-- ===== 3. 评估期决策 ===== -->
+<div class="section">
+  <div class="section-title"><span class="badge">评估</span> 评估期：识别两种非心理化模式</div>
+  <div class="diagram-wrap">
+    <pre class="mermaid">
+flowchart TD
+    START(["评估访谈开始"]) --> OBS{"观察患者回应模式"}
+
+    OBS -->|回答浅薄<br/>我不知道| HYPO["低心理化型<br/>Hypomentalizing"]
+    OBS -->|流畅叙事<br/>但缺乏情感锚定| HYPER["过度心理化型<br/>Hypermentalizing / Pretend Mode"]
+
+    HYPO --> H_INT["🔑 关键干预"]
+    H_INT --> H1["探索'不知道'的体验本身"]
+    H1 --> H2["'被我这样提问，<br/>你是什么感受？'"]
+    H2 --> H3["'我问到你不晓得如何回答的问题，<br/>对你有什么影响？'"]
+    H3 --> H4["坚持不知立场<br/>NOT 填充答案"]
+
+    HYPER --> HY_INT["🔑 关键干预"]
+    HY_INT --> HY1["❌ NOT 挑战假装模式！"]
+    HY1 --> HY2["✅ 表达感谢与共情"]
+    HY2 --> HY3["'谢谢你努力营造<br/>这么好的交流氛围'"]
+    HY3 --> HY4["'你做了这么多工作，<br/>却觉得收获很少'"]
+    HY4 --> HY5["聚焦于'谈论自身体验的困难'本身"]
+
+    H4 --> FORM["进入共同配方"]
+    HY5 --> FORM
+
+    FORM --> ALT{"直接提问<br/>效果如何？"}
+    ALT -->|效果差| INDIRECT["替代路径：<br/>通过物理世界进入主观性<br/>自然/宠物/艺术/音乐"]
+    ALT -->|可接受| DIRECT["继续直接探索"]
+    INDIRECT --> FORM2["建立配方"]
+    DIRECT --> FORM2
+
+    style HYPO fill:#1e3a5f,stroke:#3b82f6,color:#93c5fd
+    style HYPER fill:#3a1a3a,stroke:#a855f7,color:#d8b4fe
+    style H_INT fill:#1e293b,stroke:#3b82f6
+    style HY_INT fill:#1e293b,stroke:#a855f7
+    style FORM fill:#1a3a2a,stroke:#10b981,color:#6ee7b7
+    style FORM2 fill:#1a3a2a,stroke:#10b981,color:#6ee7b7
+    </pre>
+  </div>
+</div>
+
+<!-- ===== 4. A线干预 ===== -->
+<div class="section">
+  <div class="section-title"><span class="badge a">A线</span> 降低"内心之眼"——对抗自我中心偏差</div>
+  <div class="diagram-wrap">
+    <pre class="mermaid">
+flowchart TD
+    START(["A线干预启动"]) --> A1["识别自我中心偏差实例<br/>自我/他者界限模糊<br/>自我被过度用作理解他者的信息源"]
+
+    A1 --> A2{"他者能否<br/>从叙事中浮现？"}
+    A2 -->|否| A3["4步多视角探索"]
+    A2 -->|是| A6
+
+    subgraph A3["4步多视角探索"]
+        direction TB
+        S1["(a) 他者自身视角<br/>'他们怎么想、可能感受到什么？'<br/>'你怎么得出这个结论？'"]
+        S2["(b) 患者视角<br/>区分确定知道 vs 想象补充<br/>'你怎么这么确定？'"]
+        S3["(c) 真正观察者视角<br/>'如果我在场，我会这样想……'"]
+        S4["(d) 替代主人公视角<br/>'John怎么看Fiona？<br/>和你想的有什么不同？'"]
+        S1 --> S2 --> S3 --> S4
+    end
+
+    A3 --> A4{"自我中心偏差<br/>是否松动？"}
+    A4 -->|顽固| A5["抑制自我中心偏差<br/>NOT 摧毁，而是丰富替代<br/>识别他者中的积极认知<br/>欣赏/关切/兴趣/共情"]
+    A4 -->|松动| A6
+
+    A5 --> A6["持续温和请求<br/>'超越自我中心'<br/>用内在价值覆盖回避动机"]
+
+    A6 --> LOOP{"需要继续？"}
+    LOOP -->|是| A1
+    LOOP -->|否| DONE(["进入下一干预线"])
+
+    style START fill:#1e3a5f,stroke:#8b5cf6
+    style A3 fill:#1e293b,stroke:#8b5cf6,stroke-width:2px
+    style A4 fill:#3a1a3a,stroke:#a855f7,color:#d8b4fe
+    style A5 fill:#3a2a1a,stroke:#f59e0b,color:#fcd34d
+    style DONE fill:#1a3a2a,stroke:#10b981,color:#6ee7b7
+    </pre>
+  </div>
+</div>
+
+<!-- ===== 5. B线干预 ===== -->
+<div class="section">
+  <div class="section-title"><span class="badge b">B线</span> 校准内部体验与外部现实——游戏与角色扮演</div>
+  <div class="diagram-wrap">
+    <pre class="mermaid">
+flowchart TD
+    START(["B线干预启动"]) --> B1["打破心理等价模式<br/>引入游戏作为入口"]
+
+    B1 --> B2{"直接关系心理化<br/>是否引发过多焦虑？"}
+    B2 -->|是| B3["⚠️ 退回游戏/角色扮演<br/>通过'假装'安全接近他者心理状态"]
+    B2 -->|否| B8["直接关系心理化工作"]
+
+    B3 --> GAMES
+
+    subgraph GAMES["心理化游戏工具箱"]
+        direction TB
+        G1["🎭 反转角色扮演<br/>'想象我是你，你是治疗师'<br/>治疗师扮演患者负面自我体验"]
+        G2["📋 外部事件角色扮演<br/>基于患者报告的困难互动<br/>焦虑更可控"]
+        G3["🧠 Mind-Brain Scan<br/>画脑轮廓填入：<br/>我/他们/他们关于我/我关于他们"]
+        G4["🃏 Feeling Finder卡牌<br/>抽卡→表演情绪→他人复现"]
+        G5["⚔️ 预演困难遭遇<br/>治疗师扮演对方<br/>有时故意挑战"]
+        G1 --> G2 --> G3 --> G4 --> G5
+    end
+
+    GAMES --> REFLECT["角色扮演后反思<br/>'你觉得我的反应和你的有多接近？'<br/>'我对你的动机理解有多准确？'"]
+
+    REFLECT --> VALUE["🎯 游戏核心价值<br/>打破心理等价的暴政<br/>'假装'对AvPD患者可接受<br/>共同玩乐→我们模式→认识论信任"]
+
+    VALUE --> B7{"患者焦虑水平<br/>是否可承受直接工作？"}
+    B7 -->|是| B8
+    B7 -->|否| B3
+
+    B8 --> DONE(["进入下一干预线"])
+
+    style START fill:#1a3a4a,stroke:#06b6d4
+    style GAMES fill:#1e293b,stroke:#06b6d4,stroke-width:2px
+    style B2 fill:#1a3a4a,stroke:#06b6d4,color:#67e8f9
+    style VALUE fill:#1a3a2a,stroke:#10b981,color:#6ee7b7
+    style DONE fill:#1a3a2a,stroke:#10b981,color:#6ee7b7
+    </pre>
+  </div>
+</div>
+
+<!-- ===== 6. C线干预 ===== -->
+<div class="section">
+  <div class="section-title"><span class="badge c">C线</span> 对抗假装模式过度心理化</div>
+  <div class="diagram-wrap">
+    <pre class="mermaid">
+flowchart TD
+    START(["C线干预启动"]) --> C1["识别过度心理化信号"]
+
+    subgraph C1["过度心理化信号"]
+        direction TB
+        S1["对微小细节无穷分析"]
+        S2["不太可能的含义无穷推演"]
+        S3["治疗师丢失线索"]
+        S4["患者感到筋疲力尽、不被支持"]
+        S5["沟通鸿沟：<br/>双方各自在'信息孤岛'"]
+    end
+
+    C1 --> C2["❌ NOT 使用MBT-BPD的挑战！<br/>AvPD患者会体验为批评→治疗关系破裂"]
+
+    C2 --> C3["✅ 反转过程"]
+    subgraph C3["反转过程"]
+        direction TB
+        R1["温和探索 + 维持安全"]
+        R2["持续将注意力引向外部→引向情感"]
+        R3["远离内部恐惧的过度心理化位置"]
+        R1 --> R2 --> R3
+    end
+
+    C3 --> C4{"是否出现<br/>情感失调？"}
+    C4 -->|是| C5["在序列早期干预<br/>杏仁核高反应→过度心理化→失调→回避→低心理化<br/>失调出现时即刻标记"]
+    C4 -->|否| C6["继续温和引导"]
+
+    C5 --> C6
+    C6 --> LOOP{"假装模式是否缓解？"}
+    LOOP -->|否| C3
+    LOOP -->|是| DONE(["进入下一干预线"])
+
+    style START fill:#3a3a1a,stroke:#f59e0b
+    style C2 fill:#3a1a1a,stroke:#ef4444,color:#fca5a5
+    style C3 fill:#1e293b,stroke:#f59e0b,stroke-width:2px
+    style C4 fill:#3a3a1a,stroke:#f59e0b,color:#fcd34d
+    style DONE fill:#1a3a2a,stroke:#10b981,color:#6ee7b7
+    </pre>
+  </div>
+</div>
+
+<!-- ===== 7. D线干预 ===== -->
+<div class="section">
+  <div class="section-title"><span class="badge d">D线</span> 记忆精细化与意象</div>
+  <div class="diagram-wrap">
+    <pre class="mermaid">
+flowchart TD
+    START(["D线干预启动"]) --> D1["识别默认模式<br/>第三人称视角固化<br/>'自我作为客体'的观察者视角"]
+
+    D1 --> D2["第三人称视角的问题<br/>'烘焙进'负面内容→无法逃脱<br/>泛化至所有情境<br/>抽象性赋予虚假确定性"]
+
+    D2 --> D3["转向第一人称意象<br/>要求更具体、更少抽象的意象"]
+
+    subgraph D3["第一人称意象引导"]
+        direction TB
+        I1["感知细节：颜色、形状、质感"]
+        I2["图像：场景中的人物与空间关系"]
+        I3["声音：对话、环境声"]
+        I4["引导意象强化物理情境"]
+        I1 --> I2 --> I3 --> I4
+    end
+
+    D3 --> D4["确保回避我-mode<br/>转向他者-mode"]
+
+    D4 --> D5{"⚠️ 是否考虑<br/>戏剧性挑战？"}
+    D5 -->|是| D6["❌ 不使用！<br/>MBT-BPD中的'调皮/怪异挑战'<br/>在AvPD中极少有效<br/>容易引发强烈情绪但难以容纳"]
+    D5 -->|否| D7
+
+    D6 --> D7["✅ 替代方案<br/>困惑、惊讶、不知立场 + 共情<br/>先建立坚实的共享理解平台<br/>协作式方法→让发现留给患者"]
+
+    D7 --> LOOP{"视角是否转换？"}
+    LOOP -->|否| D3
+    LOOP -->|是| DONE(["进入下一干预线"])
+
+    style START fill:#1a3a2a,stroke:#10b981
+    style D3 fill:#1e293b,stroke:#10b981,stroke-width:2px
+    style D5 fill:#3a1a1a,stroke:#ef4444,color:#fca5a5
+    style D6 fill:#3a1a1a,stroke:#ef4444,color:#fca5a5
+    style D7 fill:#1a3a2a,stroke:#10b981,color:#6ee7b7
+    style DONE fill:#1a3a2a,stroke:#10b981,color:#6ee7b7
+    </pre>
+  </div>
+</div>
+
+<!-- ===== 8. E线干预 ===== -->
+<div class="section">
+  <div class="section-title"><span class="badge e">E线</span> 反关系回应管理</div>
+  <div class="diagram-wrap">
+    <pre class="mermaid">
+flowchart TD
+    START(["E线干预启动"]) --> E1["治疗师自我监测"]
+
+    subgraph E1["次级回避信号检测"]
+        direction TB
+        S1["与患者回避共谋<br/>合理化障碍不可逾越"]
+        S2["与假装模式思维协作<br/>发展根本上是回避的策略"]
+        S3["不适当地对患者的<br/>潜在痛苦感到自满"]
+        S4["思维空白<br/>'脑子干涸了'"]
+        S5["感到'不在同一频率'<br/>被动攻击的投射"]
+    end
+
+    E1 --> E2{"检测到<br/>次级回避？"}
+    E2 -->|是| E3["用游戏恢复治疗师能动性"]
+    E2 -->|否| E4["继续监测"]
+
+    E3 --> E3A["透明化：<br/>'我需要一点你给我的治疗<br/>来释放我的思维（顽皮）'<br/>'我知道这种情况也经常<br/>发生在你身上'"]
+
+    E4 --> E5{"患者是否恐惧<br/>自主权被威胁？"}
+    E5 -->|是| E6["留意：<br/>不仅是被抛弃恐惧<br/>还有被控制/批评/嘲笑的恐惧<br/>幽默需谨慎+慈悲<br/>对自我和患者都保持慈悲"]
+    E5 -->|否| E7
+
+    E6 --> E7["回到配方参照点"]
+    E7 --> LOOP{"治疗师能动性<br/>是否恢复？"}
+    LOOP -->|否| E8["寻求督导"]
+    LOOP -->|是| E9["继续治疗"]
+
+    E8 --> E9
+
+    style START fill:#3a1a1a,stroke:#ef4444
+    style E1 fill:#1e293b,stroke:#ef4444,stroke-width:2px
+    style E2 fill:#3a1a1a,stroke:#ef4444,color:#fca5a5
+    style E3 fill:#3a2a1a,stroke:#f59e0b,color:#fcd34d
+    style E8 fill:#1a3a4a,stroke:#06b6d4,color:#67e8f9
+    style E9 fill:#1a3a2a,stroke:#10b981,color:#6ee7b7
+    </pre>
+  </div>
+</div>
+
+<!-- ===== 9. 决策树 ===== -->
+<div class="section">
+  <div class="section-title"><span class="badge decision">决策</span> 关键时刻临床判断决策树</div>
+  <div class="diagram-wrap">
+    <pre class="mermaid">
+flowchart TD
+    START(["临床关键时刻"]) --> D1
+
+    D1{"患者呈现<br/>低心理化？"}
+    D1 -->|是<br/>'我不知道'| R1["探索'不知道'的体验<br/>NOT 填充答案<br/>不知立场是关键"]
+    D1 -->|否| D2
+
+    D2{"患者呈现<br/>过度心理化？"}
+    D2 -->|是<br/>假装模式| R2["NOT 挑战！<br/>感谢+共情<br/>聚焦'谈论困难'本身"]
+    D2 -->|否| D3
+
+    D3{"关系心理化<br/>引发过多焦虑？"}
+    D3 -->|是| R3["退回到游戏/角色扮演<br/>通过'假装'安全接近"]
+    D3 -->|否| D4
+
+    D4{"治疗师<br/>思维空白？"}
+    D4 -->|是| R4["承认并透明化<br/>用顽皮/游戏恢复能动性<br/>寻求督导"]
+    D4 -->|否| D5
+
+    D5{"自我中心偏差<br/>顽固？"}
+    D5 -->|是| R5["NOT 对抗性挑战<br/>持续温和请求'超越'<br/>用积极认知丰富替代<br/>多视角逐步推进"]
+    D5 -->|否| D6
+
+    D6{"心理等价<br/>模式固化？"}
+    D6 -->|是| R6["引入游戏打破'确定性'<br/>校准内部与外部现实<br/>用不知立场引入不确定性"]
+    D6 -->|否| D7
+
+    D7{"进展停滞<br/>或循环？"}
+    D7 -->|是| R7["回到配方参照点<br/>检查是否与回避共谋<br/>寻求督导"]
+    D7 -->|否| R8["继续当前干预线"]
+
+    style D1 fill:#1e3a5f,stroke:#3b82f6,color:#93c5fd
+    style D2 fill:#3a1a3a,stroke:#a855f7,color:#d8b4fe
+    style D3 fill:#1a3a4a,stroke:#06b6d4,color:#67e8f9
+    style D4 fill:#3a2a1a,stroke:#f59e0b,color:#fcd34d
+    style D5 fill:#1a3a2a,stroke:#10b981,color:#6ee7b7
+    style D6 fill:#3a1a1a,stroke:#ef4444,color:#fca5a5
+    style D7 fill:#3a1a3a,stroke:#ec4899,color:#f9a8d4
+
+    style R1 fill:#1e293b,stroke:#3b82f6
+    style R2 fill:#1e293b,stroke:#a855f7
+    style R3 fill:#1e293b,stroke:#06b6d4
+    style R4 fill:#1e293b,stroke:#f59e0b
+    style R5 fill:#1e293b,stroke:#10b981
+    style R6 fill:#1e293b,stroke:#ef4444
+    style R7 fill:#1e293b,stroke:#ec4899
+    style R8 fill:#1a3a2a,stroke:#10b981,color:#6ee7b7
+    </pre>
+  </div>
+</div>
+
+<!-- ===== 10. AvPD vs BPD 对比 ===== -->
+<div class="section">
+  <div class="section-title"><span class="badge compare">对比</span> AvPD vs BPD 关键技术差异</div>
+  <div class="diagram-wrap">
+    <pre class="mermaid">
+flowchart LR
+    subgraph BPD["MBT-BPD"]
+        direction TB
+        B1["✅ 可挑战假装模式"]
+        B2["✅ 戏剧性/怪异挑战常用"]
+        B3["不知立场：诱出内在体验"]
+        B4["直接使用关系心理化"]
+        B5["可有意识提高情感激活"]
+        B6["反移情：被淹没/被控制"]
+        B7["戏剧性波动进展"]
+        B8["核心风险：患者冲动性"]
+    end
+
+    subgraph AVPD["MBT-AvPD"]
+        direction TB
+        A1["❌ 挑战适得其反且不公平"]
+        A2["❌ 极少有效"]
+        A3["不知立场：防止填充贫乏"]
+        A4["先用游戏过渡"]
+        A5["需极度敏感与技巧"]
+        A6["反移情：空白/无聊/次级回避"]
+        A7["缓慢、循环、重复进展"]
+        A8["核心风险：治疗师共谋回避"]
+    end
+
+    B1 ---|对比| A1
+    B2 ---|对比| A2
+    B3 ---|对比| A3
+    B4 ---|对比| A4
+    B5 ---|对比| A5
+    B6 ---|对比| A6
+    B7 ---|对比| A7
+    B8 ---|对比| A8
+
+    style BPD fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px
+    style AVPD fill:#3a1a3a,stroke:#a855f7,stroke-width:2px
+    </pre>
+  </div>
+</div>
+
+<!-- ===== 11. 治疗技术时机 ===== -->
+<div class="section">
+  <div class="section-title"><span class="badge">时机</span> 治疗技术时机总览</div>
+  <div class="diagram-wrap">
+    <pre class="mermaid">
+timeline
+    title MBT-AvPD 治疗技术时机
+    section 评估期
+        不知立场 : 贫乏本身就是信息
+        间接路径探索 : 通过物理世界进入主观性
+        识别低/过度心理化 : 不挑战假装模式，共情其努力
+    section 概念化期
+        共同配方 : 6焦点明确列出并达成共识
+        副作用预警 : 标注伪心理化风险，双方共同监测
+    section 早期治疗
+        共情确认 : 建立我们模式与认识论信任
+        游戏与角色扮演 : 安全接近他者心理状态
+        Mind-Brain Scan : 结构化多视角探索
+    section 中期治疗
+        自我→他者转换 : 对抗自我中心偏差核心工作
+        4步多视角探索 : a-b-c-d逐步推进
+        记忆精细化 : 从第三人称→第一人称意象
+        情感聚焦 : 从认知→情感的校准
+    section 后期治疗
+        关系心理化 : 从游戏过渡到直接关系工作
+        标记与伴随回应 : 生成更真实的他者心理状态体验
+        结束期评估 : 回避减少？他者心理化增强？
+    section 全程
+        督导 : 防止共谋、维持治疗师心理化
+        反移情监测 : 次级回避是核心风险
+        配方回查 : 卡住时回到配方参照点
+    </pre>
+  </div>
+</div>
+
+</div>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'dark',
+    themeVariables: {
+      primaryColor: '#1e293b',
+      primaryTextColor: '#e2e8f0',
+      primaryBorderColor: '#475569',
+      lineColor: '#64748b',
+      secondaryColor: '#334155',
+      tertiaryColor: '#1e293b',
+      fontFamily: 'Segoe UI, PingFang SC, Microsoft YaHei, sans-serif',
+      fontSize: '14px'
+    },
+    flowchart: {
+      curve: 'basis',
+      padding: 20,
+      nodeSpacing: 40,
+      rankSpacing: 50
+    },
+    timeline: {
+      padding: 15
+    }
+  });
+</script>
+
+</body>
+</html>
