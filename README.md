@@ -17,10 +17,13 @@ Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN�
 
 #### 使用说明
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
-4.  [aaa](/docs/mbt1/mbt-clinical-process.html)
+1.  [MBT_AvPD_Flowcharts.html](/docs/mbt1/MBT_AvPD_Flowcharts.html)
+1.  [avpd_flow.html](/docs/mbt1/avpd_flow.html)
+1.  [mbt-aspd-clinical-process.html](/docs/mbt1/mbt-aspd-clinical-process.html)
+1.  [mbt-avpd-clinical-process.html](/docs/mbt1/mbt-avpd-clinical-process.html)
+1.  [mbt-clinical-process.html](/docs/mbt1/mbt-clinical-process.html)
+1.  [mbt-depression-clinical-process.html](/docs/mbt1/mbt-depression-clinical-process.html)
+1.  [mbt-npd-clinical-process.html](/docs/mbt1/mbt-npd-clinical-process.html)
 
 #### 参与贡献
 
