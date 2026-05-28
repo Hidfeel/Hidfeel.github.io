@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBT-NPD 自恋型人格障碍治疗流程图 — Cambridge Guide Ch.6</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --card-bg: #ffffff;
+    --text: #2d3436;
+    --text-secondary: #636e72;
+    --accent-npd: #a855f7;
+    --accent-npd-light: #e9d5ff;
+    --border: #dfe6e9;
+    --tag-bg: #f0e6ff;
+    --phase-early: #c084fc;
+    --phase-middle: #a78bfa;
+    --phase-late: #818cf8;
+    --grandiose: #e17055;
+    --vulnerable: #6c5ce7;
+    --red: #d63031;
+    --orange: #e17055;
+    --green: #00b894;
+    --shadow: 0 2px 12px rgba(0,0,0,.06);
+    --shadow-lg: 0 8px 30px rgba(0,0,0,.08);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 40px 20px;
+  }
+  .container { max-width: 1020px; margin: 0 auto; }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .header h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #2d3436;
+    margin-bottom: 8px;
+  }
+  .header .subtitle {
+    color: var(--text-secondary);
+    font-size: 1rem;
+  }
+  .header .meta {
+    margin-top: 12px;
+    font-size: 0.85rem;
+    color: #b2bec3;
+  }
+  .badge {
+    display: inline-block;
+    background: var(--accent-npd-light);
+    color: var(--accent-npd);
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin: 0 4px;
+  }
+
+  /* Section */
+  .section {
+    margin-bottom: 48px;
+  }
+  .section h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent-npd);
+    margin-bottom: 16px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent-npd);
+  }
+  .section h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin: 16px 0 8px;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+
+  /* Mermaid wrapper */
+  .mermaid-wrap {
+    background: #fafbfc;
+    border-radius: 10px;
+    padding: 16px;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+
+  /* Phase tags */
+  .phase-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .phase-tag {
+    padding: 8px 20px;
+    border-radius: 24px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #fff;
+  }
+  .phase-tag.early { background: var(--phase-early); }
+  .phase-tag.middle { background: var(--phase-middle); }
+  .phase-tag.late { background: var(--phase-late); }
+
+  /* Key point grid */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  .kp-card {
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 18px 20px;
+    border-left: 4px solid var(--accent-npd);
+    box-shadow: var(--shadow);
+  }
+  .kp-card.grandiose { border-left-color: var(--grandiose); }
+  .kp-card.vulnerable { border-left-color: var(--vulnerable); }
+  .kp-card h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .kp-card.grandiose h4 { color: var(--grandiose); }
+  .kp-card.vulnerable h4 { color: var(--vulnerable); }
+  .kp-card p, .kp-card ul {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  .kp-card li { margin-bottom: 4px; }
+
+  /* Do & Don't */
+  .dos-donts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  @media (max-width: 700px) { .dos-donts { grid-template-columns: 1fr; } }
+  .dos, .donts {
+    border-radius: 10px;
+    padding: 16px 18px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+  .dos { background: #e6fffa; border: 1px solid #81ecec; }
+  .donts { background: #ffeaa7; border: 1px solid #fdcb6e; }
+  .dos h4 { color: #00b894; margin-bottom: 8px; }
+  .donts h4 { color: #e17055; margin-bottom: 8px; }
+  .dos li, .donts li { margin-bottom: 3px; }
+
+  /* Table style */
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { background: #f8f0ff; color: var(--accent-npd); font-weight: 700; }
+  tr:hover { background: #fafbfc; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    color: #b2bec3;
+    font-size: 0.8rem;
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Header -->
+<div class="header">
+  <h1>🧠 MBT-NPD：自恋型人格障碍治疗流程图</h1>
+  <div class="subtitle">Cambridge Guide to Mentalization-Based Treatment — Chapter 6</div>
+  <div class="meta">
+    <span class="badge">NPD</span>
+    <span class="badge">MBT-NPD</span>
+    <span class="badge">I → Me → We</span>
+    <span class="badge">Grandiose / Vulnerable</span>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 图 1: NPD 心智化失衡路径 -->
+<!-- ============================================ -->
+<div class="section">
+  <h2>图 1  NPD 心智化失衡路径 → 自恋功能扭曲</h2>
+  <p style="color:var(--text-secondary);font-size:.88rem;margin-bottom:12px;">
+    自恋人格功能的共通核心是<strong>自尊管理失调</strong>。心智化是自尊的管理者——当前心智化模式（精神等同 / 假装 / 目的论）主导时，自恋功能即被扭曲。
+  </p>
+  <div class="mermaid-wrap">
+    <pre class="mermaid">
+flowchart TB
+    NR["正常自恋 Healthy Narcissism<br/><small>通过有效心智化管理自尊与公共形象</small>"]
+    NR -->|"心智化失效"| BREAKDOWN["心智化崩溃点"]
+    
+    BREAKDOWN --> PE["精神等同<br/>Psychic Equivalence"]
+    BREAKDOWN --> PRET["假装模式<br/>Pretend Mode"]
+    BREAKDOWN --> TEL["目的论思维<br/>Teleological Thinking"]
+    
+    PE -->|"他人评价 = 绝对现实"| VULN["脆弱型自恋<br/>Vulnerable (Thin-Skinned)<br/><small>过度敏感 · 羞耻感 · 回避</small>"]
+    PRET -->|"自我形象脱离现实"| GRAND["夸大型自恋<br/>Grandiose (Thick-Skinned)<br/><small>膨胀自我 · 贬低他人 · 特权感</small>"]
+    TEL -->|"操纵环境确认自己"| MIX["混合型<br/><small>强迫他人以特定方式回应<br/>用具体行为替代心理过程</small>"]
+    
+    VULN --> CRISIS["脆性崩溃<br/><small>抑郁 · 空虚 · 自杀风险</small>"]
+    GRAND --> CRISIS2["关系破裂<br/><small>人际冲突 · 被排斥 · 失去工作</small>"]
+    
+    style NR fill:#e8f5e9,stroke:#4caf50,stroke-width:2px,color:#2e7d32
+    style BREAKDOWN fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style PE fill:#fce4ec,stroke:#e91e63
+    style PRET fill:#e1bee7,stroke:#9c27b0
+    style TEL fill:#ffccbc,stroke:#ff5722
+    style VULN fill:#ede7f6,stroke:#5e35b1,stroke-width:2px
+    style GRAND fill:#ffebee,stroke:#c62828,stroke-width:2px
+    style MIX fill:#fff8e1,stroke:#ff8f00,stroke-width:2px
+    style CRISIS fill:#ffcdd2,stroke:#b71c1c,stroke-width:2px
+    style CRISIS2 fill:#ffcdd2,stroke:#b71c1c,stroke-width:2px
+    </pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 图 2: MBT-NPD 三阶段治疗轨迹 -->
+<!-- ============================================ -->
+<div class="section">
+  <h2>图 2  MBT-NPD 三阶段治疗轨迹：I → Me → We</h2>
+  <div class="phase-row">
+    <span class="phase-tag early">🔵 早期：稳定 I-mode</span>
+    <span class="phase-tag middle">🟣 中期：建立 Me-mode</span>
+    <span class="phase-tag late">🟢 后期：巩固 We-mode</span>
+  </div>
+  <div class="mermaid-wrap">
+    <pre class="mermaid">
+flowchart TB
+    subgraph PHASE1["🔵 阶段 I：早期 — 稳定 I-Mode（自我体验）"]
+        direction TB
+        A1["评估与概念化<br/><small>自恋激活情境 · 依恋策略 · 期望与失望</small>"] --> A2["协作性治疗协议<br/><small>将夸大部分框架化为治疗资源</small>"]
+        A2 --> A3["共情性验证 I-Mode<br/><strong>夸大型：低支持</strong><br/><strong>脆弱型：高支持</strong>"]
+        A3 --> A4["监控：防御性解雇？<br/><small>'这个我已经知道了''没什么新意'</small>"]
+        A4 -->|"稳固"| A5["过渡至 Me-Mode"]
+        A4 -->|"防御"| A3
+    end
+
+    subgraph PHASE2["🟣 阶段 II：中期 — 建立 Me-Mode（我如何被他人看见）"]
+        direction TB
+        B1["情感聚焦<br/><small>夸大型：僵化与自负背后的情感<br/>脆弱型：恐惧与依赖焦虑</small>"] --> B2["关系心智化<br/><small>识别并纠正互动不匹配<br/>从关系低激活 → 认知警觉</small>"]
+        B2 --> B3["反关系性心智化<br/><small>夸大型：直接命名问题性反应<br/>脆弱型：管理过度保护</small>"]
+        B3 --> B4["适时引入挑战<br/><strong>夸大型：突然 · 有力 · 游戏式 · 直接</strong><br/><strong>脆弱型：极为谨慎！</strong>"]
+        B4 --> B5["过渡至 We-Mode"]
+    end
+
+    subgraph PHASE3["🟢 阶段 III：后期 — 巩固 We-Mode（我们共同见证）"]
+        direction TB
+        C1["联合关注个人叙事<br/><small>双方视角，同等有效</small>"] --> C2["警惕「假装 We-mode」<br/><small>患者变色龙式模仿治疗师观点<br/>幻觉性完全一致 ≠ 真正的 We-mode</small>"]
+        C2 --> C3["泛化至外部关系<br/><small>从治疗关系扩展到生活关系</small>"]
+        C3 --> C4["处理治疗结束<br/><small>回顾进展 · 预防复发 · 自我关爱</small>"]
+    end
+
+    PHASE1 --> PHASE2
+    PHASE2 --> PHASE3
+
+    style PHASE1 fill:#f3e8ff,stroke:#a855f7,stroke-width:2px,radius:12px
+    style PHASE2 fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,radius:12px
+    style PHASE3 fill:#e0e7ff,stroke:#4f46e5,stroke-width:2px,radius:12px
+    </pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 图 3: 两种亚型的差异化干预路径 -->
+<!-- ============================================ -->
+<div class="section">
+  <h2>图 3  两种自恋亚型的差异化干预路径</h2>
+  <p style="color:var(--text-secondary);font-size:.88rem;margin-bottom:12px;">
+    MBT-NPD 的核心创新在于区分<strong>夸大型（厚皮）</strong>与<strong>脆弱型（薄皮）</strong>两种自恋功能，并采用截然不同的干预策略。
+  </p>
+  <div class="mermaid-wrap">
+    <pre class="mermaid">
+flowchart TB
+    START["患者呈现自恋人格功能<br/>NPF Presentation"] --> ASSESS["评估与概念化<br/>Box 6.2 & 6.3"]
+    
+    ASSESS --> DOM["主导类型判定"]
+    DOM -->|"厚皮 · 贬低他人 · 特权感"| GRND["夸大型 Grandiose<br/>Thick-Skinned NPF"]
+    DOM -->|"薄皮 · 羞耻敏感 · 回避依赖"| VUL["脆弱型 Vulnerable<br/>Thin-Skinned NPF"]
+
+    subgraph G[" 🔴 夸大型干预路径"]
+        G1["Empathic Validation<br/>共情 + 低度支持<br/><small>不强化膨胀自我</small>"]
+        G1 --> G2["Affective Narratives<br/>情感叙事 → 靶向 Me-Mode<br/><small>发现僵化/自负背后隐藏的情感</small>"]
+        G2 --> G3["识别解雇型依恋策略<br/><small>贬低关系 · 否认需求 · 非黑即白</small>"]
+        G3 --> G4["Counter-Relational Mentalizing<br/>反关系心智化<br/><small>直接点名问题性互动模式</small>"]
+        G4 --> G5["Challenge 挑战<br/><strong>突然 · 有力 · 游戏式 · 直接</strong><br/><small>例：'Wow，你挑我的错真快。但你看得到他们的优点吗？'</small>"]
+    end
+
+    subgraph V[" 🟣 脆弱型干预路径"]
+        V1["Empathic Validation<br/>共情 + 高度支持<br/><small>先托住脆弱的自我感</small>"]
+        V1 --> V2["Affect Focus (Subdominant)<br/>情感聚焦：恐惧与焦虑<br/><small>以治疗师的担忧为过渡</small>"]
+        V2 --> V3["识别焦虑依赖<br/><small>变色龙效应 · 假装 We-mode</small>"]
+        V3 --> V4["Counter-Relational Mentalizing<br/>反关系心智化<br/><small>管理过度保护/支持的冲动</small>"]
+        V4 --> V5["⚠️ Challenge with Caution!<br/><small>在脆弱 I-mode 背景下慎用挑战！</small>"]
+    end
+
+    G5 --> WEMODE["We-Mode 整合"]
+    V5 --> WEMODE
+    WEMODE --> ENDING["结束治疗<br/><small>回顾 · 预防复发 · 自我调节</small>"]
+
+    style START fill:#e8f5e9,stroke:#4caf50,stroke-width:2px
+    style ASSESS fill:#e3f2fd,stroke:#2196f3
+    style DOM fill:#fff3e0,stroke:#f57c00
+    style GRND fill:#ffebee,stroke:#c62828,stroke-width:2px
+    style VUL fill:#ede7f6,stroke:#5e35b1,stroke-width:2px
+    style WEMODE fill:#e0f2f1,stroke:#009688,stroke-width:2px
+    style ENDING fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style G fill:#fff5f5,stroke:#e53e3e,stroke-width:1px,stroke-dasharray:5
+    style V fill:#faf5ff,stroke:#9333ea,stroke-width:1px,stroke-dasharray:5
+    </pre>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 关键要点卡片 -->
+<!-- ============================================ -->
+<div class="section">
+  <h2>关键要点</h2>
+
+  <!-- 两种亚型对比 -->
+  <h3>夸大型 vs. 脆弱型 自恋功能对比</h3>
+  <div class="grid-2">
+    <div class="kp-card grandiose">
+      <h4>🔴 夸大型 (Thick-Skinned / Grandiose)</h4>
+      <ul>
+        <li>膨胀的自我重要感，需要持续钦佩</li>
+        <li>认为自己特殊，只能与同等特殊者交往</li>
+        <li>垄断对话，贬低他人</li>
+        <li>习惯性特权感，期待特殊待遇</li>
+        <li>傲慢、自夸、自命不凡</li>
+        <li><strong>干预核心：</strong>突然、游戏式挑战 + 反关系直接点名</li>
+        <li><strong>风险：</strong>治疗师产生反移情——觉得患者讨厌、傲慢</li>
+      </ul>
+    </div>
+    <div class="kp-card vulnerable">
+      <h4>🟣 脆弱型 (Thin-Skinned / Vulnerable)</h4>
+      <ul>
+        <li>持久的羞耻感与不安全感的表面防御</li>
+        <li>极度害羞、回避、过度警觉</li>
+        <li>对他人评价极度敏感</li>
+        <li>需要不断从他人那里获取赞赏补给自尊</li>
+        <li>焦虑型依赖，变色龙式模仿</li>
+        <li><strong>干预核心：</strong>高度共情支持 + 反对挑战（至少早期）</li>
+        <li><strong>风险：</strong>「假装 We-mode」——表面一致，内部脆弱</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 评估框架 -->
+  <h3>MBT-NPD 评估框架 (Box 6.2 & 6.3)</h3>
+  <div class="card">
+    <table>
+      <tr><th>评估维度</th><th>具体内容</th></tr>
+      <tr><td><strong>自我与他人心智化</strong></td><td>聚焦自我形象与自尊。"你是什么样的人？""别人怎么看你？"——对后者的困惑/愤怒是标志</td></tr>
+      <tr><td><strong>自恋激活情境</strong></td><td>探索在哪些关系中感到不被赏识；互动的细微不匹配——打断、对话节奏失调</td></tr>
+      <tr><td><strong>自恋期望与失望</strong></td><td>评估当期望落空时的崩溃模式：责他 → 解雇 → 崩溃；关注“Richard Cory 时刻”</td></tr>
+      <tr><td><strong>依恋策略</strong></td><td>解雇型（否认依赖、贬低关系、非黑即白）vs. 焦虑型（变色龙效应、过度认同）</td></tr>
+      <tr><td><strong>I / Me 结构</strong></td><td>I（内在稳定自我）vs. Me（他人定义的自我）——当 Me 主导时，自我感高度情境依赖</td></tr>
+      <tr><td><strong>协作协议</strong></td><td>将夸大部分框架化：如"你管理一个远不如你的世界很有挑战，我们一起想想办法"</td></tr>
+    </table>
+  </div>
+
+  <!-- NPD MBT 专用干预技术 -->
+  <h3>MBT-NPD 专用干预技术分级</h3>
+  <div class="card">
+    <table>
+      <tr><th>级别</th><th>技术</th><th>夸大型应用</th><th>脆弱型应用</th></tr>
+      <tr><td>1</td><td><strong>共情验证</strong></td><td>✓ 验证但不过度支持<br/>"我能理解你为什么要坚持这个观点"</td><td>✓✓ 高强度验证<br/>"这对你一定是非常痛苦的体验"</td></tr>
+      <tr><td>2</td><td><strong>情感叙事建构</strong></td><td>探索僵化/自负背后的隐藏情感<br/>靶向 Me-Mode</td><td>使用治疗师的焦虑作为过渡<br/>"我比你更担心一点……"</td></tr>
+      <tr><td>3</td><td><strong>关系心智化</strong></td><td>识别解雇型依恋策略<br/>揭示互动不匹配</td><td>识别焦虑依赖<br/>防范变色龙效应</td></tr>
+      <tr><td>4</td><td><strong>反关系心智化</strong></td><td>直接命名问题性反应<br/>"你把脚放桌上，想告诉我什么？"</td><td>管理过度保护式回应<br/>不助长依赖</td></tr>
+      <tr><td>5</td><td><strong>挑战</strong></td><td><strong>核心工具：</strong>突然、有力、游戏式<br/>"看得到他们的优点吗？"</td><td>⚠️ 极为谨慎！仅在 I-Mode 稳固后<br/>先回到共情</td></tr>
+      <tr><td>6</td><td><strong>We-Mode 巩固</strong></td><td>双方视角同等有效<br/>共同见证内部体验</td><td>警惕假装 We-mode<br/>确认视角差异被保留</td></tr>
+    </table>
+  </div>
+
+  <!-- Do's and Don'ts -->
+  <h3>治疗师行动指南</h3>
+  <div class="dos-donts">
+    <div class="dos">
+      <h4>✅ MBT-NPD 该做的</h4>
+      <ul>
+        <li>将夸大部分框架化为治疗资源</li>
+        <li>先建立 I-Mode，再触及 Me/We</li>
+        <li>用治疗师自身担忧作为过渡引子</li>
+        <li>对夸大型敢于游戏式挑战</li>
+        <li>对脆弱型始终保持高度支持</li>
+        <li>监控自己的反移情——隔离、理解、再利用</li>
+        <li>关注互动中的非言语流——对话节奏失调</li>
+        <li>早期阶段将挑战性反移情"隔离"</li>
+      </ul>
+    </div>
+    <div class="donts">
+      <h4>🚫 绝对不要做的</h4>
+      <ul>
+        <li>在评估阶段就正面挑战夸大型自恋</li>
+        <li>对脆弱型患者使用游戏式挑战</li>
+        <li>陷入"Is this it? A professor?"式权力较劲</li>
+        <li>忽略对话中的微妙失调（打断、贬低、节奏混乱）</li>
+        <li>在 I-Mode 不稳时就进入关系工作</li>
+        <li>被解雇策略激怒——患者即将产生认知警觉</li>
+        <li>对"变色龙"患者的完全一致放松警惕</li>
+        <li>忽略崩溃风险——Richard Cory 式突然自杀</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 大象隐喻 -->
+<!-- ============================================ -->
+<div class="section">
+  <h2>关键概念：治疗中的「大象」</h2>
+  <div class="card">
+    <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.8;">
+      在 NPD 治疗中，治疗师的<strong>反移情反应（被傲慢激怒、感到被贬低）</strong>是不可避免的。
+      这不是治疗失败，而是<strong>临床材料</strong>。MBT-NPD 的处理方式是：
+    </p>
+    <ol style="margin-top:12px;font-size:0.88rem;color:var(--text-secondary);line-height:1.9;padding-left:20px;">
+      <li><strong>隔离（Quarantine）</strong>——先不行动，识别是什么激起了自己的反应</li>
+      <li><strong>定义来源</strong>——这是对患者互动的自然反关系反应</li>
+      <li><strong>反关系心智化使用</strong>——在适当时候（中后期），将其作为临床材料带入对话</li>
+      <li><strong>不是报复</strong>——目的不是"战胜"患者，而是帮助患者看到互动模式</li>
+    </ol>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  来源：Cambridge Guide to Mentalization-Based Treatment (MBT) — Chapter 6: Narcissistic Personality Disorder<br>
+  作者：Bateman, Fonagy, Campbell, Luyten, Debbané
+</div>
+
+</div>
+
+<script>
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'base',
+  themeVariables: {
+    primaryColor: '#f3e8ff',
+    primaryTextColor: '#2d3436',
+    primaryBorderColor: '#a855f7',
+    lineColor: '#636e72',
+    secondaryColor: '#ede9fe',
+    tertiaryColor: '#f5f5f5',
+    fontSize: '14px',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif'
+  },
+  flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
+});
+</script>
+
+</body>
+</html>

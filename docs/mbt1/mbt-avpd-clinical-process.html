@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBT 回避型人格障碍 (AvPD) 治疗流程图</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.6/dist/mermaid.min.js"></script>
+<style>
+  :root {
+    --bg: #0f0f1a;
+    --card-bg: #1a1a2e;
+    --border: #2d2d4a;
+    --text: #d1d5db;
+    --heading: #c4b5fd;
+    --accent: #8b5cf6;
+    --accent2: #6d28d9;
+    --highlight: #a78bfa;
+    --danger: #7c3aed;
+    --success: #6ee7b7;
+    --warn: #fca35b;
+    --code-bg: #12121f;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.7;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  h1 {
+    text-align: center;
+    color: var(--heading);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+  h2 {
+    color: var(--accent);
+    font-size: 1.5rem;
+    margin: 2.5rem 0 1rem;
+    border-left: 4px solid var(--accent);
+    padding-left: 1rem;
+  }
+  h3 {
+    color: var(--highlight);
+    font-size: 1.15rem;
+    margin: 1.5rem 0 0.75rem;
+  }
+  .subtitle {
+    text-align: center;
+    color: #888;
+    margin-bottom: 2rem;
+    font-style: italic;
+  }
+  .mermaid-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .mermaid-card h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--heading);
+  }
+  pre.mermaid {
+    background: transparent;
+    font-size: 0.85rem;
+    overflow-x: auto;
+  }
+  .pseudocode-card {
+    background: var(--code-bg);
+    border: 1px solid var(--accent2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+  }
+  .pseudocode-card h3 {
+    margin-top: 0;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+  }
+  pre.pseudocode {
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.82rem;
+    line-height: 1.8;
+    color: #e2e8f0;
+    white-space: pre-wrap;
+  }
+  .kw { color: #c084fc; font-weight: bold; }
+  .fn { color: #818cf8; }
+  .str { color: #6ee7b7; }
+  .cm { color: #64748b; font-style: italic; }
+  .kv { color: #fca35b; }
+  .num { color: #fb923c; }
+  .cond { color: #fda4af; font-weight: bold; }
+  .info-card {
+    background: linear-gradient(135deg, #1e1b4b, #1a1a2e);
+    border: 1px solid var(--accent2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+  .info-card h3 {
+    margin-top: 0;
+    color: var(--heading);
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  .tag {
+    display: inline-block;
+    background: var(--accent2);
+    color: #fff;
+    padding: 0.15rem 0.6rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    margin-right: 0.4rem;
+    font-weight: 600;
+  }
+  .tag-green { background: #065f46; color: #6ee7b7; }
+  .tag-orange { background: #78350f; color: #fca35b; }
+  .tag-purple { background: #4c1d95; color: #c4b5fd; }
+  .tag-red { background: #7f1d1d; color: #f87171; }
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+  .do-dont-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  .do-card, .dont-card {
+    padding: 1.2rem;
+    border-radius: 10px;
+  }
+  .do-card {
+    background: #0d2818;
+    border: 1px solid #065f46;
+  }
+  .dont-card {
+    background: #2d0e0e;
+    border: 1px solid #7f1d1d;
+  }
+  .do-card h4 { color: var(--success); margin-bottom: 0.5rem; }
+  .dont-card h4 { color: #f87171; margin-bottom: 0.5rem; }
+  .do-card ul, .dont-card ul { padding-left: 1.2rem; }
+  .do-card li, .dont-card li { margin: 0.3rem 0; }
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.88rem;
+  }
+  .comparison-table th {
+    background: var(--accent2);
+    color: #fff;
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+    font-weight: 600;
+  }
+  .comparison-table td {
+    padding: 0.5rem 0.8rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .comparison-table tr:hover td {
+    background: rgba(139, 92, 246, 0.08);
+  }
+</style>
+</head>
+<body>
+
+<h1>🧠 MBT 回避型人格障碍 (AvPD) 治疗流程图</h1>
+<p class="subtitle">Cambridge Guide to Mentalization-Based Treatment — AvPD 专章</p>
+
+<!-- ============================================ -->
+<!-- 图1: 回避的心智化失衡路径 -->
+<!-- ============================================ -->
+<h2>图 1：AvPD 心智化失衡的心理动力学路径</h2>
+<div class="mermaid-card">
+  <h3>回避如何生成：从依恋创伤到社交退缩</h3>
+  <pre class="mermaid">
+flowchart TD
+  ATTACH["<b>早期依恋创伤</b><br/>照料者忽视/批评/拒绝<br/>情感需求未得到验证"]
+
+  ATTACH --> HYPER["<b>拒绝敏感性增高</b><br/>对他人的负面评价<br/>过度警觉和过度解读<br/>中性表情 = 厌恶<br/>短暂沉默 = 排斥"]
+
+  HYPER --> ANXIETY["<b>社交焦虑激活</b><br/>预期性焦虑<br/>「他们一定会觉得我奇怪」<br/>自我监控过度"]
+
+  ANXIETY --> AVOID["<b>回避行为</b><br/>取消社交<br/>沉默/不发言<br/>身体退缩<br/>治疗缺席"]
+
+  AVOID --> RELIEF["<b>短期缓解</b><br/>焦虑下降<br/>威胁感消失<br/>「果然不去是对的」"]
+
+  RELIEF --> DISCONFIRM["<b>信念未受检验</b><br/>回避阻止了反面证据<br/>无法发现：<br/>• 别人其实没有在评判<br/>• 自己的社交能力并不差"]
+
+  DISCONFIRM --> REINFORCE["<b>信念强化</b><br/>「我果然无法融入」<br/>→ 自我效能感下降<br/>→ 社交技能进一步退化<br/>→ 认知信任彻底关闭"]
+
+  REINFORCE -.-> HYPER
+
+  subgraph MENTFAIL["<b>🔴 心智化失衡模式</b>"]
+    HYPER2["<b>过度心智化（他人）</b><br/>无限推演他人的负面想法<br/>准确度极低"]
+    HYPO["<b>心智化不足（自我）</b><br/>难以识别自身情绪<br/>只知道「焦虑」"]
+    PRETEND["<b>假装模式</b><br/>幻想完美的社交互动<br/>但与真实体验完全脱节"]
+    PSYCHIC["<b>精神等同</b><br/>「我感到害怕」<br/>=「他们一定在拒绝我」"]
+  end
+
+  REINFORCE --> MENTFAIL
+
+  style ATTACH fill:#1a1a2e,stroke:#8b5cf6,stroke-width:2px,color:#ddd
+  style HYPER fill:#2d1a2d,stroke:#a78bfa,color:#ddd
+  style ANXIETY fill:#2d2d1a,stroke:#fca35b,stroke-width:2px,color:#fff
+  style AVOID fill:#3e1a1a,stroke:#f87171,stroke-width:2px,color:#fff
+  style RELIEF fill:#1a2d1a,stroke:#34d399,color:#ddd
+  style DISCONFIRM fill:#2d1a2d,stroke:#a78bfa,color:#fff
+  style REINFORCE fill:#1a1a2e,stroke:#8b5cf6,stroke-width:3px,color:#fff
+  style HYPER2 fill:#2d1a2d,stroke:#a78bfa,color:#ddd
+  style HYPO fill:#1a2d2d,stroke:#60a5fa,color:#ddd
+  style PRETEND fill:#2d2d1a,stroke:#fca35b,color:#ddd
+  style PSYCHIC fill:#3e1a1a,stroke:#f87171,color:#ddd
+  style MENTFAIL fill:#0f0f1a,stroke:#8b5cf6,stroke-dasharray:4 2,color:#888
+  </pre>
+</div>
+
+<div class="info-grid">
+  <div class="info-card">
+    <h3>🔵 AvPD 心智化特征</h3>
+    <p><span class="tag tag-purple">过度心智化</span> 对他人的负面评价高估、高敏感、低准确性</p>
+    <p><span class="tag tag-purple">心智化不足</span> 对自身情绪识别困难，只体验到弥散焦虑</p>
+    <p><span class="tag tag-orange">假装模式</span> 幻想社交成功但从不实践，内在世界与外在行为脱节</p>
+    <p><span class="tag tag-red">精神等同</span> 「我感到被拒绝」=「我被拒绝了」，恐惧即事实</p>
+  </div>
+  <div class="info-card">
+    <h3>🟣 与 BPD/NPD/ASPD 的关键区别</h3>
+    <table class="comparison-table">
+      <tr><th>维度</th><th>BPD</th><th>NPD</th><th>ASPD</th><th style="background:#4c1d95">AvPD</th></tr>
+      <tr><td>核心威胁</td><td>被抛弃</td><td>自尊受损</td><td>被控制</td><td style="color:#c4b5fd">被拒绝/评判</td></tr>
+      <tr><td>行为方向</td><td>向外抓取</td><td>向外贬低</td><td>向外攻击</td><td style="color:#c4b5fd">向内退缩</td></tr>
+      <tr><td>心智化失衡</td><td>全面崩溃</td><td>自我夸大</td><td>选择性关闭</td><td style="color:#c4b5fd">对他人过度，对自我不足</td></tr>
+      <tr><td>治疗阻力</td><td>依恋波动</td><td>羞耻回避</td><td>不信任</td><td style="color:#c4b5fd">缺席/沉默/假装参与</td></tr>
+    </table>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ============================================ -->
+<!-- 图2: MBT-AvPD 三阶段治疗 -->
+<!-- ============================================ -->
+<h2>图 2：MBT-AvPD 三阶段治疗流程</h2>
+<div class="mermaid-card">
+  <h3>从回避到参与：渐进式心智化重建</h3>
+  <pre class="mermaid">
+flowchart TD
+  subgraph PHASE1["<b>🟣 阶段一：安全参与</b><br/>Engagement and Safety"]
+    direction TB
+    P1["<b>建立安全基地</b><br/>• 非常缓慢的导入节奏<br/>• 不过早要求自我暴露<br/>• 命名「回避」为共同工作目标<br/>• 不称「治疗」，称「了解自己」"]
+    P2["<b>心理教育</b><br/>• AvPD 的心智化特征图谱<br/>•「回避不是你性格，是心智化策略」<br/>• 团体 MBT 的原理和预期"]
+    P3["<b>导入团体：极低门槛入场</b><br/>• 最初只需出席，不要求发言<br/>• 坐后排/靠门都可以<br/>• 允许极端焦虑时提前离场<br/>• 渐进降低防御"]
+    P1 --> P2 --> P3
+  end
+
+  subgraph PHASE2["<b>🟣 阶段二：团体中的心智化实践</b><br/>Core MBT Group Work"]
+    direction TB
+    G1["<b>从观察者到参与者</b><br/>• 先在他人互动中练习心智化<br/>•「你觉得她刚才在想什么？」<br/>• 不直接指向自己"]
+    G2["<b>Stop and Stand</b><br/>• 当冲动是逃离时 → 停下，站在这里<br/>•「你现在的身体感受是什么？」<br/>•「你的头脑在告诉你什么？」"]
+    G3["<b>暴露后的心智化重构</b><br/>• 对比预期恐惧 vs 实际结果<br/>•「你之前以为会发生什么？」<br/>•「现在实际发生了什么？」"]
+    G4["<b>Contrary Move: 挑战拒绝确定性</b><br/>•「如果他不是在评判你，还可能是什么？」<br/>• 让团体成员给出反向反馈<br/>• 记录并积累反证"]
+    G1 --> G2 --> G3 --> G4
+  end
+
+  subgraph PHASE3["<b>🟣 阶段三：泛化与社会整合</b><br/>Generalization and Social Integration"]
+    direction TB
+    S1["<b>治疗内到治疗外</b><br/>• 设定现实社交微任务<br/>• 先在团体中预演<br/>• 带着心智化能力走出去"]
+    S2["<b>社交网络重建</b><br/>• 识别可用的社会支持<br/>• 逐步恢复工作/学习参与<br/>• 以兴趣为切入点（低威胁）"]
+    S3["<b>复发预防</b><br/>• 识别早期回避信号<br/>• 回顾心智化工具箱<br/>•「你有能力在不同的回应中选择」"]
+    S1 --> S2 --> S3
+  end
+
+  PHASE1 --> PHASE2 --> PHASE3
+
+  style PHASE1 fill:#0f0f1a,stroke:#8b5cf6,color:#c4b5fd
+  style PHASE2 fill:#0f0f1a,stroke:#7c3aed,color:#c4b5fd
+  style PHASE3 fill:#0f0f1a,stroke:#6d28d9,color:#c4b5fd
+  style P1 fill:#1a1a2e,stroke:#8b5cf6,color:#ddd
+  style P2 fill:#1a1a2e,stroke:#8b5cf6,color:#ddd
+  style P3 fill:#1a1a2e,stroke:#8b5cf6,color:#ddd
+  style G1 fill:#1a2d2d,stroke:#60a5fa,color:#ddd
+  style G2 fill:#1a2d2d,stroke:#60a5fa,color:#ddd
+  style G3 fill:#1a2d2d,stroke:#60a5fa,color:#ddd
+  style G4 fill:#2d1a2d,stroke:#a78bfa,stroke-width:2px,color:#fff
+  style S1 fill:#1a2d1a,stroke:#34d399,color:#ddd
+  style S2 fill:#1a2d1a,stroke:#34d399,color:#ddd
+  style S3 fill:#1a2d1a,stroke:#34d399,color:#ddd
+  </pre>
+</div>
+
+<hr class="divider">
+
+<!-- ============================================ -->
+<!-- 图3: 社交回避事件干预决策树 -->
+<!-- ============================================ -->
+<h2>图 3：社交回避事件 六步干预决策树</h2>
+<div class="mermaid-card">
+  <h3>当团体中出现回避/沉默/缺席时的分步处理流程</h3>
+  <pre class="mermaid">
+flowchart TD
+  START([触发事件<br/>患者沉默不语/缺席/迟到/<br/>准备提前离场])
+
+  STEP1["<b>Step 1: 识别但不过度聚焦</b><br/>不立即点名人<br/>保持团体正常节奏<br/>观察身体语言和回避模式<br/>等待合适时机"]
+
+  STEP2["<b>Step 2: 心智化回避本身</b><br/>「我注意到有人刚才很安静」<br/>（以团体为对象，不指向个人）<br/>「团体里有人在经历什么吗？」"]
+
+  CHECK{"患者是否<br/>开始参与？"}
+
+  STEP3["<b>Step 3: 轻邀请，不施压</b><br/>「不需要回答，我只想知道<br/>你愿不愿意听我们继续？」<br/>→ 只需点头/眼神回应即可"]
+
+  CHECK2{"是否有<br/>最小回应？"}
+
+  STEP4["<b>Step 4: 通过他人心智化来连接</b><br/>让其他成员猜测感受<br/>「你们觉得刚才XX可能在<br/>经历什么？」<br/>→ 被谈论者只需听，无需回应"]
+
+  CHECK3{"是否<br/>打破了<br/>沉默？"}
+
+  STEP5["<b>Step 5: Stop and Stand</b><br/>「现在，就在这里，你感受到什么？」<br/>「身体的哪个部位有感觉？」<br/>命名感受，不要求解释<br/>→ 与感受共处而非逃离"]
+
+  STEP6["<b>Step 6: 验证 + 重构</b><br/>「谢谢你愿意留在这里」<br/>「刚才你以为会发生什么？」<br/> vs 「实际发生了什么？」<br/>→ 积累反证经验"]
+
+  CLOSE["✅ 完成一次回避事件的<br/>心智化处理循环"]
+
+  START --> STEP1
+  STEP1 --> STEP2
+  STEP2 --> CHECK
+  CHECK -->|是 ✅| STEP6
+  CHECK -->|否 ❌| STEP3
+  STEP3 --> CHECK2
+  CHECK2 -->|是 ✅| STEP6
+  CHECK2 -->|否 ❌| STEP4
+  STEP4 --> CHECK3
+  CHECK3 -->|是 ✅| STEP6
+  CHECK3 -->|否 ❌| STEP5
+  STEP5 --> STEP6
+  STEP6 --> CLOSE
+
+  STEP5 -.->|患者仍无法承受| RESPECT["<b>尊重极限</b><br/>「谢谢你来，今天就可以<br/>在这里停下」<br/>下次从更小的步开始"]
+  RESPECT -.-> STEP1
+
+  style START fill:#1a1a2e,stroke:#8b5cf6,stroke-width:2px,color:#fff
+  style STEP1 fill:#1a2d2d,stroke:#60a5fa,color:#ddd
+  style STEP2 fill:#1a2d2d,stroke:#60a5fa,color:#ddd
+  style CHECK fill:#2d1a2d,stroke:#a78bfa,stroke-width:2px,color:#fff
+  style STEP3 fill:#2d2d1a,stroke:#fca35b,color:#fff
+  style CHECK2 fill:#2d1a2d,stroke:#a78bfa,stroke-width:2px,color:#fff
+  style STEP4 fill:#2d2d1a,stroke:#fca35b,color:#ddd
+  style CHECK3 fill:#2d1a2d,stroke:#a78bfa,stroke-width:2px,color:#fff
+  style STEP5 fill:#2d1a2d,stroke:#a78bfa,stroke-width:2px,color:#fff
+  style STEP6 fill:#1a2d1a,stroke:#34d399,stroke-width:2px,color:#fff
+  style CLOSE fill:#1a2d1a,stroke:#34d399,stroke-width:2px,color:#fff
+  style RESPECT fill:#3e1a1a,stroke:#f87171,color:#ddd
+  </pre>
+</div>
+
+<hr class="divider">
+
+<!-- ============================================ -->
+<!-- 伪代码 + Mermaid 流程 -->
+<!-- ============================================ -->
+<h2>图 4：四大核心干预场景 — 伪代码 + Mermaid 可视化</h2>
+
+<!-- 困境A -->
+<h3>🟣 困境 A：退缩 — 缺席与沉默</h3>
+<div class="pseudocode-card">
+  <h3>伪代码：HANDLE_WITHDRAWAL</h3>
+  <pre class="pseudocode">
+<span class="cm">// ============================================</span>
+<span class="cm">// 困境 A：退缩 — 缺席与沉默</span>
+<span class="cm">// 核心：不追杀，不放弃，用持续连接替代对抗</span>
+<span class="cm">// ============================================</span>
+
+<span class="kw">function</span> <span class="fn">HANDLE_WITHDRAWAL</span>(patient, context):
+    <span class="cm">// 1. 识别退缩模式</span>
+    <span class="kv">PATTERN</span> ← <span class="fn">DETECT_PATTERN</span>(patient.absences, patient.silences)
+    
+    <span class="kw">if</span> <span class="cond">PATTERN.type == "ABSENCE"</span>:
+        <span class="cm">// 2. 不指责，保持连接</span>
+        <span class="fn">OUTREACH</span>(patient, tone=<span class="str">"warm and brief"</span>)
+        <span class="fn">say</span> <span class="str">"我们注意到你今天没来，希望一切都好。"</span>
+        <span class="fn">say</span> <span class="str">"下周同一时间，如果你愿意来。"</span>
+        <span class="cm">// 关键：不施加压力，不表达失望</span>
+        
+    <span class="kw">elif</span> <span class="cond">PATTERN.type == "SILENCE"</span>:
+        <span class="cm">// 3. 命名沉默但不迫使发言</span>
+        <span class="fn">say</span> <span class="str">"我注意到有人在安静地参与。"</span>
+        <span class="fn">say</span> <span class="str">"在这里倾听也是一种参与。"</span>
+        <span class="cm">// 给沉默赋正面价值</span>
+        
+        <span class="cm">// 4. 心智化沉默</span>
+        <span class="fn">wait</span>(<span class="num">30</span>)  <span class="cm">// 给沉默留出空间</span>
+        <span class="fn">say</span> <span class="str">"如果沉默能说话，它会告诉我们什么？"</span>
+        
+    <span class="cm">// 5. 渐进邀请</span>
+    <span class="fn">INVITE_BY_PROXY</span>(patient, target=<span class="str">"observation"</span>)
+    <span class="fn">say</span> <span class="str">"你能帮我们想想，刚才XX说那句话时，她可能是什么心情？"</span>
+    <span class="cm">// 让他人对别人进行心智化，不涉及自我暴露</span>
+
+    <span class="cm">// 6. 关闭循环</span>
+    <span class="fn">ACKNOWLEDGE</span>(patient.participation_level)
+    <span class="kw">return</span> <span class="kv">ENGAGED_AT_CURRENT_CAPACITY</span>
+</pre>
+</div>
+
+<div class="mermaid-card">
+  <h3>困境 A 流程图：退缩的渐进式连接</h3>
+  <pre class="mermaid">
+flowchart TD
+  START(["患者缺席/沉默<br/>进入退缩模式"])
+
+  DETECT["<b>识别退缩类型</b><br/>缺席 vs 沉默<br/>频率和情境"]
+
+  DETECT -->|缺席| ABSENCE["<b>温暖外联</b><br/>简短联系，不追责<br/>「希望一切都好」<br/>「下周如果你愿意来」<br/>不表达失望"]
+
+  DETECT -->|沉默| SILENCE["<b>命名并赋予价值</b><br/>「有人在安静地参与」<br/>「倾听也是参与」<br/>等待 30 秒，给空间"]
+
+  ABSENCE --> INVITE["<b>渐进邀请</b><br/>降低参与门槛<br/>只需出席，不需发言<br/>允许靠门/后排就座"]
+
+  SILENCE --> PROXY["<b>通过代理邀请</b><br/>对他人进行心智化<br/>「你觉得XX刚才的心情？」<br/>不要求自我暴露"]
+
+  INVITE --> CHECK{"患者是否<br/>回归/参与？"}
+  PROXY --> CHECK
+
+  CHECK -->|是 ✅| CLOSE["<b>验证与闭环</b><br/>「谢谢你来」<br/>不夸大，不煽情<br/>正常化参与本身"]
+
+  CHECK -->|否 ❌| PERSIST["<b>持续存在，不放弃</b><br/>保持团体正常运转<br/>持续发出邀请信号<br/>不施加压力<br/>→ 信任是累积的"]
+
+  PERSIST -.-> DETECT
+
+  style START fill:#1a1a2e,stroke:#8b5cf6,stroke-width:2px,color:#fff
+  style DETECT fill:#2d1a2d,stroke:#a78bfa,color:#ddd
+  style ABSENCE fill:#2d2d1a,stroke:#fca35b,color:#fff
+  style SILENCE fill:#1a2d2d,stroke:#60a5fa,color:#ddd
+  style INVITE fill:#1a2d1a,stroke:#34d399,color:#ddd
+  style PROXY fill:#1a2d1a,stroke:#34d399,color:#ddd
+  style CHECK fill:#2d1a2d,stroke:#a78bfa,stroke-width:2px,color:#fff
+  style CLOSE fill:#1a2d1a,stroke:#34d399,stroke-width:2px,color:#fff
+  style PERSIST fill:#1a1a2e,stroke:#8b5cf6,stroke-width:2px,color:#c4b5fd
+  </pre>
+</div>
+
+<!-- 困境B -->
+<h3>🟣 困境 B：拒绝敏感性发作 — 「他们在评判我」</h3>
+<div class="pseudocode-card">
+  <h3>伪代码：HANDLE_REJECTION_SENSITIVITY</h3>
+  <pre class="pseudocode">
+<span class="cm">// ============================================</span>
+<span class="cm">// 困境 B：拒绝敏感性发作</span>
+<span class="cm">// 核心：区分恐惧与事实，积累反证</span>
+<span class="cm">// ============================================</span>
+
+<span class="kw">function</span> <span class="fn">HANDLE_REJECTION_SENSITIVITY</span>(patient, trigger_event):
+    <span class="cm">// 1. 停止灾难化螺旋</span>
+    <span class="fn">SLOW_DOWN</span>()
+    <span class="fn">say</span> <span class="str">"让我们放慢一点。"</span>
+    
+    <span class="cm">// 2. 心智化身体信号</span>
+    <span class="fn">GUIDE_BODY_SCAN</span>(patient)
+    <span class="fn">say</span> <span class="str">"你现在身体哪个部位感觉到了什么？"</span>
+    <span class="fn">say</span> <span class="str">"热？紧？空？在胸口还是肚子？"</span>
+    <span class="cm">// 从身体感受重新进入心智化</span>
+    
+    <span class="cm">// 3. 分离恐惧与事实</span>
+    <span class="fn">EXTRACT_FEAR</span>(patient)
+    <span class="fn">say</span> <span class="str">"你内心此刻在告诉你什么？"</span>
+    <span class="nv">fear</span> ← <span class="fn">patient.verbalize</span>()
+    <span class="cm">// 例如：「他们一定觉得我很蠢」</span>
+    
+    <span class="cm">// 4. 慢动作重放互动细节</span>
+    <span class="fn">MICRO_SLICE</span>(trigger_event)
+    <span class="fn">say</span> <span class="str">"刚才那个人看着你时，他的确切表情是什么？"</span>
+    <span class="fn">say</span> <span class="str">"除了你的解释，还有没有其他可能？"</span>
+
+    <span class="cm">// 5. Contrary Move：挑战解释的唯一性</span>
+    <span class="fn">CONTRARY_MOVE</span>()
+    <span class="fn">ask_group</span>(<span class="str">"你们觉得刚才发生了什么？"</span>)
+    <span class="cm">// 收集团体成员的不同视角</span>
+    
+    <span class="cm">// 6. 对比与整合</span>
+    <span class="nv">fear_narrative</span> ← fear  <span class="cm">// 「他们觉得我蠢」</span>
+    <span class="nv">group_narratives</span> ← <span class="fn">COLLECT_PERSPECTIVES</span>()
+    <span class="cm">// 团体可能说：「我没觉得你蠢」「我没注意到什么特别的」</span>
+    
+    <span class="fn">PRESENT_CONTRAST</span>(fear_narrative, group_narratives)
+    <span class="fn">say</span> <span class="str">"你的内心告诉你一件事，而团体里的其他人告诉我们另一件事。"</span>
+    <span class="fn">say</span> <span class="str">"两者可以同时存在。"</span>
+
+    <span class="kw">return</span> <span class="kv">REJECTION_CERTAINTY_CHALLENGED</span>
+</pre>
+</div>
+
+<div class="mermaid-card">
+  <h3>困境 B 流程图：拒绝敏感性的去灾难化</h3>
+  <pre class="mermaid">
+flowchart TD
+  START(["触发事件<br/>团体中某人的表情/沉默<br/>→ 患者解读为「拒绝」"])
+
+  SLOW["<b>放慢 + 身体扫描</b><br/>「让我们放慢一点」<br/>「身体哪个部位有感觉？」<br/>命名身体感受：紧、热、空"]
+
+  FEAR["<b>提取恐惧叙事</b><br/>「你内心此刻在告诉你什么？」<br/>让患者外化内心声音<br/>不评判，只记录"]
+
+  MICRO["<b>微切片：慢动作重放</b><br/>回溯互动细节<br/>「那个人的确切表情是什么？」<br/>「还有什么其他的可能？」"]
+
+  CHECK{"患者的解释<br/>是否唯一？"}
+
+  CONTRARY["<b>Contrary Move</b><br/>「除了你的解释，<br/>还有没有其他可能？」<br/>让团体提供反向视角"]
+
+  COLLECT["<b>收集团体多重视角</b><br/>「你们觉得刚才<br/>发生了什么？」<br/>记录不同解读"]
+
+  CONTRAST["<b>并置对比</b><br/>你的内心这样说：<br/> 「他们觉得我蠢」<br/>团体成员这样说：<br/> 「我没注意到什么特别的」<br/>「两种看法可以同时存在」"]
+
+  UPDATE["<b>更新心智化模型</b><br/>恐惧 ≠ 事实<br/>积累了反证经验<br/>下次会更容易停下来想"]
+
+  START --> SLOW
+  SLOW --> FEAR
+  FEAR --> MICRO
+  MICRO --> CHECK
+  CHECK -->|否，还有| CONTRARY
+  CONTRARY --> COLLECT
+  COLLECT --> CONTRAST
+  CONTRAST --> UPDATE
+  CHECK -->|是，确实被拒绝| VALIDATE["<b>验证感受但不强化</b><br/>「即使是最坏情况是真的，<br/>你能承受这个吗？」<br/>增强耐受力"]
+
+  VALIDATE -.-> UPDATE
+
+  style START fill:#3e1a1a,stroke:#f87171,stroke-width:2px,color:#fff
+  style SLOW fill:#1a2d2d,stroke:#60a5fa,color:#ddd
+  style FEAR fill:#2d2d1a,stroke:#fca35b,color:#fff
+  style MICRO fill:#1a2d2d,stroke:#60a5fa,color:#ddd
+  style CHECK fill:#2d1a2d,stroke:#a78bfa,stroke-width:2px,color:#fff
+  style CONTRARY fill:#2d1a2d,stroke:#a78bfa,stroke-width:2px,color:#fff
+  style COLLECT fill:#1a2d1a,stroke:#34d399,color:#ddd
+  style CONTRAST fill:#1a2d1a,stroke:#34d399,stroke-width:2px,color:#fff
+  style UPDATE fill:#1a1a2e,stroke:#8b5cf6,stroke-width:2px,color:#fff
+  style VALIDATE fill:#2d2d1a,stroke:#fca35b,color:#ddd
+  </pre>
+</div>
+
+<!-- 困境C -->
+<h3>🟣 困境 C：社交暴露梯度管理</h3>
+<div class="pseudocode-card">
+  <h3>伪代码：MANAGE_EXPOSURE_GRADIENT</h3>
+  <pre class="pseudocode">
+<span class="cm">// ============================================</span>
+<span class="cm">// 困境 C：社交暴露梯度管理</span>
+<span class="cm">// 核心：微观梯度暴露，每次只迈出刚好能承受的一小步</span>
+<span class="cm">// ============================================</span>
+
+<span class="kw">function</span> <span class="fn">MANAGE_EXPOSURE_GRADIENT</span>(patient, group_session):
+    <span class="cm">// 1. 评估当前暴露耐受度</span>
+    <span class="nv">baseline</span> ← <span class="fn">ASSESS_CURRENT_TOLERANCE</span>(patient)
+    <span class="cm">// 指标：眼神接触、身体姿势、言语参与、焦虑信号</span>
+    
+    <span class="cm">// 2. 确定最小可行暴露</span>
+    <span class="nv">mini_step</span> ← <span class="fn">CALIBRATE</span>(
+        min=<span class="str">"只需坐在这里"</span>,
+        low=<span class="str">"做一次眼神接触"</span>,
+        medium=<span class="str">"对别人说一句话"</span>,
+        high=<span class="str">"分享一段自己的经历"</span>
+    )
+    
+    <span class="cm">// 3. 暴露前预演</span>
+    <span class="fn">MENTALIZE_FORECAST</span>(patient, mini_step)
+    <span class="fn">say</span> <span class="str">"如果你做了这一步，你预想会发生什么？"</span>
+    <span class="nv">feared_outcome</span> ← <span class="fn">patient.verbalize</span>()
+    
+    <span class="cm">// 4. 在团体支持下执行</span>
+    <span class="fn">ENABLE_MINI_EXPOSURE</span>(patient, mini_step, group)
+    <span class="cm">// 团体知道这是暴露练习，给予支持性回应</span>
+    
+    <span class="cm">// 5. 暴露后即时心智化</span>
+    <span class="nv">actual_outcome</span> ← <span class="fn">patient.report</span>()
+    <span class="fn">CONTRAST</span>(feared_outcome, actual_outcome)
+    <span class="fn">say</span> <span class="str">"你预想的是 X，实际发生的是 Y。"</span>
+    <span class="fn">say</span> <span class="str">"这次 Y 比 X 好一点吗？还是差不多？还是更差？"</span>
+
+    <span class="cm">// 6. 根据结果调整梯度</span>
+    <span class="kw">if</span> <span class="cond">actual_outcome &gt; feared_outcome</span>:
+        <span class="nv">mini_step</span> ← <span class="fn">GRADUATE</span>(mini_step)  <span class="cm">// 升一级</span>
+    <span class="kw">elif</span> <span class="cond">actual_outcome ≈ feared_outcome</span>:
+        <span class="nv">mini_step</span> ← <span class="fn">REPEAT</span>(mini_step)    <span class="cm">// 同级再练</span>
+    <span class="kw">else</span>:  <span class="cm">// 比预想更差</span>
+        <span class="nv">mini_step</span> ← <span class="fn">DECREASE</span>(mini_step)   <span class="cm">// 降一级，从更安全开始</span>
+
+    <span class="kw">return</span> <span class="kv">EXPOSURE_GRADIENT_UPDATED</span>(mini_step)
+</pre>
+</div>
+
+<div class="mermaid-card">
+  <h3>困境 C 流程图：微观暴露梯度引擎</h3>
+  <pre class="mermaid">
+flowchart TD
+  START(["评估当前社交暴露耐受度<br/>眼神接触 / 姿势 / 言语 / 焦虑信号"])
+
+  CALIBRATE["<b>校准最小可行步骤</b><br/>Level 0: 只需坐着<br/>Level 1: 眼神接触 1 秒<br/>Level 2: 说一句话<br/>Level 3: 分享一段经历"]
+
+  FORECAST["<b>暴露前预演</b><br/>「如果你做了这一步，<br/>你预想会发生什么？」<br/>记录 feared_outcome"]
+
+  EXPOSE["<b>在团体支持下执行</b><br/>团体知情支持<br/>给正面回应<br/>保持安全氛围"]
+
+  COMPARE["<b>暴露后即时对比</b><br/>预期 X vs 实际 Y<br/>「比预想更好？一样？更差？」"]
+
+  EVAL{"实际 vs 预期<br/>结果如何？"}
+
+  EVAL -->|实际 优于 预期| UP["<b>⬆ 升一级</b><br/>从 Level 1 到 Level 2<br/>积累成功经验"]
+
+  EVAL -->|实际 ≈ 预期| SAME["<b>→ 同级再练</b><br/>同一级别重复<br/>建立稳定性<br/>直到焦虑显著下降"]
+
+  EVAL -->|实际 差于 预期| DOWN["<b>⬇ 降一级</b><br/>从安全的基础重新开始<br/>不视为失败<br/>「那天可能不是好时机」"]
+
+  UP --> NEXT(["进入下一轮<br/>暴露梯度循环"])
+  SAME --> NEXT
+  DOWN --> NEXT
+  NEXT -.-> CALIBRATE
+
+  style START fill:#1a2d1a,stroke:#34d399,stroke-width:2px,color:#fff
+  style CALIBRATE fill:#1a2d2d,stroke:#60a5fa,color:#ddd
+  style FORECAST fill:#2d2d1a,stroke:#fca35b,color:#fff
+  style EXPOSE fill:#2d1a2d,stroke:#a78bfa,stroke-width:2px,color:#fff
+  style COMPARE fill:#1a2d2d,stroke:#60a5fa,color:#ddd
+  style EVAL fill:#2d1a2d,stroke:#a78bfa,stroke-width:2px,color:#fff
+  style UP fill:#1a2d1a,stroke:#34d399,stroke-width:2px,color:#fff
+  style SAME fill:#2d2d1a,stroke:#fca35b,color:#fff
+  style DOWN fill:#1a1a2e,stroke:#8b5cf6,color:#c4b5fd
+  style NEXT fill:#1a1a2e,stroke:#8b5cf6,stroke-width:2px,color:#fff
+  </pre>
+</div>
+
+<!-- 困境D -->
+<h3>🟣 困境 D：假装模式 — 伪社交参与</h3>
+<div class="pseudocode-card">
+  <h3>伪代码：ADDRESS_PRETEND_MODE_AVPD</h3>
+  <pre class="pseudocode">
+<span class="cm">// ============================================</span>
+<span class="cm">// 困境 D：假装模式 —— 伪社交参与</span>
+<span class="cm">// 核心：识别表面参与下的内在回避，重新连接情感与互动</span>
+<span class="cm">// ============================================</span>
+
+<span class="kw">function</span> <span class="fn">ADDRESS_PRETEND_MODE_AVPD</span>(patient, group):
+    <span class="cm">// 1. 识别假装模式的信号</span>
+    <span class="nv">signals</span> ← [
+        <span class="str">"总是附和，从不反对"</span>,
+        <span class="str">"只讨论抽象话题，不涉及自己"</span>,
+        <span class="str">"表面上参与，情感上缺席"</span>,
+        <span class="str">"对他人热心地心智化，但从不成为焦点"</span>
+    ]
+    
+    <span class="kw">if</span> <span class="cond">COUNT(signals) ≥ 2</span>:
+        <span class="cm">// 2. 温和命名</span>
+        <span class="fn">say</span> <span class="str">"我注意到你很擅长帮助别人理解他们的感受。"</span>
+        <span class="fn">say</span> <span class="str">"但好像我们很少听到你自己的。"</span>
+        <span class="fn">PAUSE</span>(<span class="num">5</span>)
+        
+        <span class="cm">// 3. 心智化回避的动机</span>
+        <span class="fn">say</span> <span class="str">"如果让你谈谈自己，最担心的会是什么？"</span>
+        <span class="cm">// 不要接受「没什么」— 探索安全的恐惧</span>
+        
+        <span class="cm">// 4. 用小剂量自我暴露打穿假装模式</span>
+        <span class="fn">MINI_DISCLOSURE</span>(patient, depth=<span class="str">"shallow"</span>)
+        <span class="fn">say</span> <span class="str">"就分享一个小小的片段，可以是非常简单的事。"</span>
+        <span class="fn">say</span> <span class="str">"比如今天来的路上，你注意到了什么？"</span>
+        
+        <span class="cm">// 5. 即时情感连接</span>
+        <span class="nv">disclosure</span> ← <span class="fn">patient.respond</span>()
+        <span class="fn">CONNECT_EMOTION</span>(disclosure)
+        <span class="fn">say</span> <span class="str">"当你分享这件事的时候，你现在感受到什么？"</span>
+        <span class="cm">// 把焦点从内容转向分享本身的情感体验</span>
+        
+        <span class="cm">// 6. 团体验证与正常化</span>
+        <span class="fn">GROUP_NORMALIZE</span>()
+        <span class="fn">say</span> <span class="str">"有人可以分享类似的感受吗？"</span>
+        <span class="cm">// 打破「只有我这样」的孤立感</span>
+        
+    <span class="kw">return</span> <span class="kv">AUTHENTIC_ENGAGEMENT_RESTORED</span>
+</pre>
+</div>
+
+<div class="mermaid-card">
+  <h3>困境 D 流程图：假装模式的识别与穿透</h3>
+  <pre class="mermaid">
+flowchart TD
+  START(["团体中某成员：<br/>总是附和、抽象化讨论<br/>热心帮助他人但回避自己<br/>情感与互动脱节"])
+
+  SIGNALS["<b>识别假装模式信号</b><br/>1. 总是附和，从不反对<br/>2. 只讨论抽象话题<br/>3. 表面参与，情感缺席<br/>4. 热心帮助他人，回避自己"]
+
+  CHECK{"≥ 2 个信号<br/>同时出现？"}
+
+  NAME_IT["<b>温和命名</b><br/>「你很擅长帮助别人<br/>理解感受，但好像<br/>我们很少听到你自己的」<br/>暂停 5 秒，给空间"]
+
+  EXPLORE["<b>心智化回避动机</b><br/>「如果让你谈谈自己，<br/>最担心的会是什么？」<br/>不接受「没什么」<br/>→ 探索安全的恐惧"]
+
+  MINI["<b>小剂量自我暴露</b><br/>极低威胁的话题：<br/>「今天来路上注意到什么？」<br/>「这周有哪一刻感觉不错？」"]
+
+  CONNECT["<b>即时情感连接</b><br/>「分享这件事的时候<br/>你现在感受到什么？」<br/>焦点从内容 → 分享的情感"]
+
+  NORMALIZE["<b>团体验证与正常化</b><br/>「有人可以分享<br/>类似的感受吗？」<br/>打破「只有我这样」的孤立"]
+
+  AUTHENTIC["<b>真实参与恢复</b><br/>患者开始以真实自我<br/>出现在团体中<br/>假装模式已被命名"]
+
+  START --> SIGNALS
+  SIGNALS --> CHECK
+  CHECK -->|否| WAIT["<b>继续观察</b><br/>等待更明确的信号<br/>不要过早命名"]
+  WAIT -.-> SIGNALS
+  CHECK -->|是 ✅| NAME_IT
+  NAME_IT --> EXPLORE
+  EXPLORE --> MINI
+  MINI --> CONNECT
+  CONNECT --> NORMALIZE
+  NORMALIZE --> AUTHENTIC
+
+  EXPLORE -.->|抗拒| BACK["<b>退回帮助者角色</b><br/>「没关系，你还是可以<br/>帮我们理解别人的感受」<br/>下次再尝试"]
+  BACK -.-> SIGNALS
+
+  style START fill:#1a2d1a,stroke:#34d399,stroke-width:2px,color:#fff
+  style SIGNALS fill:#2d2d1a,stroke:#fca35b,color:#ddd
+  style CHECK fill:#2d1a2d,stroke:#a78bfa,stroke-width:2px,color:#fff
+  style NAME_IT fill:#2d1a2d,stroke:#a78bfa,stroke-width:2px,color:#fff
+  style EXPLORE fill:#1a2d2d,stroke:#60a5fa,color:#ddd
+  style MINI fill:#1a2d1a,stroke:#34d399,color:#ddd
+  style CONNECT fill:#2d1a2d,stroke:#a78bfa,color:#fff
+  style NORMALIZE fill:#1a2d1a,stroke:#34d399,color:#ddd
+  style AUTHENTIC fill:#1a1a2e,stroke:#8b5cf6,stroke-width:3px,color:#fff
+  style WAIT fill:#1a1a2e,stroke:#636e72,color:#888
+  style BACK fill:#2d2d1a,stroke:#fca35b,color:#ddd
+  </pre>
+</div>
+
+<hr class="divider">
+
+<!-- ============================================ -->
+<!-- 关键要点卡片 -->
+<!-- ============================================ -->
+<h2>🎯 AvPD MBT 治疗关键要点</h2>
+
+<div class="info-grid">
+  <div class="info-card">
+    <h3>💎 核心目标三要素</h3>
+    <p><span class="tag tag-purple">1. 认知信任重建</span> 从「所有社交信息都是威胁」到「有些社交信息是安全的」</p>
+    <p><span class="tag tag-purple">2. 拒绝确定性的松动</span> 「他们一定在拒绝我」→「我不确定他们在想什么，可能多种可能」</p>
+    <p><span class="tag tag-purple">3. 回避的再心智化</span> 不把回避当性格缺陷，而是当作一个可以被理解、被对话的策略</p>
+  </div>
+  <div class="info-card">
+    <h3>⏱️ 技术时机选择</h3>
+    <p><span class="tag tag-green">早期</span> 心理教育、安全基地建立、极低门槛入场</p>
+    <p><span class="tag tag-orange">中期</span> Stop and Stand（替代 Stop and Rewind）、Contrary Move、微型暴露</p>
+    <p><span class="tag tag-purple">后期</span> 社会整合、泛化练习、复发预防、身份叙事重建</p>
+    <p><span class="tag tag-red">任何时候</span> 先恢复心智化过程，再处理内容；不急于推进</p>
+  </div>
+</div>
+
+<div class="info-card">
+  <h3>🧩 AvPD 专属干预谱系（从低到高威胁）</h3>
+  <table class="comparison-table">
+    <tr><th>威胁级别</th><th>干预</th><th>场景</th><th>示例问句</th></tr>
+    <tr><td>🟢 极低</td><td>只需出席</td><td>治疗初期</td><td>「你来这里已经是很重要的一步」</td></tr>
+    <tr><td>🟢 低</td><td>观察性心智化</td><td>团体沉默期</td><td>「你觉得刚才XX在经历什么？」</td></tr>
+    <tr><td>🟡 中低</td><td>身体感受命名</td><td>焦虑激活时</td><td>「你身体哪个部位感觉到了什么？」</td></tr>
+    <tr><td>🟡 中</td><td>Mini Disclosure</td><td>建立信任后</td><td>「今天来路上，你注意到了什么？」</td></tr>
+    <tr><td>🟠 中高</td><td>Contrary Move</td><td>拒绝敏感性发作</td><td>「除了被拒绝，还有其他可能吗？」</td></tr>
+    <tr><td>🟠 高</td><td>Stop and Stand</td><td>逃离冲动时</td><td>「现在，就在这里——你感受到什么？」</td></tr>
+    <tr><td>🔴 极高</td><td>自我叙事重构</td><td>治疗后期</td><td>「现在的你和几个月前的你有什么不同？」</td></tr>
+  </table>
+</div>
+
+<hr class="divider">
+
+<!-- ============================================ -->
+<!-- Do / Don't -->
+<!-- ============================================ -->
+<h2>🛡️ 治疗师行动指南</h2>
+<div class="do-dont-grid">
+  <div class="do-card">
+    <h4>✅ DO — 应该做的</h4>
+    <ul>
+      <li>用「不知道的立场」真诚探索，而不是急于给出解释</li>
+      <li>将沉默和缺席当作临床数据来心智化，而非问题行为</li>
+      <li>给回避赋予正面价值：「你的回避曾保护过你」</li>
+      <li>通过他人对患者进行心智化（代理连接），降低暴露威胁</li>
+      <li>在团体中为所有成员示范「安全地谈论脆弱」</li>
+      <li>持续、稳定地存在——信任是在每周同一时间累积的</li>
+      <li>对比预期恐惧与真实结果，帮助患者积累反证数据库</li>
+      <li>正常化焦虑：「每个人在某些社交场合都有担心」</li>
+    </ul>
+  </div>
+  <div class="dont-card">
+    <h4>❌ DON'T — 不要做的</h4>
+    <ul>
+      <li>不要强行要求发言或自我暴露——这会触发更深的退缩</li>
+      <li>不要将缺席视为「阻抗」而表达失望或施压</li>
+      <li>不要急于给出「积极反馈」——AvPD 患者会把它解读为怜悯</li>
+      <li>不要在患者说「不知道」时立刻给答案——等待，给心智化留空间</li>
+      <li>不要以「你应该多社交」的口气劝说——这加剧羞耻</li>
+      <li>不要在他人在场时长时间聚焦于一个沉默患者</li>
+      <li>不要在暴露练习失败时视为「退步」——梯度从来就是可上可下的</li>
+      <li>不要忘记：对 AvPD 患者来说，出席本身就是一种暴露</li>
+    </ul>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 三障碍对比 -->
+<h2>📊 BPD / NPD / ASPD / AvPD 四障碍 MBT 治疗策略对比</h2>
+<table class="comparison-table">
+  <tr>
+    <th>维度</th>
+    <th>BPD</th>
+    <th>NPD</th>
+    <th>ASPD</th>
+    <th style="background:#4c1d95">AvPD</th>
+  </tr>
+  <tr>
+    <td><b>核心心智化失败</b></td>
+    <td>全面崩溃（情绪风暴中失去心智化）</td>
+    <td>自我夸大 + 他人贬低</td>
+    <td>情绪心智化选择性关闭</td>
+    <td style="color:#c4b5fd">过度心智化他人（低准确度）+ 自我心智化不足</td>
+  </tr>
+  <tr>
+    <td><b>治疗核心</b></td>
+    <td>情绪调节中的心智化</td>
+    <td>羞耻耐受 + 他人心智化</td>
+    <td>打破暴力循环 + 认知信任</td>
+    <td style="color:#c4b5fd">区分恐惧与事实 + 渐进暴露</td>
+  </tr>
+  <tr>
+    <td><b>关键干预</b></td>
+    <td>Stop & Rewind</td>
+    <td>Contrary Move + 心智化羞耻</td>
+    <td>暴力叙事六步 + 挑战目的论</td>
+    <td style="color:#c4b5fd">Stop & Stand + Mini Disclosure + Contrary Move</td>
+  </tr>
+  <tr>
+    <td><b>团体角色</b></td>
+    <td>核心治疗载体</td>
+    <td>羞耻暴露 + 他人验证</td>
+    <td>暴力重新评估 + 假装模式破解</td>
+    <td style="color:#c4b5fd">安全实验室 + 微型社交暴露 + 反证收集</td>
+  </tr>
+  <tr>
+    <td><b>治疗师姿态</b></td>
+    <td>稳定、可预测、不过度热情</td>
+    <td>谦逊、不过度赞美</td>
+    <td>权威但非威权、不轻易信任</td>
+    <td style="color:#c4b5fd">温暖而坚定、不施压、不放弃</td>
+  </tr>
+  <tr>
+    <td><b>最大风险</b></td>
+    <td>依恋危机 + 自杀风险</td>
+    <td>羞耻暴怒 + 治疗中断</td>
+    <td>暴力合谋 + 假装参与</td>
+    <td style="color:#c4b5fd">治疗缺席 + 伪社交假装 + 缓慢进展中的挫折</td>
+  </tr>
+</table>
+
+<script>
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'dark',
+  securityLevel: 'loose',
+  flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
+});
+</script>
+
+</body>
+</html>

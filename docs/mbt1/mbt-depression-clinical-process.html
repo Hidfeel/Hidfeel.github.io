@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBT 抑郁症治疗流程图 — Cambridge Guide Chapter 9</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.6/dist/mermaid.min.js"></script>
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --card-bg: #111827;
+    --border: #1e3a5f;
+    --text: #cbd5e1;
+    --heading: #93c5fd;
+    --accent: #3b82f6;
+    --accent2: #1d4ed8;
+    --highlight: #60a5fa;
+    --danger: #1e40af;
+    --success: #6ee7b7;
+    --warn: #fca35b;
+    --code-bg: #0d1117;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.7;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  h1 {
+    text-align: center;
+    color: var(--heading);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+  h2 {
+    color: var(--accent);
+    font-size: 1.5rem;
+    margin: 2.5rem 0 1rem;
+    border-left: 4px solid var(--accent);
+    padding-left: 1rem;
+  }
+  h3 {
+    color: var(--highlight);
+    font-size: 1.15rem;
+    margin: 1.5rem 0 0.75rem;
+  }
+  .subtitle {
+    text-align: center;
+    color: #64748b;
+    margin-bottom: 2rem;
+    font-style: italic;
+  }
+  .mermaid-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .mermaid-card h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--heading);
+  }
+  pre.mermaid {
+    background: transparent;
+    font-size: 0.85rem;
+    overflow-x: auto;
+  }
+  .pseudocode-card {
+    background: var(--code-bg);
+    border: 1px solid var(--accent2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    line-height: 1.8;
+    overflow-x: auto;
+  }
+  .pseudocode-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    color: var(--highlight);
+  }
+  .kw { color: #f472b6; font-weight: 600; }
+  .fn { color: #67e8f9; }
+  .str { color: #a5d6ff; }
+  .cm { color: #6b7280; font-style: italic; }
+  .num { color: #fbbf24; }
+  .op { color: #f87171; }
+  .kv { color: #60a5fa; }
+  .info-card {
+    background: var(--card-bg);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 12px 12px 0;
+    padding: 1rem 1.5rem;
+    margin: 1rem 0;
+  }
+  .info-card h4 { color: var(--heading); margin-bottom: 0.5rem; }
+  .info-card ul { padding-left: 1.25rem; }
+  .info-card li { margin: 0.25rem 0; }
+  .warning-card {
+    background: var(--card-bg);
+    border-left: 4px solid var(--warn);
+    border-radius: 0 12px 12px 0;
+    padding: 1rem 1.5rem;
+    margin: 1rem 0;
+  }
+  .warning-card h4 { color: var(--warn); margin-bottom: 0.5rem; }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+  }
+  .compare-table th {
+    background: var(--accent2);
+    color: #fff;
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+  }
+  .compare-table td {
+    padding: 0.5rem 0.8rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .compare-table tr:nth-child(even) td { background: rgba(30,58,95,0.3); }
+  .technique-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .technique-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    border-top: 3px solid var(--highlight);
+  }
+  .technique-card h4 { color: var(--highlight); margin-bottom: 0.5rem; }
+  .technique-card .severity { 
+    display: inline-block; 
+    font-size: 0.75rem; 
+    padding: 0.15rem 0.5rem; 
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+  .severity-mild { background: #14532d; color: #86efac; }
+  .severity-moderate { background: #713f12; color: #fde68a; }
+  .severity-severe { background: #7f1d1d; color: #fca5a5; }
+  .doi-badge {
+    display: inline-block;
+    background: var(--accent2);
+    color: #fff;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    margin-right: 0.5rem;
+  }
+</style>
+</head>
+<body>
+
+<h1>🧠 MBT 抑郁症治疗流程</h1>
+<p class="subtitle">基于 Cambridge Guide to Mentalization-Based Treatment (MBT) — Chapter 9: Depression (pp.230-252)<br/>
+Bateman, Fonagy, Campbell, Luyten &amp; Debbane (2023)</p>
+
+<div class="info-card">
+  <h4>📖 核心理论框架</h4>
+  <ul>
+    <li><b>心智化视角</b>：抑郁症状源于<em>依恋关系受威胁</em>→自我感受到威胁→心智化能力受损</li>
+    <li><b>压力-奖赏-心智化模型</b> (Luyten &amp; Fonagy, 2018)：压力激活依恋系统→心智化崩溃→抑郁</li>
+    <li><b>抑郁症异质性</b>：轻度/中度/重度抑郁的心智化缺陷模式不同，需分级干预</li>
+    <li><b>认知信任 (Epistemic Trust)</b>：抑郁患者对社交信息缺乏信任→社交退缩→进一步恶化</li>
+    <li><b>依附型 (Anaclitic) vs 内射型 (Introjective)</b>：两种抑郁亚型，MBT 策略不同 (Blatt &amp; Luyten, 2009)</li>
+    <li><b>心智化情感 (Mentalized Affectivity)</b> (Jurist, 2005)：识别→调节→表达情绪的三角</li>
+    <li><b>DIT 动态人际治疗</b>：MBT 的特定改编，16次简短心理动力学方案 (Lemma, Target &amp; Fonagy, 2011)</li>
+  </ul>
+</div>
+
+<!-- ==================== 图 1: 抑郁症心智化失衡路径 ==================== -->
+<h2>图 1 · 抑郁症心智化失衡的心理动力学路径</h2>
+
+<div class="mermaid-card">
+  <h3>📊 依恋威胁 → 心智化崩溃 → 抑郁维持的闭环模型</h3>
+  <pre class="mermaid">
+flowchart TD
+  TRIGGER(["<b>依恋威胁事件</b><br/>丧失/拒绝/羞辱<br/>角色失败/关系破裂"])
+
+  ATTACH["<b>依恋系统过度激活</b><br/>不安全依恋策略启动<br/>· 焦虑型：过度寻求 reassurance<br/>· 回避型：情感关闭，退缩"]
+
+  STRESS["<b>压力系统激活</b><br/>HPA 轴过度反应<br/>皮质醇升高<br/>奖赏系统抑制"]
+
+  MENT_DEFICIT["<b>心智化能力减弱</b><br/>1. 认知心智化下降<br/>2. 情感心智化扭曲<br/>3. 负面评价偏差强化"]
+
+  PREMODES["<b>前心智化模式出现</b><br/>· 精神等同：想法=事实<br/>· 假装模式：空洞谈论感受<br/>· 目的论立场：只有行动才算数<br/>· 过度心智化：过度解释他人意图"]
+
+  SYMPTOMS["<b>抑郁核心症状群</b><br/>· 快感缺失 / 动力丧失<br/>· 持续低落的情绪<br/>· 无价值感 / 内疚<br/>· 睡眠和食欲障碍"]
+
+  WITHDRAWAL["<b>社交退缩</b><br/>认知信任进一步降低<br/>社交技能练习减少<br/>社会驱离效应"]
+
+  REINFORCE["<b>恶性循环强化</b><br/>→ 更少的人际支持<br/>→ 更多的心智化失败<br/>→ 更深的抑郁<br/>→ 更高的复发风险"]
+
+  TRIGGER --> ATTACH
+  ATTACH --> STRESS
+  STRESS --> MENT_DEFICIT
+  MENT_DEFICIT --> PREMODES
+  PREMODES --> SYMPTOMS
+  SYMPTOMS --> WITHDRAWAL
+  WITHDRAWAL --> REINFORCE
+  REINFORCE -.-> ATTACH
+
+  ATTACH -->|"依附型抑郁"| ANACLITIC["<b>依附型抑郁</b><br/>过度依赖他人认可<br/>害怕被抛弃<br/>空虚感和无助感"]
+  ATTACH -->|"内射型抑郁"| INTROJECTIVE["<b>内射型抑郁</b><br/>过度自我批判<br/>完美主义与失败感<br/>羞耻与内疚主导"]
+
+  ANACLITIC --> SYMPTOMS
+  INTROJECTIVE --> SYMPTOMS
+
+  style TRIGGER fill:#0a1628,stroke:#3b82f6,stroke-width:2px,color:#93c5fd
+  style ATTACH fill:#111827,stroke:#60a5fa,color:#e2e8f0
+  style STRESS fill:#1e293b,stroke:#dc2626,color:#fca5a5
+  style MENT_DEFICIT fill:#111827,stroke:#f59e0b,stroke-width:2px,color:#fde68a
+  style PREMODES fill:#1e293b,stroke:#8b5cf6,color:#c4b5fd
+  style SYMPTOMS fill:#0c1a2e,stroke:#3b82f6,stroke-width:2px,color:#bfdbfe
+  style WITHDRAWAL fill:#1e293b,stroke:#64748b,color:#cbd5e1
+  style REINFORCE fill:#0a1628,stroke:#ef4444,stroke-width:2px,color:#fecaca
+  style ANACLITIC fill:#1e293b,stroke:#34d399,color:#a7f3d0
+  style INTROJECTIVE fill:#1e293b,stroke:#f87171,color:#fecaca
+  </pre>
+</div>
+
+<div class="technique-grid">
+  <div class="technique-card">
+    <span class="severity severity-mild">轻度</span>
+    <h4>支持性心智化探索</h4>
+    <p>帮助患者识别自己的心智化「脱轨」时刻；轻度抑郁患者仍保留相当的心智化能力，可通过温和探索来重建。</p>
+  </div>
+  <div class="technique-card">
+    <span class="severity severity-moderate">中度</span>
+    <h4>结构化心智化干预</h4>
+    <p>Stop and Stand 技术；心智化情感三角（识别→调节→表达）；关注特定人际关系中的心智化失败。</p>
+  </div>
+  <div class="technique-card">
+    <span class="severity severity-severe">重度</span>
+    <h4>容纳与稳定化</h4>
+    <p>优先安全感和容纳；具身心智化 (Embodied Mentalizing)；降低心智化要求；逐步重建认知信任的基础。</p>
+  </div>
+</div>
+
+<!-- ==================== 图 2: 三阶段治疗流程 ==================== -->
+<h2>图 2 · MBT 抑郁症三阶段治疗流程</h2>
+
+<div class="mermaid-card">
+  <h3>📊 由轻度到重度的分级治疗架构</h3>
+  <pre class="mermaid">
+flowchart TD
+  subgraph PHASE1["<b>🔵 阶段一：评估与安全化</b><br/>Assessment and Stabilization"]
+    A1["<b>依恋与心智化评估</b><br/>· 识别主导依恋风格<br/>· 评估心智化能力基线<br/>· 确定抑郁严重程度"]
+    A2["<b>风险评估</b><br/>· 自杀风险评估（关键）<br/>· 自伤行为评估<br/>· 精神病性特征筛查"]
+    A3["<b>心理教育</b><br/>· 解释心智化模型<br/>· 正常化心智化失败<br/>· 建立治疗联盟"]
+    A4["<b>IPAF 人际情感焦点</b><br/>· 识别核心人际模式<br/>· 连接症状与依恋威胁<br/>· 共同制定治疗焦点"]
+    A1 --> A2 --> A3 --> A4
+  end
+
+  subgraph PHASE2["<b>🟡 阶段二：主动心智化干预</b><br/>Active Mentalizing Intervention"]
+    B1["<b>心智化情感</b><br/>· 识别情绪（命名）<br/>· 调节情绪（容忍）<br/>· 表达情绪（外部化）"]
+    B2["<b>Stop and Stand</b><br/>· 在会话中暂停<br/>· 回到心智化脱轨时刻<br/>· 重新探索内心状态"]
+    B3["<b>Contrary Move</b><br/>· 提供不同视角<br/>· 挑战确定性<br/>· 促进认知灵活性"]
+    B4["<b>心智化移情</b><br/>· 探索治疗关系<br/>· 你-我-我们 三重视角<br/>· 重建认知信任"]
+    B1 --> B2 --> B3 --> B4
+  end
+
+  subgraph PHASE3["<b>🟢 阶段三：泛化与复发预防</b><br/>Generalization and Relapse Prevention"]
+    C1["<b>巩固心智化能力</b><br/>· 在自然环境中练习<br/>· 识别高危情境"]
+    C2["<b>书写告别信</b><br/>· 回顾治疗历程<br/>· 总结核心收获<br/>· 表达未完成的情感"]
+    C3["<b>复发预防计划</b><br/>· 预警信号识别<br/>· 应对策略库<br/>· 支持网络激活"]
+    C4["<b>结束治疗</b><br/>· 处理分离情感<br/>· 强化自主心智化<br/>· 认知信任维持"]
+    C1 --> C2 --> C3 --> C4
+  end
+
+  PHASE1 --> PHASE2
+  PHASE2 --> PHASE3
+
+  PHASE2 -.->|"重度抑郁"| SEVERE["<b>🔴 重度抑郁特别路径</b><br/>· 具身心智化优先<br/>· 降低言语心智化要求<br/>· 增加容纳和支持<br/>· 逐步过渡到主动干预"]
+
+  style PHASE1 fill:#0a1628,stroke:#3b82f6,stroke-width:2px,color:#93c5fd
+  style PHASE2 fill:#1e293b,stroke:#f59e0b,stroke-width:2px,color:#fde68a
+  style PHASE3 fill:#0a1a2e,stroke:#34d399,stroke-width:2px,color:#a7f3d0
+  style A1 fill:#111827,stroke:#60a5fa,color:#e2e8f0
+  style A2 fill:#111827,stroke:#ef4444,color:#fecaca
+  style A3 fill:#111827,stroke:#60a5fa,color:#e2e8f0
+  style A4 fill:#111827,stroke:#8b5cf6,stroke-width:2px,color:#c4b5fd
+  style B1 fill:#1e293b,stroke:#f59e0b,color:#fde68a
+  style B2 fill:#1e293b,stroke:#3b82f6,stroke-width:2px,color:#bfdbfe
+  style B3 fill:#1e293b,stroke:#a855f7,color:#d8b4fe
+  style B4 fill:#1e293b,stroke:#ec4899,stroke-width:2px,color:#fbcfe8
+  style C1 fill:#1e293b,stroke:#34d399,color:#a7f3d0
+  style C2 fill:#1e293b,stroke:#60a5fa,color:#e2e8f0
+  style C3 fill:#1e293b,stroke:#fbbf24,color:#fde68a
+  style C4 fill:#1e293b,stroke:#22d3ee,color:#a5f3fc
+  style SEVERE fill:#2e1010,stroke:#ef4444,stroke-width:2px,color:#fecaca
+  </pre>
+</div>
+
+<!-- ==================== 图 3: 干预决策树 ==================== -->
+<h2>图 3 · 抑郁症 MBT 干预决策树 — 心智化情感激活六步</h2>
+
+<div class="mermaid-card">
+  <h3>📊 从识别到表达的完整干预序列</h3>
+  <pre class="mermaid">
+flowchart TD
+  START(["<b>患者呈现抑郁情绪</b><br/>情绪低落/无价值感/快感缺失"])
+
+  STEP1["<b>Step 1: 容纳与在场</b><br/>'我听到你说的了'<br/>不急于解决问题<br/>提供安全的人际容器<br/>适用于所有严重程度"]
+
+  CHECK{"<b>评估当前<br/>心智化水平</b><br/>能否反思内心状态？"}
+
+  STEP2_M["<b>Step 2M: 心智化情感—识别</b><br/>'你可以多说一点那个感觉吗？'<br/>'那个感觉在身体哪个位置？'<br/>命名情绪：悲伤/羞耻/愤怒/恐惧<br/>区分初级情绪与次级情绪"]
+  
+  STEP2_C["<b>Step 2C: 具身心智化</b><br/>'让我们先关注你的身体'<br/>'你的呼吸现在怎么样？'<br/>身体扫描 + 接地技术<br/>降低认知负荷"]
+
+  STEP3["<b>Step 3: Stop and Stand</b><br/>'等一下——让我们停在这里'<br/>'刚才你讲到XX的时候，<br/>你的表情变了'<br/>探索心智化脱轨时刻"]
+
+  STEP4["<b>Step 4: 挑战确定性</b><br/>'有没有可能是另一种情况？'<br/>Contrary Move:<br/>'如果有人用另一种方式看这件事？'<br/>激活认知灵活性"]
+
+  STEP5["<b>Step 5: 重建人际视角</b><br/>'你认为对方那时候可能在感受什么？'<br/>'如果你最好的朋友处于你的位置，<br/>你会对他说什么？'<br/>激活对他人心智化"]
+
+  STEP6["<b>Step 6: 心智化情感—表达</b><br/>'现在的你对自己有了什么新的理解？'<br/>'你想对那个部分的自己说些什么？'<br/>巩固心智化收获"]
+
+  CLOSE(["<b>闭合：恢复心智化</b><br/>总结今天的新发现<br/>确认情绪变化<br/>连接下一次会谈"])
+
+  START --> STEP1
+  STEP1 --> CHECK
+  CHECK -->|"有一定心智化"| STEP2_M
+  CHECK -->|"心智化极低/重度"| STEP2_C
+  STEP2_C --> STEP3
+  STEP2_M --> STEP3
+  STEP3 --> STEP4
+  STEP4 --> STEP5
+  STEP5 --> STEP6
+  STEP6 --> CLOSE
+
+  STEP3 -.->|"患者卡住"| REWIND["<b>倒回到更早时刻</b><br/>'让我们再往后退一点'<br/>降低心智化要求<br/>回到容纳和在场"]
+
+  REWIND -.-> STEP1
+
+  style START fill:#0a1628,stroke:#3b82f6,stroke-width:2px,color:#93c5fd
+  style STEP1 fill:#0c1a2e,stroke:#60a5fa,color:#e2e8f0
+  style CHECK fill:#1e293b,stroke:#f59e0b,stroke-width:2px,color:#fde68a
+  style STEP2_M fill:#111827,stroke:#f59e0b,color:#fde68a
+  style STEP2_C fill:#2e1010,stroke:#ef4444,color:#fca5a5
+  style STEP3 fill:#111827,stroke:#3b82f6,stroke-width:2px,color:#bfdbfe
+  style STEP4 fill:#111827,stroke:#a855f7,color:#d8b4fe
+  style STEP5 fill:#111827,stroke:#ec4899,color:#fbcfe8
+  style STEP6 fill:#1e293b,stroke:#34d399,stroke-width:2px,color:#a7f3d0
+  style CLOSE fill:#0a1a2e,stroke:#22d3ee,stroke-width:2px,color:#a5f3fc
+  style REWIND fill:#2e1010,stroke:#f87171,color:#fecaca
+  </pre>
+</div>
+
+<!-- ==================== 四段伪代码 ==================== -->
+<h2>图 4 · 四大核心干预场景 — 伪代码 + 可视化流程</h2>
+
+<!-- 困境 A -->
+<h3>🔵 困境 A：快感缺失与社交退缩 — Anhedonia and Withdrawal</h3>
+
+<div class="pseudocode-card">
+<pre>
+<span class="cm">// MBT 抑郁症核心干预 1: 激活奖赏系统与重连他人</span>
+<span class="cm">// Reference: Cambridge Guide Ch9 pp.236-240; Stress-Reward-Mentalizing Model</span>
+
+<span class="kw">function</span> <span class="fn">HANDLE_ANHEDONIA</span>(patient):
+    <span class="cm">// 1. 命名心智化断裂：不把退缩当性格</span>
+    <span class="kv">mentalize</span> <span class="str">"你已经好几周没出门了。那是什么感觉——</span>
+    <span class="str">      是「我不想」，还是「我不能」？"</span>
+    <span class="kv">explore</span> <span class="str">两者的区别: 动力缺失 ≠ 选择不行动</span>
+
+    <span class="cm">// 2. 微剂量行为激活</span>
+    <span class="kw">let</span> min_step = <span class="fn">find_smallest_possible_action</span>(patient)
+    <span class="cm">// 例如: 起床走到窗户→拉开窗帘→出门取邮件→超市5分钟</span>
+    <span class="kw">say</span> <span class="str">"我们不需要你今天就变好。只需要一个微小的动作。"</span>
+
+    <span class="cm">// 3. 心智化情感：连接行动与感受</span>
+    <span class="kv">pre_action</span>: <span class="str">"你现在想象去做这件事，内心出现了什么？"</span>
+    <span class="kv">post_action</span>: <span class="str">"做完了——和你想的一样吗？有什么不同？"</span>
+    <span class="kv">contrast</span>: <span class="str">预期恐惧 vs 实际体验 → 更新心智化模型</span>
+
+    <span class="cm">// 4. 奖赏追溯</span>
+    <span class="kv">explore</span> <span class="str">"以前什么事让你感到有活力？哪怕只有一点点？"</span>
+    <span class="cm">连接过去的奖赏记忆与当下的内心状态</span>
+
+    <span class="cm">// 5. 社交微连接</span>
+    <span class="kv">suggest</span> <span class="str">"不需要社交。只需要让另一个人类在场的场景。"</span>
+    <span class="cm">咖啡店坐坐（不用说话）→ 同事群里发一个表情 → ...</span>
+</pre>
+</div>
+
+<div class="mermaid-card">
+  <h3>📊 困境 A 流程图：快感缺失的微剂量激活路径</h3>
+  <pre class="mermaid">
+flowchart TD
+  START(["<b>患者报告：</b><br/>「什么都不想做」<br/>「没有感觉」"])
+
+  STEP1["<b>Step 1: 心智化退缩</b><br/>区分：「不想」vs「不能」<br/>命名内心状态<br/>去病理化动力缺失"]
+
+  STEP2["<b>Step 2: 找到最小可行步骤</b><br/>今天的极小目标<br/>（起床→窗户→开门→...）<br/>「不需要今天就变好」"]
+
+  STEP3["<b>Step 3: 预演内心状态</b><br/>「想象你现在去做——<br/>内心出现了什么？」<br/>暴露预期恐惧"]
+
+  STEP4["<b>Step 4: 执行微行动</b><br/>完成极小步骤<br/>记录实际体验"]
+
+  COMPARE{"<b>对比预期<br/>与实际</b><br/>有差异吗？"}
+
+  STEP5["<b>Step 5: 更新心智化模型</b><br/>「和你想的一样吗？」<br/>「有什么不同？」<br/>挑战负面预测"]
+
+  STEP6["<b>Step 6: 追溯奖赏记忆</b><br/>「以前什么事让你<br/>感到有活力？」<br/>连接过去与当下"]
+
+  SOCIAL["<b>Step 7: 社交微连接</b><br/>最低社交剂量：<br/>· 咖啡店坐着（不说话）<br/>· 群聊发一个表情<br/>只需「另一个人类在场」"]
+
+  START --> STEP1
+  STEP1 --> STEP2
+  STEP2 --> STEP3
+  STEP3 --> STEP4
+  STEP4 --> COMPARE
+  COMPARE -->|"有差异 ✅"| STEP5
+  COMPARE -->|"无差异"| REWIND["<b>回到更小步骤</b><br/>降低行动门槛<br/>重新探索内心障碍"]
+  REWIND -.-> STEP2
+  STEP5 --> STEP6
+  STEP6 --> SOCIAL
+
+  style START fill:#0a1628,stroke:#3b82f6,stroke-width:2px,color:#93c5fd
+  style STEP1 fill:#111827,stroke:#60a5fa,color:#e2e8f0
+  style STEP2 fill:#111827,stroke:#34d399,color:#a7f3d0
+  style STEP3 fill:#111827,stroke:#f59e0b,color:#fde68a
+  style STEP4 fill:#0c1a2e,stroke:#3b82f6,stroke-width:2px,color:#bfdbfe
+  style COMPARE fill:#1e293b,stroke:#a855f7,stroke-width:2px,color:#d8b4fe
+  style STEP5 fill:#1e293b,stroke:#34d399,stroke-width:2px,color:#a7f3d0
+  style STEP6 fill:#111827,stroke:#ec4899,color:#fbcfe8
+  style SOCIAL fill:#0a1a2e,stroke:#22d3ee,stroke-width:2px,color:#a5f3fc
+  style REWIND fill:#2e1010,stroke:#f87171,color:#fecaca
+  </pre>
+</div>
+
+<!-- 困境 B -->
+<h3>🟡 困境 B：负面反刍与精神等同 — Negative Rumination and Psychic Equivalence</h3>
+
+<div class="pseudocode-card">
+<pre>
+<span class="cm">// MBT 抑郁症核心干预 2: 打破负面反刍循环</span>
+<span class="cm">// Reference: Cambridge Guide Ch9 pp.240-244</span>
+
+<span class="kw">function</span> <span class="fn">BREAK_RUMINATION</span>(patient):
+    <span class="cm">// 1. 识别精神等同模式</span>
+    <span class="kw">detect</span>: <span class="str">"我一文不值" → 这不是一个想法，这是已被确认的事实</span>
+    <span class="kv">observe</span> <span class="str">"我注意到你在用'我知道'这个词很多次。</span>
+    <span class="str">      有没有可能这也是一种感受，而不是事实？"</span>
+
+    <span class="cm">// 2. Stop and Stand</span>
+    <span class="kv">interrupt</span>: <span class="str">"等一下——我们停在这里。"</span>
+    <span class="kv">rewind</span>: <span class="str">"你刚才说到'反正也没人在乎'的时候，</span>
+    <span class="str">      你的肩膀沉下去了。我们回到那一刻。"</span>
+
+    <span class="cm">// 3. 外化负面信念 → 变成一个可以观察的对象</span>
+    <span class="kv">externalize</span>: <span class="str">"如果把这个想法从你身上拿出来，</span>
+    <span class="str">      放在桌子上，它长什么样子？它叫什么名字？"</span>
+    <span class="cm">→ 从「我是无价值的」到「有一个声音告诉我我是无价值的」</span>
+
+    <span class="cm">// 4. Contrary Move: 提供另一种视角</span>
+    <span class="kv">challenge</span>: <span class="str">"如果你的好朋友对你说这些话，你会怎么回应？"</span>
+    <span class="kv">explore</span>: <span class="str">"有没有一小部分你——哪怕很微弱——</span>
+    <span class="str">      不同意这个声音？"</span>
+
+    <span class="cm">// 5. 时间线视角</span>
+    <span class="kv">temporalize</span>: <span class="str">"五年前的你会怎么看现在的你？</span>
+    <span class="str">      五年后的你会对现在的你说什么？"</span>
+</pre>
+</div>
+
+<div class="mermaid-card">
+  <h3>📊 困境 B 流程图：打破负面反刍的五步干预</h3>
+  <pre class="mermaid">
+flowchart TD
+  START(["<b>患者陷入反刍：</b><br/>「我什么都做不好」<br/>「没人会在乎我」"])
+
+  DETECT["<b>Step 1: 识别精神等同</b><br/>想法 ≠ 事实<br/>「我注意到你在用<br/>'我知道'很多次」<br/>命名：这是一个感受<br/>不是一个事实"]
+
+  STOP["<b>Step 2: Stop and Stand</b><br/>暂停反刍流<br/>回到关键瞬间<br/>「你的肩膀沉下去了——<br/>我们回到那一刻」"]
+
+  EXTERN["<b>Step 3: 外化负面信念</b><br/>「如果把这个想法拿出来<br/>放在桌子上——<br/>它长什么样子？」<br/>从「我是X」→「有个声音说我是X」"]
+
+  CONTRA["<b>Step 4: Contrary Move</b><br/>「如果你的好朋友这样说自己，<br/>你会怎么回应？」<br/>激活对他人心智化<br/>反过来照明自己"]
+
+  TEMP["<b>Step 5: 时间线视角</b><br/>「五年前的你会怎么看现在的你？」<br/>「五年后的你会对现在的你说什么？」<br/>引入时间维度的反思距离"]
+
+  CHECK{"<b>信念松动了吗？</b><br/>能否看到<br/>另一种可能？"}
+
+  INTEGRATE["<b>整合新视角</b><br/>「所以你现在怎么看<br/>那个声音？」<br/>强化心智化收获"]
+
+  LOOP["<b>回到外化步骤</b><br/>从另一个角度<br/>再次探索<br/>不要强行说服"]
+
+  START --> DETECT
+  DETECT --> STOP
+  STOP --> EXTERN
+  EXTERN --> CONTRA
+  CONTRA --> TEMP
+  TEMP --> CHECK
+  CHECK -->|"是 ✅"| INTEGRATE
+  CHECK -->|"否 ❌"| LOOP
+  LOOP -.-> EXTERN
+
+  style START fill:#0a1628,stroke:#3b82f6,stroke-width:2px,color:#93c5fd
+  style DETECT fill:#111827,stroke:#f59e0b,color:#fde68a
+  style STOP fill:#111827,stroke:#3b82f6,stroke-width:2px,color:#bfdbfe
+  style EXTERN fill:#1e293b,stroke:#a855f7,stroke-width:2px,color:#d8b4fe
+  style CONTRA fill:#111827,stroke:#ec4899,color:#fbcfe8
+  style TEMP fill:#111827,stroke:#22d3ee,color:#a5f3fc
+  style CHECK fill:#1e293b,stroke:#f59e0b,stroke-width:2px,color:#fde68a
+  style INTEGRATE fill:#0a1a2e,stroke:#34d399,stroke-width:2px,color:#a7f3d0
+  style LOOP fill:#2e1010,stroke:#f87171,color:#fecaca
+  </pre>
+</div>
+
+<!-- 困境 C -->
+<h3>🟠 困境 C：内射型抑郁 — 自我批判崩溃</h3>
+
+<div class="pseudocode-card">
+<pre>
+<span class="cm">// MBT 抑郁症核心干预 3: 处理内射型/自我批判型抑郁</span>
+<span class="cm">// Reference: Cambridge Guide Ch9; Blatt &amp; Luyten (2009)</span>
+
+<span class="kw">function</span> <span class="fn">HANDLE_INTROJECTIVE_DEPRESSION</span>(patient):
+    <span class="cm">// 1. 识别内射型模式</span>
+    <span class="kv">observe</span>: <span class="str">"你对自己非常严厉。这种严厉是从哪里来的？"</span>
+    <span class="kv">markers</span>: <span class="str">完美主义 / 失败感 / 过度自我批评 / 羞耻和内疚</span>
+
+    <span class="cm">// 2. 追溯内在批判者的来源</span>
+    <span class="kv">explore</span>: <span class="str">"你脑子里那个批评的声音——</span>
+    <span class="str">      它听起来像谁？谁曾经用这种方式对待你？"</span>
+    <span class="cm">将内在批判者与早期依恋人物连接</span>
+
+    <span class="cm">// 3. 心智化情感：面对羞耻</span>
+    <span class="kv">name</span>: <span class="str">"这是羞耻。不是'我错了'，而是'我本身就是错的'。"</span>
+    <span class="kv">validate</span>: <span class="str">"当一个人长期被告知自己不够好，</span>
+    <span class="str">      把那个声音内化是完全正常的。"</span>
+
+    <span class="cm">// 4. 双重视角：自我-他人</span>
+    <span class="kv">dual_perspective</span>: 
+    <span class="kv">self_view</span>: <span class="str">"你怎么看自己？"</span>
+    <span class="kv">other_view</span>: <span class="str">"你觉得治疗师现在怎么看你？"</span>
+    <span class="kv">contrast</span>: <span class="str">"你对自己的看法和我们刚刚讨论的感受——</span>
+    <span class="str">      它们一致吗？"</span>
+
+    <span class="cm">// 5. 自我慈悲的心智化</span>
+    <span class="kv">explore</span>: <span class="str">"如果你可以对自己温柔一点——</span>
+    <span class="str">      那个温柔的部分在什么地方？它想说什么？"</span>
+    <span class="cm">不是要求患者变得自爱，而是探索自爱的可能性是否存在于心智空间中</span>
+</pre>
+</div>
+
+<div class="mermaid-card">
+  <h3>📊 困境 C 流程图：内射型抑郁的自我批判解构路径</h3>
+  <pre class="mermaid">
+flowchart TD
+  START(["<b>患者呈现：</b><br/>「我什么都没做好」<br/>「我是个失败者」<br/>强烈羞耻和内疚"])
+
+  IDENTIFY["<b>Step 1: 识别内射型模式</b><br/>标记：完美主义/失败感/<br/>过度自我批评/羞耻<br/>「这种严厉从哪里来？」"]
+
+  TRACE["<b>Step 2: 追溯内在批判者</b><br/>「那个批评的声音——<br/>它听起来像谁？」<br/>「谁曾这样对待你？」<br/>连接早期依恋关系"]
+
+  SHAME["<b>Step 3: 心智化羞耻</b><br/>命名：这是羞耻<br/>「不是我错了，<br/>而是我本身就是错的」<br/>正常化羞耻的起源"]
+
+  DUAL["<b>Step 4: 双重视角并置</b><br/>自我视角：「你怎么看自己？」<br/>他人视角：「你觉得我现在怎么看你？」<br/>对比差异"]
+
+  CHECK{"<b>视角有差异吗？</b><br/>自我视角 vs<br/>他人视角"}
+
+  BRIDGE["<b>Step 5: 弥合视角鸿沟</b><br/>「你对自己的看法和<br/>我们刚讨论的感受——<br/>它们一致吗？」"]
+
+  COMPASSION["<b>Step 6: 探索自我慈悲</b><br/>「如果可以对自己温柔一点——<br/>那个温柔的部分在什么地方？」<br/>「它想说什么？」"]
+
+  REINFORCE["<b>强化心智化收获</b><br/>确认视角扩展<br/>连接下一次会谈"]
+
+  LOOP["<b>回到双重视角</b><br/>换一个关系场景<br/>再次探索<br/>不要催促自我慈悲"]
+
+  START --> IDENTIFY
+  IDENTIFY --> TRACE
+  TRACE --> SHAME
+  SHAME --> DUAL
+  DUAL --> CHECK
+  CHECK -->|"有差异 ✅"| BRIDGE
+  CHECK -->|"无差异"| LOOP
+  LOOP -.-> DUAL
+  BRIDGE --> COMPASSION
+  COMPASSION --> REINFORCE
+
+  style START fill:#0a1628,stroke:#3b82f6,stroke-width:2px,color:#93c5fd
+  style IDENTIFY fill:#111827,stroke:#f59e0b,color:#fde68a
+  style TRACE fill:#111827,stroke:#ef4444,color:#fca5a5
+  style SHAME fill:#2e1010,stroke:#dc2626,stroke-width:2px,color:#fecaca
+  style DUAL fill:#1e293b,stroke:#a855f7,stroke-width:2px,color:#d8b4fe
+  style CHECK fill:#1e293b,stroke:#f59e0b,stroke-width:2px,color:#fde68a
+  style BRIDGE fill:#0c1a2e,stroke:#3b82f6,stroke-width:2px,color:#bfdbfe
+  style COMPASSION fill:#1e293b,stroke:#ec4899,stroke-width:2px,color:#fbcfe8
+  style REINFORCE fill:#0a1a2e,stroke:#34d399,stroke-width:2px,color:#a7f3d0
+  style LOOP fill:#2e1010,stroke:#f87171,color:#fecaca
+  </pre>
+</div>
+
+<!-- 困境 D -->
+<h3>🟢 困境 D：认知信任崩塌 — Epistemic Mistrust and Disconnection</h3>
+
+<div class="pseudocode-card">
+<pre>
+<span class="cm">// MBT 抑郁症核心干预 4: 重建认知信任和人际连接</span>
+<span class="cm">// Reference: Cambridge Guide Ch9 pp.244-248; Fonagy et al. (2019)</span>
+
+<span class="kw">function</span> <span class="fn">REBUILD_EPISTEMIC_TRUST</span>(patient):
+    <span class="cm">// 1. 检测认知不信任</span>
+    <span class="kv">observe</span>: <span class="str">"我注意到每次我给你一个不同的视角，</span>
+    <span class="str">      你很快就回到原来的想法。是不是很难相信我说的话？"</span>
+    <span class="kv">signs</span>: <span class="str">· 频繁否定治疗师的观察（暗中）</span>
+    <span class="str">      · 总是同意但不内化（假装模式）</span>
+    <span class="str">      · 对治疗师的反应过度警惕（警戒模式）</span>
+
+    <span class="cm">// 2. 透明化心智化过程——不是告诉你该怎么做，而是展示我怎么想</span>
+    <span class="kv">mentalize_ aloud</span>: <span class="str">"你刚才说到那个的时候，</span>
+    <span class="str">      我发现自己内心出现了一个担忧——</span>
+    <span class="str">      不是关于你，是关于我是不是理解错了你。"</span>
+    <span class="cm">→ 治疗师公开展示自己的心智化过程，降低患者的警惕</span>
+
+    <span class="cm">// 3. Ostensive Cue：展示你确实在努力理解</span>
+    <span class="kv">ostensive_cue</span>: <span class="str">直接看向患者、使用名字、记住细节</span>
+    <span class="kv">show_understanding</span>: <span class="str">"你刚才说的是X，我之前以为是Y——</span>
+    <span class="str">      谢谢你纠正我。"</span>
+
+    <span class="cm">// 4. 容忍「不知道」——保持心智化立场</span>
+    <span class="kv">not_knowing_stance</span>: <span class="str">"我也不确定。我们一起想想看。"</span>
+    <span class="cm">关键：承认治疗师的不确定性，邀请协作心智化</span>
+
+    <span class="cm">// 5. 修复破裂</span>
+    <span class="kv">when_rupture</span>:
+      <span class="kw">acknowledge</span> <span class="str">"我刚才有没有说了让你不舒服的话？"</span>
+      <span class="kw">repair</span> <span class="str">"谢谢你告诉我。这对我理解你非常重要。"</span>
+    <span class="cm">每一次成功的修复都在重建认知信任</span>
+</pre>
+</div>
+
+<div class="mermaid-card">
+  <h3>📊 困境 D 流程图：重建认知信任的逐步路径</h3>
+  <pre class="mermaid">
+flowchart TD
+  START(["<b>认知信任信号：</b><br/>患者反复否定/不内化<br/>对他人意图过度警惕<br/>「没有人真正理解我」"])
+
+  DETECT["<b>Step 1: 命名不信任</b><br/>「我注意到每次我提供<br/>不同视角，你很快就<br/>回到原来的想法」<br/>命名而不指责"]
+
+  TRANSP["<b>Step 2: 透明化心智化过程</b><br/>治疗师展示内心推理：<br/>「你刚说到那个的时候，<br/>我发现自己出现了一个担忧——<br/>不是关于你，是关于<br/>我是不是理解错了你」"]
+
+  OSTENSIVE["<b>Step 3: Ostensive Cue</b><br/>展示善意信号：<br/>· 直接看向患者<br/>· 使用名字<br/>· 记住并引用细节<br/>· 「谢谢你纠正我」"]
+
+  NOT_KNOWING["<b>Step 4: 保持「不知道」立场</b><br/>「我也不确定。<br/>我们一起想想看。」<br/>承认治疗师的不确定性<br/>邀请协作心智化"]
+
+  CHECK{"<b>患者是否<br/>开始参与<br/>协作心智化？</b>"}
+
+  REPAIR_INTRO["<b>→ 引入修复对话</b><br/>「我刚才有没有说了<br/>让你不舒服的话？」<br/>主动搜索破裂信号<br/>邀请患者表达不满"]
+
+  VALIDATE["<b>Step 5: 修复与验证</b><br/>「谢谢你告诉我。<br/>这对我理解你非常重要」<br/>每一次成功修复 =<br/>认知信任 +1"]
+
+  TRUST_BUILT["<b>认知信任逐步建立</b><br/>患者开始内化新信息<br/>治疗联盟加深<br/>社交世界重新开放"]
+
+  LOOP["<b>回到透明化</b><br/>找到下一个信任门槛<br/>保持耐心<br/>不强行推动信任"]
+
+  START --> DETECT
+  DETECT --> TRANSP
+  TRANSP --> OSTENSIVE
+  OSTENSIVE --> NOT_KNOWING
+  NOT_KNOWING --> CHECK
+  CHECK -->|"是 ✅"| TRUST_BUILT
+  CHECK -->|"否 ❌"| REPAIR_INTRO
+  REPAIR_INTRO --> VALIDATE
+  VALIDATE -.-> CHECK
+  CHECK -.->|"反复不信任"| LOOP
+  LOOP -.-> TRANSP
+
+  style START fill:#0a1628,stroke:#3b82f6,stroke-width:2px,color:#93c5fd
+  style DETECT fill:#111827,stroke:#f59e0b,color:#fde68a
+  style TRANSP fill:#111827,stroke:#22d3ee,stroke-width:2px,color:#a5f3fc
+  style OSTENSIVE fill:#111827,stroke:#34d399,color:#a7f3d0
+  style NOT_KNOWING fill:#1e293b,stroke:#a855f7,stroke-width:2px,color:#d8b4fe
+  style CHECK fill:#1e293b,stroke:#f59e0b,stroke-width:2px,color:#fde68a
+  style REPAIR_INTRO fill:#2e1010,stroke:#ef4444,color:#fecaca
+  style VALIDATE fill:#1e293b,stroke:#ec4899,stroke-width:2px,color:#fbcfe8
+  style TRUST_BUILT fill:#0a1a2e,stroke:#34d399,stroke-width:2px,color:#a7f3d0
+  style LOOP fill:#2e1010,stroke:#f87171,color:#fecaca
+  </pre>
+</div>
+
+<!-- ==================== 附加内容 ==================== -->
+<h2>📋 抑郁症 MBT 干预谱系 — 基于严重程度的 7 级技术梯度</h2>
+
+<div class="mermaid-card">
+  <h3>📊 从轻度到重度的逐级干预策略</h3>
+  <pre class="mermaid">
+flowchart LR
+  L1["<b>L1: 心理教育</b><br/>解释心智化模型<br/>正常化失败<br/>适用于所有级别"]
+  
+  L2["<b>L2: 支持性探索</b><br/>温和提问内心状态<br/>识别心智化脱轨<br/>轻度抑郁主要策略"]
+  
+  L3["<b>L3: Stop and Stand</b><br/>暂停→倒回→探索<br/>寻找脱轨时刻<br/>中度抑郁核心技术"]
+  
+  L4["<b>L4: 心智化情感</b><br/>识别→调节→表达<br/>连接身体与情绪<br/>中度抑郁核心技术"]
+  
+  L5["<b>L5: Contrary Move</b><br/>提供不同视角<br/>挑战确定性<br/>中度-重度可引入"]
+  
+  L6["<b>L6: 心智化移情</b><br/>探索治疗关系<br/>修复认知信任<br/>中度抑郁后期"]
+  
+  L7["<b>L7: 具身心智化</b><br/>身体感受优先<br/>降低认知负荷<br/>重度抑郁专用"]
+
+  L1 --> L2 --> L3 --> L4 --> L5 --> L6
+  L1 -.-> L7
+
+  style L1 fill:#0c1a2e,stroke:#60a5fa,color:#e2e8f0
+  style L2 fill:#111827,stroke:#34d399,color:#a7f3d0
+  style L3 fill:#111827,stroke:#3b82f6,stroke-width:2px,color:#bfdbfe
+  style L4 fill:#111827,stroke:#f59e0b,color:#fde68a
+  style L5 fill:#1e293b,stroke:#a855f7,color:#d8b4fe
+  style L6 fill:#1e293b,stroke:#ec4899,color:#fbcfe8
+  style L7 fill:#2e1010,stroke:#ef4444,stroke-width:2px,color:#fecaca
+  </pre>
+</div>
+
+<!-- ==================== 对比表 ==================== -->
+<h2>📊 五障碍 MBT 治疗对比</h2>
+
+<table class="compare-table">
+  <tr>
+    <th>维度</th>
+    <th style="background:#7f1d1d">BPD</th>
+    <th style="background:#78350f">NPD</th>
+    <th style="background:#713f12">ASPD</th>
+    <th style="background:#3b0764">AvPD</th>
+    <th style="background:#1e3a5f">抑郁症</th>
+  </tr>
+  <tr>
+    <td><b>核心心智化缺陷</b></td>
+    <td>过度心智化 + 精神等同快速切换</td>
+    <td>假装模式 + 对他人的心智化回避</td>
+    <td>目的论立场 + 对他人的心智化完全关闭</td>
+    <td>过度心智化（读心术） + 对拒绝过度警惕</td>
+    <td>精神等同（想法=事实） + 负面评价偏差 + 心智化能力全面下降</td>
+  </tr>
+  <tr>
+    <td><b>依恋模式</b></td>
+    <td>混乱型 / 焦虑型</td>
+    <td>回避型 / 贬低型</td>
+    <td>严重回避型 + 控制型</td>
+    <td>恐惧-回避型</td>
+    <td>不安全依恋（焦虑型或回避型）→ 依恋系统过度激活后崩溃</td>
+  </tr>
+  <tr>
+    <td><b>认知信任</b></td>
+    <td>极低，快速波动</td>
+    <td>极低，长期固着</td>
+    <td>几乎为零，主动拒绝</td>
+    <td>低，对权威信息选择性信任</td>
+    <td>低 → 社交退缩 → 更低的恶性循环</td>
+  </tr>
+  <tr>
+    <td><b>治疗首要目标</b></td>
+    <td>稳定心智化 → 减少自伤</td>
+    <td>识别假装模式 → 建立真实连接</td>
+    <td>最小化暴力 → 建立任何形式的心智化</td>
+    <td>减少过度心智化 → 增加行为暴露</td>
+    <td>恢复心智化能力 → 打破反刍 → 重建认知信任 → 激活奖赏系统</td>
+  </tr>
+  <tr>
+    <td><b>核心干预技术</b></td>
+    <td>Stop and Rewind, Contrary Move</td>
+    <td>对抗假装模式, 双重干预 (I→Me→We)</td>
+    <td>暴力叙事处理, 即时降级, 假装模式管理</td>
+    <td>Stop and Stand, 轻邀请, 暴露梯度</td>
+    <td>心智化情感三角, Stop and Stand, 微剂量激活, Contrary Move, 具身心智化</td>
+  </tr>
+  <tr>
+    <td><b>治疗师最大挑战</b></td>
+    <td>管理自伤风险 + 反移情</td>
+    <td>不被理想化或贬低</td>
+    <td>不被卷入暴力合谋</td>
+    <td>不推动太快</td>
+    <td>不陷入患者的无望感；耐心等待心智化能力恢复</td>
+  </tr>
+  <tr>
+    <td><b>治疗时长</b></td>
+    <td>12-18 个月</td>
+    <td>12-18 个月</td>
+    <td>18-24 个月</td>
+    <td>12-18 个月</td>
+    <td>DIT: 16 次; MBT: 根据严重程度灵活调整</td>
+  </tr>
+  <tr>
+    <td><b>MBT 改编版本</b></td>
+    <td>标准 MBT (个体 + 团体)</td>
+    <td>MBT-NPD</td>
+    <td>MBT-ASPD</td>
+    <td>MBT 标准改编</td>
+    <td><b>DIT (Dynamic Interpersonal Therapy)</b> — 16次简短方案</td>
+  </tr>
+</table>
+
+<!-- ==================== Do/Don't ==================== -->
+<h2>⚠️ 抑郁症 MBT 治疗师行动指南</h2>
+
+<div class="technique-grid">
+  <div class="technique-card">
+    <h4>✅ Do — 应该做的</h4>
+    <ul>
+      <li>在每次会谈开始时评估自杀风险</li>
+      <li>用「不知道」立场探索患者的内心状态</li>
+      <li>根据严重程度调整心智化要求的级别</li>
+      <li>在重度抑郁阶段优先使用具身心智化</li>
+      <li>公开透明化自己的心智化过程</li>
+      <li>识别精神等同——「想法≠事实」</li>
+      <li>命名「依附型」与「内射型」模式的区别</li>
+      <li>用微剂量行为激活对抗快感缺失</li>
+      <li>主动修复治疗关系中的破裂</li>
+      <li>帮助患者区分「不想」和「不能」</li>
+    </ul>
+  </div>
+  <div class="technique-card" style="border-top-color: #ef4444;">
+    <h4>❌ Don't — 不要做的</h4>
+    <ul>
+      <li>不要在重度抑郁期强行推动主动心智化</li>
+      <li>不要用「积极思考」反驳患者的负面信念</li>
+      <li>不要忽略患者的无望感——要心智化它</li>
+      <li>不要急于给予建议——先心智化</li>
+      <li>不要在患者处于精神等同时强行挑战</li>
+      <li>不要忽视认知信任的缺失——它需要时间来建立</li>
+      <li>不要对自我批判模式进行直接反驳</li>
+      <li>不要在治疗早期引入过于复杂的视角</li>
+      <li>不要忽视依恋创伤对当前心智化的影响</li>
+      <li>不要在患者明显心智化崩溃时继续追问</li>
+    </ul>
+  </div>
+</div>
+
+<div class="info-card" style="margin-top: 2rem;">
+  <h4>📚 核心参考文献 (Cambridge Guide Ch9)</h4>
+  <p style="font-size: 0.85rem; color: #94a3b8;">
+    Bateman, A., Fonagy, P., Campbell, C., Luyten, P., &amp; Debbane, M. (2023). <em>Cambridge Guide to Mentalization-Based Treatment (MBT)</em>. Cambridge University Press. Chapter 9: Depression (pp. 230-252).<br/><br/>
+    Lemma, A., Target, M., &amp; Fonagy, P. (2011). <em>Brief Dynamic Interpersonal Therapy: A Clinician's Guide</em>. Oxford University Press.<br/><br/>
+    Luyten, P., &amp; Fonagy, P. (2018). The stress-reward-mentalizing model of depression: An integrative developmental cascade approach to child and adolescent depressive disorder. <em>Development and Psychopathology</em>.<br/><br/>
+    Jurist, E. (2005). Mentalized affectivity. <em>Psychoanalytic Psychology</em>, 22(3), 426-444.<br/><br/>
+    Blatt, S. J., &amp; Luyten, P. (2009). A structural-developmental psychodynamic approach to psychopathology. <em>Psychoanalysis and Psychotherapy</em>.
+  </p>
+</div>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'dark',
+    themeVariables: {
+      fontSize: '15px',
+      fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif'
+    },
+    flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
+  });
+</script>
+
+</body>
+</html>

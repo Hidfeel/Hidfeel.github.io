@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBT-ASPD 反社会型人格障碍治疗流程图</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  :root {
+    --bg: #0f0f1a;
+    --card: #1a1a2e;
+    --card2: #22223a;
+    --border: #2d2d4a;
+    --text: #e0e0e0;
+    --text2: #a0a0b8;
+    --accent: #e85d75;
+    --accent2: #fca35b;
+    --purple: #a78bfa;
+    --blue: #60a5fa;
+    --green: #34d399;
+    --orange: #fb923c;
+    --red: #f87171;
+    --code-bg: #0d0d1a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif; line-height: 1.6; padding: 20px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  h1 { font-size: 2em; text-align: center; margin-bottom: 8px; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  h2 { font-size: 1.4em; color: var(--accent); margin: 40px 0 16px; border-left: 4px solid var(--accent); padding-left: 12px; }
+  h3 { font-size: 1.1em; color: var(--purple); margin: 24px 0 12px; }
+  .subtitle { text-align: center; color: var(--text2); margin-bottom: 32px; font-size: 0.95em; }
+  .mermaid-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; overflow-x: auto; }
+  .mermaid-card h3 { color: var(--accent2); margin: 0 0 12px 0; font-size: 1.05em; }
+  .mermaid { display: flex; justify-content: center; }
+  .mermaid svg { max-width: 100%; height: auto; }
+
+  /* Pseudocode section */
+  .pseudocode { background: var(--code-bg); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; font-family: "SF Mono", "Fira Code", "Consolas", monospace; font-size: 14px; line-height: 1.8; overflow-x: auto; }
+  .pseudocode .kw { color: #c792ea; }
+  .pseudocode .fn { color: #82aaff; }
+  .pseudocode .str { color: #c3e88d; }
+  .pseudocode .cm { color: #546e7a; font-style: italic; }
+  .pseudocode .num { color: #f78c6c; }
+  .pseudocode .op { color: #89ddff; }
+  .pseudocode .var { color: #ffcb6b; }
+
+  /* Cards grid */
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 16px; margin-bottom: 20px; }
+  .info-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .info-card h4 { color: var(--accent); margin-bottom: 10px; font-size: 1em; }
+  .info-card p, .info-card li { color: var(--text2); font-size: 0.9em; margin-bottom: 6px; }
+  .info-card ul { padding-left: 18px; }
+  .info-card .highlight { color: var(--accent2); font-weight: 600; }
+
+  /* Do/Dont */
+  .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .do-box, .dont-box { border-radius: 12px; padding: 20px; }
+  .do-box { background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.3); }
+  .dont-box { background: rgba(248, 113, 113, 0.1); border: 1px solid rgba(248, 113, 113, 0.3); }
+  .do-box h4 { color: var(--green); }
+  .dont-box h4 { color: var(--red); }
+  .do-box li, .dont-box li { color: var(--text2); font-size: 0.9em; margin-bottom: 4px; }
+
+  /* Comparison */
+  .comparison { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px; overflow-x: auto; }
+  .comparison table { width: 100%; border-collapse: collapse; }
+  .comparison th { color: var(--accent); text-align: left; padding: 10px 12px; border-bottom: 2px solid var(--border); font-size: 0.9em; }
+  .comparison td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--text2); font-size: 0.9em; vertical-align: top; }
+  .comparison tr:last-child td { border-bottom: none; }
+  .comparison .label { color: var(--accent2); font-weight: 600; white-space: nowrap; }
+
+  .response { background: var(--card2); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+  .response h4 { color: var(--blue); margin-bottom: 10px; }
+  .response code { background: var(--code-bg); padding: 2px 8px; border-radius: 4px; font-size: 0.85em; color: var(--accent2); }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>MBT-ASPD 反社会型人格障碍治疗流程图</h1>
+<p class="subtitle">来源：Cambridge Guide to Mentalization-Based Treatment, Chapter 7 — 由 Bateman, Fonagy 等人著</p>
+
+<!-- ========== 图1: ASPD心理动力学路径 ========== -->
+<h2>图 1 — ASPD 暴力生成的心理动力学路径</h2>
+<div class="mermaid-card">
+  <h3>从威胁感知到暴力行为的心智化崩溃链</h3>
+  <pre class="mermaid">
+flowchart TB
+  START(["<b>威胁事件</b><br/>自尊威胁 / 身份威胁 / 羞耻激活"])
+
+  START --> THREAT{"<b>威胁类型判断</b>"}
+  THREAT -->|"地位/控制受挑战"| SELF_ESTEEM["<b>自尊威胁</b><br/>夸大自体被质疑<br/>「他们不尊重我」"]
+  THREAT -->|"角色被否定"| IDENTITY["<b>身份威胁</b><br/>父亲/丈夫角色被剥夺<br/>「我不是他们说的那种人」"]
+  THREAT -->|"被羞辱/轻视"| SHAME["<b>羞耻激活</b><br/>外部羞耻为主<br/>「他们在看我的笑话」"]
+
+  SELF_ESTEEM --> ATTACH["<b>依恋焦虑被激活</b><br/>心智化能力下降"]
+  IDENTITY --> ATTACH
+  SHAME --> ATTACH
+
+  ATTACH --> ALIEN["<b>异己自体被威胁</b><br/>小心构建的控制系统<br/>开始崩溃"]
+
+  ALIEN --> PMODE{"<b>前心智化模式主导</b>"}
+
+  PMODE -->|"确定性思维"| PSYCHIC["<b>精神等同模式</b><br/>- 体验=现实，不容置疑<br/>- 他们就是要害我<br/>- 这是唯一的解释"]
+  PMODE -->|"行动即沟通"| TELEO["<b>目的论模式</b><br/>- 只有行动才能让别人明白<br/>- 必须物理上解决问题<br/>- 言语无力，动手才有效"]
+  PMODE -->|"脱离现实"| PRETEND["<b>假装模式</b><br/>- 空洞的治疗参与<br/>- 「我只是来拿报告的」<br/>- 无真实情感投入"]
+
+  PSYCHIC --> VIOLENCE["<b>暴力行为</b><br/>控制/报复/「教做人」"]
+  TELEO --> VIOLENCE
+  PRETEND --> SUPERFICIAL["<b>表面顺从</b><br/>内在无改变"]
+
+  VIOLENCE --> REINFORCE["<b>系统强化</b><br/>暴力「有效」→ 异己自体再外化<br/>→ 认知信任进一步降低<br/>→ 新学习机会被阻断"]
+
+  REINFORCE -.-> START
+
+  style START fill:#1a1a3e,stroke:#e85d75,stroke-width:2px,color:#e0e0e0
+  style ATTACH fill:#2d1a3e,stroke:#a78bfa,stroke-width:1px,color:#e0e0e0
+  style ALIEN fill:#3e1a1a,stroke:#f87171,stroke-width:2px,color:#e0e0e0
+  style VIOLENCE fill:#3e1a1a,stroke:#e85d75,stroke-width:3px,color:#fff
+  style REINFORCE fill:#1a2a1a,stroke:#fb923c,stroke-width:1px,color:#aaa
+  style THREAT fill:#1a1a3e,stroke:#a78bfa,stroke-width:1px,color:#e0e0e0
+  style PMODE fill:#2d1a3e,stroke:#fca35b,stroke-width:2px,color:#e0e0e0
+  style PSYCHIC fill:#3e1a1a,stroke:#f87171,stroke-width:1px,color:#ddd
+  style TELEO fill:#3e1a1a,stroke:#f87171,stroke-width:1px,color:#ddd
+  style PRETEND fill:#2a2a1a,stroke:#fb923c,stroke-width:1px,color:#ddd
+  style SUPERFICIAL fill:#2a2a1a,stroke:#fb923c,stroke-width:1px,color:#aaa
+  style SELF_ESTEEM fill:#1a1a2e,stroke:#60a5fa,color:#ddd
+  style IDENTITY fill:#1a1a2e,stroke:#60a5fa,color:#ddd
+  style SHAME fill:#1a1a2e,stroke:#60a5fa,color:#ddd
+  </pre>
+</div>
+
+<!-- ========== 图2: MBT-ASPD 治疗全程 ========== -->
+<h2>图 2 — MBT-ASPD 治疗三阶段：从假装参与到真正改变</h2>
+<div class="mermaid-card">
+  <h3>核心命题：把"假装治疗"变成真正的个体参与</h3>
+  <pre class="mermaid">
+flowchart LR
+  subgraph PHASE1["<b>🔴 阶段一：参与与评估</b><br/>Engagement and Assessment"]
+    A1["<b>接受患者的实际目标</b>"] --> A2["<b>不试图强加治疗目标</b>"]
+    A2 --> A3["<b>保持普通人的态度</b><br/>+ 不知道立场"]
+    A3 --> A4["<b>共情验证异化感</b><br/>被误解的痛苦"]
+    A4 --> A5["<b>合作制定焦点</b><br/>不称「治疗」，称「帮助」"]
+    A5 --> A6["<b>纳入经验专家</b><br/>已完成治疗的同辈"]
+    A6 --> A7["<b>价值观讨论</b><br/>· 这对你个人重要吗？<br/>· 没人知道时还重要吗？<br/>· 当下生活中不发挥作用也重要？"]
+    A7 --> A8["<b>撰写共同总结</b><br/>透明化→降低不信任"]
+  end
+
+  subgraph PHASE2["<b>🟡 阶段二：团体治疗核心</b><br/>MBT-ASPD Group Work"]
+    B1["<b>团体约定价值观</b><br/>开放·宽容·尊重<br/>写在白板上可见"] --> B2["<b>I-Mode工作</b><br/>从「我现在是谁」出发<br/>过去→现在→将来"]
+    B2 --> B3["<b>Me-Mode互动</b><br/>他人对我的体验<br/>改变自我叙事"]
+    B3 --> B4["<b>情绪模块</b><br/>· 羞耻识别与管理<br/>· 攻击性的心理化<br/>· 面部/声音线索识别"]
+    B4 --> B5["<b>自我能动性</b><br/>过去我-现在我-未来我<br/>连续性建构"]
+    B5 --> B6["<b>识别他人情绪状态</b><br/>区分外表与内在<br/>认知信任重建"]
+  end
+
+  subgraph PHASE3["<b>🟢 阶段三：泛化与We-Mode</b><br/>Generalization"]
+    C1["<b>We-Mode巩固</b><br/>不同视角的重叠理解"] --> C2["<b>社会网络整合</b><br/>亲社会关系替代暴力关系"]
+    C2 --> C3["<b>认知信任建立</b><br/>新信息变得<br/>· 相关(relevant)<br/>· 可泛化(generalizable)<br/>· 可记忆(memorable)"]
+    C3 --> C4["<b>身份转变</b><br/>「与过去断裂」<br/>亲社会身份强化"]
+    C4 --> C5["<b>中止暴力</b><br/>Desistance = 认知转变<br/>非单纯的屈从"]
+  end
+
+  PHASE1 --> PHASE2 --> PHASE3
+
+  style PHASE1 fill:#1a1a2e,stroke:#f87171,stroke-width:2px,color:#e0e0e0
+  style PHASE2 fill:#1a1a2e,stroke:#fca35b,stroke-width:2px,color:#e0e0e0
+  style PHASE3 fill:#1a1a2e,stroke:#34d399,stroke-width:2px,color:#e0e0e0
+  style A1 fill:#2d1a1a,stroke:#f87171,color:#ddd
+  style A2 fill:#2d1a1a,stroke:#f87171,color:#ddd
+  style A3 fill:#2d1a1a,stroke:#f87171,color:#ddd
+  style A4 fill:#2d1a1a,stroke:#f87171,color:#ddd
+  style A5 fill:#2d1a1a,stroke:#f87171,color:#ddd
+  style A6 fill:#2d1a1a,stroke:#f87171,color:#ddd
+  style A7 fill:#2d1a1a,stroke:#f87171,color:#ddd
+  style A8 fill:#2d1a1a,stroke:#f87171,color:#ddd
+  style B1 fill:#2d1a2d,stroke:#fca35b,color:#ddd
+  style B2 fill:#2d1a2d,stroke:#fca35b,color:#ddd
+  style B3 fill:#2d1a2d,stroke:#fca35b,color:#ddd
+  style B4 fill:#2d1a2d,stroke:#fca35b,color:#ddd
+  style B5 fill:#2d1a2d,stroke:#fca35b,color:#ddd
+  style B6 fill:#2d1a2d,stroke:#fca35b,color:#ddd
+  style C1 fill:#2a2d1a,stroke:#34d399,color:#ddd
+  style C2 fill:#2a2d1a,stroke:#34d399,color:#ddd
+  style C3 fill:#2a2d1a,stroke:#34d399,color:#ddd
+  style C4 fill:#2a2d1a,stroke:#34d399,color:#ddd
+  style C5 fill:#2a2d1a,stroke:#34d399,color:#ddd
+  </pre>
+</div>
+
+<!-- ========== 图3: 暴力叙事处理决策树 ========== -->
+<h2>图 3 — 暴力叙事处理决策树（六步法）</h2>
+<div class="mermaid-card">
+  <h3>当患者在团体中讲述暴力事件时——临床师的应对流程</h3>
+  <pre class="mermaid">
+flowchart TD
+  START(["患者讲述暴力事件"])
+
+  STEP1["<b>Step 1: 倾听和允许认同</b><br/>完整听完故事<br/>允许其他患者自然认同<br/>不要急于评判或干预"]
+
+  STEP2["<b>Step 2: 倒回和情感探索</b><br/>停下，倒回去<br/>问：当时你内心发生了什么？<br/>现在说出来时又是什么感觉？<br/>紧迫感和威胁感还在吗？"]
+
+  STEP3["<b>Step 3: 多方情感识别</b><br/>问团体：叙述者在经历什么情感？<br/>你怎么得出这个结论的？<br/>是基于外表证据还是自身投射？"]
+
+  STEP4["<b>Step 4: 泛化潜在主题</b><br/>通常暴露的是：<br/>· 潜在羞辱感<br/>· 关系威胁<br/>· 控制权丧失"]
+
+  CHALLENGE["<b>Step 5: 挑战目的论唯一性</b><br/>问：行动是当时唯一的选项吗？<br/>有没有非目的论的替代方案？<br/>如果不动手，还有什么可能？"]
+
+  CLOSE["<b>Step 6: 闭环反思</b><br/>听完故事后，每个人<br/>对自己有了什么新的认识？<br/>这如何改变了你的自我叙事？"]
+
+  START --> STEP1
+  STEP1 --> STEP2
+  STEP2 --> STEP3
+  STEP3 --> STEP4
+  STEP4 --> CHALLENGE
+  CHALLENGE --> CLOSE
+
+  CHALLENGE -.->|"如果患者抗拒"| DEFIANCE["<b>处理阻抗策略</b><br/>· 不触发对抗动力<br/>· 验证后带「转折」<br/>· 情感焦点介入<br/>· 「这种互动是不是在别处也发生？」"]
+  DEFIANCE -.-> CLOSE
+
+  style START fill:#2d1a1a,stroke:#e85d75,stroke-width:2px,color:#fff
+  style STEP1 fill:#1a2d1a,stroke:#34d399,color:#ddd
+  style STEP2 fill:#1a2d2d,stroke:#60a5fa,color:#ddd
+  style STEP3 fill:#1a2d2d,stroke:#60a5fa,color:#ddd
+  style STEP4 fill:#2d2d1a,stroke:#fca35b,color:#ddd
+  style CHALLENGE fill:#2d1a2d,stroke:#a78bfa,stroke-width:2px,color:#ddd
+  style CLOSE fill:#1a2d1a,stroke:#34d399,stroke-width:2px,color:#fff
+  style DEFIANCE fill:#3e1a1a,stroke:#f87171,color:#ddd
+  </pre>
+</div>
+
+<!-- ========== 图4: 四类困境伪代码 ========== -->
+<h2>图 4 — MBT-ASPD 四大临床困境处理伪代码</h2>
+
+<h3>🔴 困境 A：暴力叙事 — 团体合谋正当化</h3>
+<div class="pseudocode">
+<pre>
+<span class="cm">// 场景：患者讲暴力事件，其他患者立刻认同"做得对"</span>
+<span class="cm">// 关键风险：团体形成反社会合谋，强化暴力合理性</span>
+
+<span class="fn">HANDLE_VIOLENCE_NARRATIVE</span>(<span class="var">patient</span>, <span class="var">group</span>):
+    <span class="cm">// 1. 共情但保持中立</span>
+    <span class="var">empathetically_validate</span>(<span class="str">"没有人喜欢被无视/不尊重"</span>)
+    <span class="kw">assert</span> <span class="op">not</span> <span class="var">judge_the_action</span>()  <span class="cm">// 绝不评价行为本身</span>
+
+    <span class="cm">// 2. 管理心智化过程</span>
+    <span class="var">rewind_and_explore</span>(<span class="var">patient</span>):
+        <span class="kw">ask</span> <span class="str">"当时你内心感受到什么？"</span>
+        <span class="kw">ask</span> <span class="str">"现在说起这件事，感觉和当时一样吗？"</span>
+        <span class="kw">push</span> <span class="str">"能否重新评估发生了什么？"</span>
+
+    <span class="cm">// 3. 让其他患者识别叙述者的情感</span>
+    <span class="kw">for</span> <span class="var">member</span> <span class="kw">in</span> <span class="var">group</span>:
+        <span class="kw">ask</span> <span class="str">"他在经历什么情绪？"</span>
+        <span class="kw">ask</span> <span class="str">"你怎么得出这个结论？证据是什么？"</span>
+
+    <span class="cm">// 4. 质疑行动的唯一性（目的论挑战）</span>
+    <span class="kw">ask</span> <span class="str">"捅人是否是当时唯一的解决方案？"</span>
+    <span class="kw">suggest</span> <span class="str">"写信给住房经理，抄送医疗官"</span>
+    <span class="kw">suggest</span> <span class="str">"打电话给帮派老大的哥哥，让他处理"</span>
+
+    <span class="cm">// 5. 底线框架</span>
+    <span class="kv">LISTEN → REWIND → EXPLORE_EMOTIONS → GENERALIZE → CHALLENGE_TELEOLOGICAL → CLOSE</span>
+</pre>
+</div>
+
+<div class="mermaid-card">
+  <h3>📊 困境 A 流程图：暴力叙事处理步骤</h3>
+  <pre class="mermaid">
+flowchart TD
+  START(["患者讲述暴力事件<br/>其他患者认同'做得对'"])
+  
+  STEP1["<b>Step 1: 共情但不评价行为</b><br/>验证：'没有人喜欢被无视'<br/>中立倾听，不触发对抗"]
+  
+  STEP2["<b>Step 2: 倒回探索情感</b><br/>'当时你内心感受到什么？'<br/>'现在说出来感觉一样吗？'<br/>'能否重新评估？'"]
+  
+  STEP3["<b>Step 3: 团体情感识别</b><br/>让其他成员猜叙述者情绪<br/>'你怎么得出这个结论？'<br/>证据来自外表还是投射？"]
+  
+  STEP4["<b>Step 4: 挑战目的论唯一性</b><br/>'捅人是否是唯一方案？'<br/>建议替代：<br/>· 写信给住房经理<br/>· 联系帮派老大的哥哥"]
+  
+  STEP5["<b>Step 5: 闭环泛化潜在主题</b><br/>暴露底层需求：<br/>· 潜在羞辱感<br/>· 关系威胁<br/>· 控制权丧失"]
+  
+  START --> STEP1
+  STEP1 --> STEP2
+  STEP2 --> STEP3
+  STEP3 --> STEP4
+  STEP4 --> STEP5
+  
+  STEP4 -.->|"抗拒替代方案"| LOOP["<b>返回情感焦点</b><br/>'你现在感受到什么？'<br/>'这种急迫感来自哪里？'"]
+  LOOP -.-> STEP3
+
+  style START fill:#3e1a1a,stroke:#e85d75,stroke-width:2px,color:#fff
+  style STEP1 fill:#1a2d1a,stroke:#34d399,color:#ddd
+  style STEP2 fill:#1a2d2d,stroke:#60a5fa,color:#ddd
+  style STEP3 fill:#2d2d1a,stroke:#fca35b,color:#ddd
+  style STEP4 fill:#2d1a2d,stroke:#a78bfa,stroke-width:2px,color:#fff
+  style STEP5 fill:#1a2d1a,stroke:#34d399,stroke-width:2px,color:#fff
+  style LOOP fill:#3e1a1a,stroke:#f87171,color:#ddd
+  </pre>
+</div>
+
+<h3>🟡 困境 B：阻抗 — 逆反与对抗</h3>
+<div class="pseudocode">
+<pre>
+<span class="cm">// 场景：患者抗拒任何改变建议，越劝越硬</span>
+<span class="cm">// 核心命题：改变 = 屈服 = 丢脸 = 羞耻 → 必须避免</span>
+
+<span class="fn">HANDLE_DEFIANCE</span>(<span class="var">patient</span>, <span class="var">clinician</span>):
+    <span class="cm">// 1. 绝不触发对抗动力</span>
+    <span class="var">inhibit_counter_responsiveness</span>()       <span class="cm">// 抑制自己想反驳的冲动</span>
+    <span class="var">use_not_knowing_stance</span>()               <span class="cm">// 保持不知道立场</span>
+
+    <span class="cm">// 2. 验证患者观点……但带一个转折</span>
+    <span class="var">validate</span>(<span class="str">"工作确实是件麻烦事，我同意"</span>)
+    <span class="kw">twist</span>: <span class="kw">ask</span> <span class="str">"但它经常是我们自我感觉良好的来源，对吗？"</span>
+
+    <span class="cm">// 3. 情感焦点介入</span>
+    <span class="kw">when</span> <span class="var">stalemate_detected</span>():
+        <span class="kw">say</span> <span class="str">"我们好像陷入了什么——</span>
+        <span class="str">     我问得越多，你越反对。"</span>
+        <span class="kw">ask</span> <span class="str">"你感觉到了吗？"</span>
+        <span class="kw">ask</span> <span class="str">"这种互动模式是不是在其他地方也重复出现？"</span>
+
+    <span class="cm">// 4. 承认为自己的角色</span>
+    <span class="kw">say</span> <span class="str">"也许我采取了一个不恰当的立场。"</span>
+    <span class="kw">say</span> <span class="str">"让我们后退一步看看这事。"</span>
+</pre>
+</div>
+
+<div class="mermaid-card">
+  <h3>📊 困境 B 流程图：阻抗识别与转化路径</h3>
+  <pre class="mermaid">
+flowchart TD
+  START(["患者抗拒改变建议<br/>越劝越硬"])
+  
+  DETECT["<b>识别阻抗动力学</b><br/>改变 = 屈服 = 丢脸 = 羞耻<br/>→ 患者必须抵抗"]
+  
+  STRATEGY1["<b>策略 A: 抑制反移情</b><br/>不触发对抗动力<br/>保持'不知道立场'<br/>抑制自己想反驳的冲动"]
+  
+  STRATEGY2["<b>策略 B: 验证 + 转折</b><br/>'工作是件麻烦事，我同意'<br/>➕<br/>'但它经常是自我感觉良好的来源'"]
+  
+  CHECK{"转折是否<br/>被接受？"}
+  
+  STRATEGY3["<b>策略 C: 情感焦点介入</b><br/>'我们好像陷入了什么——<br/>我问得越多，你越反对'<br/>'这种互动模式在别处也出现吗？'"]
+  
+  STRATEGY4["<b>策略 D: 承担自己的角色</b><br/>'也许我采取了不恰当的立场'<br/>'让我们后退一步'"]
+  
+  RESOLVE["<b>阻抗缓解</b><br/>患者重新参与<br/>治疗关系修复"]
+  
+  START --> DETECT
+  DETECT --> STRATEGY1
+  STRATEGY1 --> STRATEGY2
+  STRATEGY2 --> CHECK
+  CHECK -->|"是 ✅"| RESOLVE
+  CHECK -->|"否 ❌"| STRATEGY3
+  STRATEGY3 --> STRATEGY4
+  STRATEGY4 --> RESOLVE
+  
+  STRATEGY4 -.->|"仍僵持"| LOOP["<b>循环：回到验证+转折</b><br/>换一个切入点<br/>从另一个实用目标入手"]
+  LOOP -.-> STRATEGY2
+
+  style START fill:#3e1a1a,stroke:#e85d75,stroke-width:2px,color:#fff
+  style DETECT fill:#2d1a2d,stroke:#a78bfa,color:#ddd
+  style STRATEGY1 fill:#1a2d2d,stroke:#60a5fa,color:#ddd
+  style STRATEGY2 fill:#1a2d1a,stroke:#34d399,color:#ddd
+  style CHECK fill:#2d2d1a,stroke:#fca35b,stroke-width:2px,color:#fff
+  style STRATEGY3 fill:#2d1a2d,stroke:#a78bfa,color:#fff
+  style STRATEGY4 fill:#1a2d2d,stroke:#60a5fa,color:#ddd
+  style RESOLVE fill:#1a2d1a,stroke:#34d399,stroke-width:2px,color:#fff
+  style LOOP fill:#3e1a1a,stroke:#f87171,color:#ddd
+  </pre>
+</div>
+
+<h3>🟠 困境 C：患者间威胁升级 — 团体内部攻击</h3>
+<div class="pseudocode">
+<pre>
+<span class="cm">// 场景：两个患者剑拔弩张，"你过来把这句话再说一遍"</span>
+<span class="cm">// 核心：言语攻击到身体攻击的间隔极短，必须即刻介入</span>
+
+<span class="fn">DE_ESCALATE</span>(<span class="var">patient_A</span>, <span class="var">patient_B</span>, <span class="var">group</span>):
+    <span class="cm">// 1. 身体层面立即介入</span>
+    <span class="var">maintain_calm_voice_and_body</span>()         <span class="cm">// 保持平稳语速和姿态</span>
+    <span class="var">neutral_facial_expression</span>()             <span class="cm">// 中性表情</span>
+    <span class="kw">assert</span> <span class="var">NO_STARING</span>()                        <span class="cm">// 绝不盯着看</span>
+    <span class="kw">assert</span> <span class="var">NO_LEANING_FORWARD</span>()                <span class="cm">// 不身体前倾</span>
+    <span class="kw">assert</span> <span class="var">NO_PHYSICAL_CONTACT</span>()                <span class="cm">// 绝不触碰！触碰=攻击信号</span>
+    <span class="var">maintain_distance</span>()                     <span class="cm">// 保持安全距离</span>
+
+    <span class="cm">// 2. 言语降级</span>
+    <span class="var">keep_talking</span>()                           <span class="cm">// 不停说话，保持连接</span>
+    <span class="kw">suggest</span> <span class="str">"我们回到刚才还有心智化的那个话题"</span>
+    <span class="kw">if</span> <span class="var">necessary</span>: <span class="var">broken_record_technique</span>() <span class="cm">// 重复要求倒回重来</span>
+
+    <span class="cm">// 3. 在此时刻拿回权威（非威权化）</span>
+    <span class="kw">say</span> <span class="str">"谢谢。我们在这里不是为了互相辱骂。"</span>
+    <span class="kw">say</span> <span class="str">"Steve，谢谢你刚才的道歉。"</span>
+    <span class="cm">// 关键词：感谢 × 认可 × 重新导向</span>
+</pre>
+</div>
+
+<div class="mermaid-card">
+  <h3>📊 困境 C 流程图：威胁升级的即时降级协议</h3>
+  <pre class="mermaid">
+flowchart TD
+  START(["⚡ 患者间剑拔弩张<br/>A:'你过来再说一遍'<br/>B:身体前倾"])
+  
+  DETECT["<b>即刻识别危险信号</b><br/>言语攻击 → 身体攻击<br/>间隔极短（秒级）"]
+  
+  BODY["<b>第一阶段：身体层面降级</b><br/>1. 平稳语速和身体姿态<br/>2. 中性面部表情<br/>3. 不盯着看 👁️<br/>4. 不身体前倾 🚫<br/>5. 绝不触碰！⚠️<br/>6. 保持安全距离"]
+  
+  VERBAL["<b>第二阶段：言语连接</b><br/>不停说话，保持连接<br/>'让我们回到刚才有心智化的那个话题'<br/>重复要求倒回（破唱片技术）"]
+  
+  AUTH["<b>第三阶段：拿回权威</b><br/>非威权化的权威<br/>'谢谢。我们在这不是为了互相辱骂'<br/>'Steve，谢谢你的道歉'<br/>感谢 + 认可 + 重新导向"]
+  
+  CHECK{"攻击是否<br/>已降级？"}
+  
+  RESTORE["<b>恢复团体安全环境</b><br/>· 回到原先的讨论话题<br/>· 让其他成员表达感受<br/>· 确认每个人都安全"]
+  
+  ESCALATE["<b>⚠️ 若无法降级</b><br/>暂停团体<br/>分开双方<br/>个体后续处理"]
+  
+  START --> DETECT
+  DETECT --> BODY
+  BODY --> VERBAL
+  VERBAL --> AUTH
+  AUTH --> CHECK
+  CHECK -->|"是 ✅"| RESTORE
+  CHECK -->|"否 ❌"| ESCALATE
+  ESCALATE -.->|"下次团体"| REFLECT["<b>事件心智化重建</b><br/>'当时你内心发生了什么？'<br/>'对方可能在想什么？'"]
+  REFLECT -.-> RESTORE
+
+  style START fill:#3e1a1a,stroke:#e85d75,stroke-width:3px,color:#fff
+  style DETECT fill:#3e1a1a,stroke:#f87171,stroke-width:2px,color:#fff
+  style BODY fill:#1a2d2d,stroke:#60a5fa,color:#ddd
+  style VERBAL fill:#1a2d1a,stroke:#34d399,color:#ddd
+  style AUTH fill:#2d2d1a,stroke:#fca35b,stroke-width:2px,color:#fff
+  style CHECK fill:#2d1a2d,stroke:#a78bfa,stroke-width:2px,color:#fff
+  style RESTORE fill:#1a2d1a,stroke:#34d399,stroke-width:2px,color:#fff
+  style ESCALATE fill:#3e1a1a,stroke:#e85d75,stroke-width:2px,color:#fff
+  style REFLECT fill:#2d2d1a,stroke:#fca35b,color:#ddd
+  </pre>
+</div>
+
+<h3>🟢 困境 D：假装模式 — 空洞的团体参与</h3>
+<div class="pseudocode">
+<pre>
+<span class="cm">// 场景：团体陷入"闲聊模式"，表面和谐但不触及真实</span>
+<span class="cm">// 危险：假装模式带来虚假的团体感，但未经处理会破坏治疗</span>
+
+<span class="fn">ADDRESS_PRETEND_MODE</span>(<span class="var">group</span>):
+    <span class="cm">// 1. 识别假装模式</span>
+    <span class="var">signs_of_pretend</span> = [
+        <span class="str">"所有人突然同意一切"</span>,
+        <span class="str">"像在喝酒聊天，互相附和"</span>,
+        <span class="str">"对权威机关的集体抱怨（无反思）"</span>,
+        <span class="str">"没有人质疑任何人"</span>
+    ]
+
+    <span class="cm">// 2. 直接指出</span>
+    <span class="kw">when</span> <span class="var">pretend_mode_detected</span>():
+        <span class="kw">say</span> <span class="str">"我注意到我们现在所有人都很一致。"</span>
+        <span class="kw">ask</span> <span class="str">"这是真的吗，还是我们在避免什么？"</span>
+        <span class="kw">ask</span> <span class="str">"有没有人有不同的看法没说出来？"</span>
+
+    <span class="cm">// 3. 带回心智化</span>
+    <span class="kw">suggest</span> <span class="str">"让我们回到刚才谁说的那句话——</span>
+        <span class="str">     你当时发生了什么，让你那样说？"</span>
+</pre>
+</div>
+
+<div class="mermaid-card">
+  <h3>📊 困境 D 流程图：假装模式识别与破解</h3>
+  <pre class="mermaid">
+flowchart TD
+  START(["团体陷入'闲聊模式'<br/>所有人突然同意一切"])
+  
+  SIGNS["<b>🔍 识别假装模式信号</b><br/>1. 所有人突然互相附和<br/>2. 像在酒吧喝酒聊天<br/>3. 集体抱怨权威（无反思）<br/>4. 没有人质疑任何人"]
+  
+  CONFIRM{"确认：<br/>是否所有信号<br/>同时出现？"}
+  
+  INTERRUPT["<b>🛑 直接打断</b><br/>'我注意到我们所有人都很一致'<br/>'这是真的吗？'<br/>'还是在避免什么？'"]
+  
+  EXPLORE["<b>探索隐藏的不同意见</b><br/>'有没有人有不同看法没说出来？'<br/>'刚才谁说那句话的时候，<br/>其他人内心在经历什么？'"]
+  
+  CHECK{"是否有不同<br/>声音出现？"}
+  
+  REWIND["<b>倒回到关键节点</b><br/>'让我们回到刚才XX说的那句话——<br/>你当时发生了什么，让你那样说？'<br/>从具体互动重建心智化"]
+  
+  RESTORE["<b>心智化恢复</b><br/>真实互动重新开始<br/>假装模式已被命名和处理"]
+  
+  WAIT["<b>等待合适的切入时机</b><br/>不要立即抓住每个信号<br/>选择合适的时机再介入<br/>过度干预='唠叨'"]
+  
+  START --> SIGNS
+  SIGNS --> CONFIRM
+  CONFIRM -->|"是 ✅"| INTERRUPT
+  CONFIRM -->|"信号尚不明确"| WAIT
+  WAIT -.-> SIGNS
+  INTERRUPT --> EXPLORE
+  EXPLORE --> CHECK
+  CHECK -->|"是 ✅"| RESTORE
+  CHECK -->|"否 ❌ 仍无分歧"| DEEPER["<b>深层挑战</b><br/>'我们是否在用混乱掩盖真实议题？'<br/>'团体里一定有没人说的东西'<br/>沉默=给想法浮现的空间"]
+  DEEPER -.-> EXPLORE
+  DEEPER -.->|"有人开口"| RESTORE
+
+  style START fill:#1a2d1a,stroke:#34d399,stroke-width:2px,color:#fff
+  style SIGNS fill:#2d2d1a,stroke:#fca35b,color:#ddd
+  style CONFIRM fill:#2d1a2d,stroke:#a78bfa,stroke-width:2px,color:#fff
+  style INTERRUPT fill:#1a2d2d,stroke:#60a5fa,stroke-width:2px,color:#fff
+  style EXPLORE fill:#1a2d2d,stroke:#60a5fa,color:#ddd
+  style CHECK fill:#2d1a2d,stroke:#a78bfa,stroke-width:2px,color:#fff
+  style REWIND fill:#2d2d1a,stroke:#fca35b,color:#ddd
+  style RESTORE fill:#1a2d1a,stroke:#34d399,stroke-width:2px,color:#fff
+  style WAIT fill:#1a1a2e,stroke:#636e72,color:#888
+  style DEEPER fill:#3e1a1a,stroke:#f87171,stroke-width:2px,color:#fff
+  </pre>
+</div>
+
+<!-- ========== 关键要点卡片 ========== -->
+<h2>📋 关键要点总览</h2>
+
+<div class="cards-grid">
+
+<div class="info-card">
+  <h4>🎯 核心治疗目标（三要素）</h4>
+  <ol>
+    <li><span class="highlight">增强心智化</span> → 降低前心智化模式主导</li>
+    <li><span class="highlight">减少反社会行为</span> → 通过对他人的关注 + 认知信任改善社会连接</li>
+    <li><span class="highlight">亲社会代理人影响</span> → 个人叙事的持续转变</li>
+  </ol>
+  <p style="margin-top:8px; color:#a78bfa;">中止（Desistance）≠ 屈从（Defeat）<br/>中止 = 认知转变：从"世界是敌对的，无东西可学"→"世界是可学习的"</p>
+</div>
+
+<div class="info-card">
+  <h4>⚠️ ASPD 三大信任触发点</h4>
+  <ul>
+    <li><span class="highlight">自尊威胁</span> — 膨胀的自我价值被质疑 → 暴力</li>
+    <li><span class="highlight">身份威胁</span> — 角色（父亲/丈夫/头儿）被否定 → 崩溃</li>
+    <li><span class="highlight">羞耻激活</span> — 被他人以自己不同意的方式看待 → 愤怒报复</li>
+  </ul>
+  <p style="margin-top:8px; color:#fca35b;">共同机制：异己自体回归 → 精神等同 + 目的论 → 行动</p>
+</div>
+
+<div class="info-card">
+  <h4>🧠 ASPD 心智化剖面特征</h4>
+  <ul>
+    <li><span class="highlight">目的论主导</span> — "只有行动才能让别人明白"</li>
+    <li><span class="highlight">异己自体刚性外化</span> — 伴侣被描绘成愚蠢、依赖；系统被看作迫害者</li>
+    <li><span class="highlight">认知不信任极高</span> — 对好人/助人者尤为怀疑</li>
+    <li><span class="highlight">面部/声音线索识别弱</span> — 误读他人情绪（正负都弱）</li>
+    <li><span class="highlight">内疚缺失</span> — 内疚需"做错事"的认识和共情</li>
+    <li><span class="highlight">外部羞耻 >> 内部羞耻</span> — 更关心"他人怎么看"，而非"我怎么看自己"</li>
+  </ul>
+</div>
+
+<div class="info-card">
+  <h4>🏗️ 参与阶段关键原则</h4>
+  <ul>
+    <li>✅ <span class="highlight">接受患者的实际目标</span>，不试图建立你的目标</li>
+    <li>✅ <span class="highlight">不知道立场</span> + 普通人的态度（不作假设、不评判）</li>
+    <li>✅ <span class="highlight">共情验证异化和排斥感</span></li>
+    <li>✅ <span class="highlight">合作制定焦点</span>，不称之为"治疗"</li>
+    <li>✅ <span class="highlight">纳入经验专家</span>（已完成治疗的同辈）</li>
+    <li>✅ <span class="highlight">共同撰写访问总结</span>，完全透明</li>
+    <li>✅ <span class="highlight">价值观三问</span>：个人重要吗？没人知道还重要吗？当下不发挥还重要吗？</li>
+  </ul>
+</div>
+
+</div>
+
+<!-- ========== Do / Don't ========== -->
+<h2>⚡ 行动指南</h2>
+
+<div class="do-dont">
+  <div class="do-box">
+    <h4>✅ DO — 该做的</h4>
+    <ol>
+      <li>接受患者自己的实用目标作为起点</li>
+      <li>保持"不知道"的态度——不作预设、不评判</li>
+      <li>把"治疗"称为"帮助"直到患者真正参与</li>
+      <li>共同撰写透明化的访问总结，降低不信任</li>
+      <li>先支持夸大自体，再逐步挑战（建立联盟）</li>
+      <li>尽早识别假装模式并指出</li>
+      <li>暴力叙事 → 共情后倒回情感，不先评判行为</li>
+      <li>阻抗时使用情感焦点：反思互动本身的模式</li>
+      <li>威胁升级时即刻降级：平稳声音 + 中性表情 + 退回心智化</li>
+      <li>将暴力经验泛化为潜在耻辱/关系威胁的讨论</li>
+    </ol>
+  </div>
+  <div class="dont-box">
+    <h4>❌ DON'T — 绝不该做的</h4>
+    <ol>
+      <li>不要一开始就提出你的行为/心理目标</li>
+      <li>不要直接挑战患者的夸大自体（触发羞耻=暴力）</li>
+      <li>不要触发对抗动力——患者越被逼迫越顽固</li>
+      <li>不要在暴力叙事中直接评判行为</li>
+      <li>患者情绪高涨时不要身体前倾、盯着看、触碰</li>
+      <li>不要允许团体假装模式持续不处理</li>
+      <li>不要成为威权化（authoritarian）——权威可以，威权不行</li>
+      <li>不要让经验专家成为摆设——让其充分融入团队</li>
+      <li>不要期待患者会内疚——从羞耻入手</li>
+      <li>不要在沟通中隐瞒信息——透明是降低不信任的基础</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ========== 与NPD和常规MBT的对比 ========== -->
+<h2>📊 三障碍对比：BPD / NPD / ASPD</h2>
+<div class="comparison">
+  <table>
+    <thead>
+      <tr>
+        <th>维度</th>
+        <th>BPD</th>
+        <th>NPD</th>
+        <th>ASPD</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="label">核心问题</td>
+        <td>情感失调 + 身份弥散</td>
+        <td>夸大自体维护 + 共情缺陷</td>
+        <td>异己自体刚性外化 + 认知不信任</td>
+      </tr>
+      <tr>
+        <td class="label">求助动机</td>
+        <td>主动寻求治疗，减轻痛苦</td>
+        <td>关系危机或他人要求</td>
+        <td>实用目标（如报告/权益），非"治疗"</td>
+      </tr>
+      <tr>
+        <td class="label">主导前心智化模式</td>
+        <td>四维快速摆动</td>
+        <td>精神等同（脆弱型）/<br/>假装模式（夸大型）</td>
+        <td>目的论模式长期主导<br/>+ 精神等同（威胁时）</td>
+      </tr>
+      <tr>
+        <td class="label">情绪核心</td>
+        <td>被抛弃恐惧</td>
+        <td>羞耻（内部 vs 外部）</td>
+        <td>外部羞耻 >> 内部羞耻<br/>内疚缺失</td>
+      </tr>
+      <tr>
+        <td class="label">治疗关系</td>
+        <td>理想化→贬低摆荡</td>
+        <td>需要你镜映我</td>
+        <td>Boss/Servant 动态<br/>控制/被控制</td>
+      </tr>
+      <tr>
+        <td class="label">初始干预策略</td>
+        <td>共情验证 + 澄清</td>
+        <td>夸大型：低共情<br/>脆弱型：高共情</td>
+        <td>接受实用目标<br/>不称"治疗"<br/>透明化一切</td>
+      </tr>
+      <tr>
+        <td class="label">治疗轨迹</td>
+        <td>心智化→关系→整合</td>
+        <td>I-Mode → Me-Mode → We-Mode</td>
+        <td>假装治疗 → 真正参与<br/>→ 认知信任建立 → 身份转变</td>
+      </tr>
+      <tr>
+        <td class="label">团体角色</td>
+        <td>互相心智化</td>
+        <td>被其他患者挑战夸大</td>
+        <td>价值观白板 + 经验专家<br/>+ 假装模式警觉</td>
+      </tr>
+      <tr>
+        <td class="label">最大风险</td>
+        <td>自杀/自伤</td>
+        <td>治疗脱落（夸大型）/ 自伤（脆弱型）</td>
+        <td>团体合谋反社会 / 治疗内暴力</td>
+      </tr>
+      <tr>
+        <td class="label">终点指标</td>
+        <td>稳定心智化 + 功能恢复</td>
+        <td>接受局限性 + 关系修复</td>
+        <td>Desistance（认知转变）<br/>≠ 单纯的停止暴力</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ========== 总结 ========== -->
+<div class="response">
+  <h4>💡 MBT-ASPD 的核心哲学</h4>
+  <p>
+    反社会型人格障碍的 MBT 不同于 BPD 和 NPD 的治疗——它本质上是一场 <code>epistemic trust（认知信任）的修复工程</code>。
+  </p>
+  <p style="margin-top:10px;">
+    治疗的不是"暴力行为"，而是暴力行为背后的 <code>信任崩溃系统</code>：一个将世界体验为永久的敌人，将他人体验为永久的威胁，将自己体验为永久的受害者的封闭环路。
+  </p>
+  <p style="margin-top:10px;">
+    破局点不在于说服患者改变，而在于让他们——在足够安全的团体中——<code>亲身体验到"来自他人的信息也可以是相关的、可推广的、值得记住的"</code>。
+  </p>
+  <p style="margin-top:10px; color: var(--accent);">
+    <b>治疗目标：Desistance ≠ 屈从于社会压力。Desistance = "与过去断裂"，一种认知上的转变——世界从"无可学习"变成"可学习"。</b>
+  </p>
+</div>
+
+</div>
+
+<script>
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'dark',
+  themeVariables: {
+    primaryColor: '#1a1a2e',
+    primaryTextColor: '#e0e0e0',
+    primaryBorderColor: '#e85d75',
+    lineColor: '#636e72',
+    secondaryColor: '#2d2d4a',
+    tertiaryColor: '#3e1a1a',
+    fontSize: '13px',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif'
+  },
+  flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
+});
+</script>
+
+</body>
+</html>

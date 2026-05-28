@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBT 临床流程图 — Cambridge Guide</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --card-bg: #ffffff;
+    --text: #2d3436;
+    --text-secondary: #636e72;
+    --accent: #6c5ce7;
+    --border: #dfe6e9;
+    --tag-bg: #dfe6e9;
+    --phase-initial: #a29bfe;
+    --phase-treatment: #74b9ff;
+    --phase-final: #55efc4;
+    --red: #d63031;
+    --orange: #e17055;
+    --green: #00b894;
+    --shadow: 0 2px 12px rgba(0,0,0,.06);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 40px 20px;
+  }
+  .container { max-width: 960px; margin: 0 auto; }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .header h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #2d3436;
+    margin-bottom: 8px;
+  }
+  .header .subtitle {
+    color: var(--text-secondary);
+    font-size: 1rem;
+  }
+  .header .meta {
+    margin-top: 8px;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .header .meta .tag {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--text-secondary);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+  }
+
+  /* Section */
+  .section {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 32px 28px;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+  .section h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section h2 .icon {
+    font-size: 1.5rem;
+  }
+  .section .desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Mermaid wrapper */
+  .mermaid-wrapper {
+    overflow-x: auto;
+    padding: 16px 0;
+  }
+
+  /* Technique cards */
+  .technique-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .technique-card {
+    background: #f8f9fa;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    transition: box-shadow .2s, transform .2s;
+  }
+  .technique-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,.08);
+    transform: translateY(-2px);
+  }
+  .technique-card .tc-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .technique-card .tc-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .tc-icon.supportive { background: var(--accent); }
+  .tc-icon.clarify { background: #0984e3; }
+  .tc-icon.challenge { background: var(--orange); }
+  .tc-icon.relation { background: #e84393; }
+  .tc-icon.mentalize { background: var(--green); }
+
+  .technique-card h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+  .technique-card .when {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+  .technique-card .how {
+    font-size: 0.85rem;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .technique-card .trigger {
+    display: inline-block;
+    background: #fff3cd;
+    color: #856404;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-top: 8px;
+  }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 8px;
+    font-size: 0.85rem;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .legend-dot {
+    width: 12px; height: 12px;
+    border-radius: 3px;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .section { padding: 20px 16px; }
+    .header h1 { font-size: 1.5rem; }
+    .technique-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Header -->
+<div class="header">
+  <h1>MBT 临床流程图</h1>
+  <p class="subtitle">基于 <em>Cambridge Guide to Mentalization-Based Treatment</em> (Bateman, Fonagy et al.)</p>
+  <div class="meta">
+    <span class="tag">📘 第 4 章：分步指南</span>
+    <span class="tag">🔄 干预技术决策</span>
+    <span class="tag">📐 干预谱系</span>
+  </div>
+</div>
+
+<!-- ================================ -->
+<!-- 图 1: MBT 治疗全程阶段 -->
+<!-- ================================ -->
+<div class="section">
+  <h2><span class="icon">📋</span> 图 1：MBT 治疗全程三阶段</h2>
+  <p class="desc">MBT 典型疗程为 12–18 个月，分为初始阶段、核心治疗阶段和结束阶段。每个阶段有明确的临床任务和对应技术。</p>
+  <div class="mermaid-wrapper">
+    <div class="mermaid">
+graph TB
+    START(["🔍 转诊 / 初诊"]) --> ASSESS["📋 评估阶段<br/><small>诊断 + 心智化剖面</small>"]
+
+    ASSESS --> MBTI["🧠 MBT-导入团体<br/><small>心理教育 (Psychoeducation)</small>"]
+
+    MBTI --> PHASE1
+
+    subgraph PHASE1["🟣 阶段 1：初始阶段 (3–5 sessions)"]
+        direction TB
+        T1["🤝 建立治疗联盟<br/><small>理解依恋模式</small>"]
+        T2["📝 协作制定个案概念化<br/><small>Formulation</small>"]
+        T3["⚠️ 安全计划<br/><small>识别高风险行为触发点</small>"]
+        T4["🎯 识别心智化脆弱点<br/><small>何时/何情境下心智化崩溃</small>"]
+        T1 --> T2 --> T3 --> T4
+    end
+
+    PHASE1 --> GATE
+
+    GATE{"✅ 治疗联盟<br/>已建立?"} -->|是| PHASE2
+
+    subgraph PHASE2["🔵 阶段 2：核心治疗阶段 (12–16 个月)"]
+        direction TB
+        M1["🛡️ 稳定高风险行为"]
+        M2["💚 共情验证<br/><small>Empathic Validation</small>"]
+        M3["🔍 澄清与细化<br/><small>Clarification & Elaboration</small>"]
+        M4["👥 人际聚焦<br/><small>关系心智化</small>"]
+        M5["💬 创伤叙事工作<br/><small>MBT-TF</small>"]
+        M1 --> M2 --> M3 --> M4 --> M5
+    end
+
+    PHASE2 --> PHASE3
+
+    subgraph PHASE3["🟢 阶段 3：结束阶段 (3–5 sessions)"]
+        direction TB
+        E1["📝 回顾治疗过程"]
+        E2["💔 处理结束体验<br/><small>BPD 遗弃恐惧</small>"]
+        E3["🌐 泛化心智化能力<br/><small>到日常生活</small>"]
+        E4["🛠️ 自我关怀技能<br/><small>Self-care</small>"]
+        E1 --> E2 --> E3 --> E4
+    end
+
+    PHASE3 --> DONE(["🎉 治疗结束<br/><small>可选: 跟进/ booster</small>"])
+
+    style PHASE1 fill:#f3f0ff,stroke:#a29bfe,stroke-width:2px,color:#2d3436
+    style PHASE2 fill:#e8f4fd,stroke:#74b9ff,stroke-width:2px,color:#2d3436
+    style PHASE3 fill:#e6faf3,stroke:#55efc4,stroke-width:2px,color:#2d3436
+    style START fill:#dfe6e9,stroke:#b2bec3
+    style DONE fill:#dfe6e9,stroke:#b2bec3
+    style ASSESS fill:#ffeaa7,stroke:#fdcb6e
+    style MBTI fill:#ffeaa7,stroke:#fdcb6e
+    style GATE fill:#fab1a0,stroke:#e17055
+    style T1 fill:#f3f0ff,stroke:#a29bfe
+    style T2 fill:#f3f0ff,stroke:#a29bfe
+    style T3 fill:#f3f0ff,stroke:#a29bfe
+    style T4 fill:#f3f0ff,stroke:#a29bfe
+    style M1 fill:#e8f4fd,stroke:#74b9ff
+    style M2 fill:#e8f4fd,stroke:#74b9ff
+    style M3 fill:#e8f4fd,stroke:#74b9ff
+    style M4 fill:#e8f4fd,stroke:#74b9ff
+    style M5 fill:#e8f4fd,stroke:#74b9ff
+    style E1 fill:#e6faf3,stroke:#55efc4
+    style E2 fill:#e6faf3,stroke:#55efc4
+    style E3 fill:#e6faf3,stroke:#55efc4
+    style E4 fill:#e6faf3,stroke:#55efc4
+    </div>
+  </div>
+
+  <div class="legend" style="margin-top:16px;">
+    <div class="legend-item"><div class="legend-dot" style="background:#a29bfe"></div> 初始阶段</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#74b9ff"></div> 核心治疗</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#55efc4"></div> 结束阶段</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ffeaa7"></div> 前置/准备</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#fab1a0"></div> 决策点</div>
+  </div>
+</div>
+
+<!-- ================================ -->
+<!-- 图 2: 单次会话内的技术决策树 -->
+<!-- ================================ -->
+<div class="section">
+  <h2><span class="icon">🌳</span> 图 2：MBT 单次会话内技术决策树</h2>
+  <p class="desc">这是 MBT 最核心的临床操作逻辑：根据患者当前的心智化状态，选择对应的干预层级。核心原则：<strong>先心智化过程，后内容</strong>。</p>
+  <div class="mermaid-wrapper">
+    <div class="mermaid">
+flowchart TD
+    SESSION(["💬 会话开始"]) --> LISTEN["👂 倾听<br/><small>同时监测心智化过程（非内容）</small>"]
+
+    LISTEN --> ASSESS_M{"🧠 患者当前<br/>心智化状态？"}
+
+    ASSESS_M -->|"❌ 低心智化<br/>Low Mentalizing"| LOW["⚠️ 心智化崩溃"]
+
+    ASSESS_M -->|"⚠️ 脆弱心智化<br/>Vulnerable"| VULN["🫧 边缘状态"]
+
+    ASSESS_M -->|"✅ 稳定心智化<br/>Stable"| STABLE["✨ 良好心智化"]
+
+    %% LOW PATH
+    subgraph LOW_BRANCH["🔴 低心智化路径"]
+        direction TB
+        LOW --> S1["1️⃣ 共情验证<br/><small>Empathic Validation<br/>「听到你这样说，我能感受到...」</small>"]
+        S1 --> CHECK1{"心智化<br/>恢复了？"}
+        CHECK1 -->|否| S2["2️⃣ 「停下，倒回去」<br/><small>Stop & Rewind<br/>回到崩溃前一刻</small>"]
+        S2 --> S3["3️⃣ 「停下，探索」<br/><small>Stop & Explore<br/>微切片(micro-slice)此刻体验</small>"]
+        S3 --> CHECK1
+        CHECK1 -->|是| VULN
+    end
+
+    %% VULN PATH
+    subgraph VULN_BRANCH["🟡 脆弱心智化路径"]
+        direction TB
+        VULN --> V1["1️⃣ 逆向介入<br/><small>Contrary Move<br/>引入被忽略的情感视角</small>"]
+        V1 --> V2["2️⃣ 情感识别与区分<br/><small>Affect Identification<br/>命名→放大→区分</small>"]
+        V2 --> V3["3️⃣ 基本心智化<br/><small>Basic Mentalizing<br/>「你当时心里是怎么想的？」</small>"]
+        V3 --> STABLE
+    end
+
+    %% STABLE PATH
+    subgraph STABLE_BRANCH["🟢 稳定心智化路径"]
+        direction TB
+        STABLE --> T1["1️⃣ 澄清与细化<br/><small>Clarification<br/>「你能再说说那是什么感觉？」</small>"]
+        T1 --> T2["2️⃣ 心智化关系/移情<br/><small>Mentalizing the Relationship<br/>「你觉得我现在怎么想你？」</small>"]
+        T2 --> T3["3️⃣ 正面心智化确认<br/><small>Positive Mentalizing<br/>「你刚才很好地理解了他的感受」</small>"]
+    end
+
+    LOW_BRANCH --> END_CHECK
+    VULN_BRANCH --> END_CHECK
+    STABLE_BRANCH --> END_CHECK
+
+    END_CHECK{"仍需继续？"} -->|是| ASSESS_M
+    END_CHECK -->|否| END_SESSION(["🏁 会话结束<br/><small>简要总结 + 预告下次</small>"])
+
+    style LOW_BRANCH fill:#fff0f0,stroke:#ff6b6b,stroke-width:2px
+    style VULN_BRANCH fill:#fff8e1,stroke:#ffa726,stroke-width:2px
+    style STABLE_BRANCH fill:#e8f5e9,stroke:#66bb6a,stroke-width:2px
+    style ASSESS_M fill:#fab1a0,stroke:#e17055
+    style CHECK1 fill:#fab1a0,stroke:#e17055
+    style END_CHECK fill:#fab1a0,stroke:#e17055
+    </div>
+  </div>
+</div>
+
+<!-- ================================ -->
+<!-- 图 3: MBT 干预谱系 -->
+<!-- ================================ -->
+<div class="section">
+  <h2><span class="icon">📐</span> 图 3：MBT 干预谱系（Intervention Spectrum）</h2>
+  <p class="desc">MBT 干预从「最支持性」到「最具挑战性」排列成一个谱系。治疗师根据患者的心智化能力、依恋状态和当前情绪唤起水平，在此谱系上灵活移动。箭头方向表示<strong>唤起水平降低 → 干预可以升级</strong>。</p>
+  <div class="mermaid-wrapper">
+    <div class="mermaid">
+graph LR
+    subgraph SPECTRUM["MBT 干预谱系：从支持到挑战"]
+        direction LR
+        A["1<br/>共情验证<br/><small>Empathic<br/>Validation</small>"]
+        B["2<br/>支持性干预<br/><small>Support &<br/>Empathy</small>"]
+        C["3<br/>澄清<br/><small>Clarification<br/>& Elaboration</small>"]
+        D["4<br/>基本心智化<br/><small>Basic<br/>Mentalizing</small>"]
+        E["5<br/>心智化情感<br/><small>Mentalized<br/>Affectivity</small>"]
+        F["6<br/>心智化关系<br/><small>Mentalizing<br/>the Relationship</small>"]
+        A --> B --> C --> D --> E --> F
+    end
+
+    SPECTRUM --> DECISION
+
+    subgraph DECISION["决策因素"]
+        direction TB
+        TD1["📊 唤起水平<br/><small>高唤起 → 左移<br/>低唤起 → 右移</small>"]
+        TD2["🧠 心智化能力<br/><small>低能力 → 左移<br/>高能力 → 右移</small>"]
+        TD3["🔗 依恋激活<br/><small>过度激活 → 左移<br/>安全 → 右移</small>"]
+        TD4["🎯 当前焦点<br/><small>过程 vs 内容</small>"]
+    end
+
+    style SPECTRUM fill:#f8f9fa,stroke:#636e72,stroke-width:2px
+    style DECISION fill:#fff8e1,stroke:#ffa726,stroke-width:2px
+    style A fill:#dfe6e9,stroke:#b2bec3
+    style B fill:#dfe6e9,stroke:#b2bec3
+    style C fill:#d5f5e3,stroke:#55efc4
+    style D fill:#d5f5e3,stroke:#55efc4
+    style E fill:#d6eaf8,stroke:#74b9ff
+    style F fill:#d6eaf8,stroke:#74b9ff
+    style TD1 fill:#fff3e0,stroke:#ffa726
+    style TD2 fill:#fff3e0,stroke:#ffa726
+    style TD3 fill:#fff3e0,stroke:#ffa726
+    style TD4 fill:#fff3e0,stroke:#ffa726
+    </div>
+  </div>
+</div>
+
+<!-- ================================ -->
+<!-- 技术卡片详解 -->
+<!-- ================================ -->
+<div class="section">
+  <h2><span class="icon">🛠️</span> 核心技术使用指南</h2>
+  <p class="desc">以下是从书中提炼的 7 个核心 MBT 技术，标注了每种技术的使用时机和操作方法。</p>
+  <div class="technique-grid">
+
+    <div class="technique-card">
+      <div class="tc-header">
+        <div class="tc-icon supportive">💚</div>
+        <h4>共情验证<br/><small>Empathic Validation</small></h4>
+      </div>
+      <div class="when"><strong>使用时机：</strong>所有会话的初始回应，尤其是患者情绪高涨时</div>
+      <div class="how">对患者心理状态做出<strong>标记化</strong>（marked）、<strong>有回应的</strong>（contingent）反馈。不是简单的「我理解你」，而是展示你确实感受到了他们的感受。</div>
+      <div class="trigger">🔑 高唤起 / 低心智化时必用</div>
+    </div>
+
+    <div class="technique-card">
+      <div class="tc-header">
+        <div class="tc-icon mentalize">⏪</div>
+        <h4>停下，倒回去<br/><small>Stop & Rewind</small></h4>
+      </div>
+      <div class="when"><strong>使用时机：</strong>心智化崩溃后，需要重建时</div>
+      <div class="how">暂停当前对话流，退回到心智化崩溃<strong>发生之前的那一刻</strong>。逐帧重放互动过程，帮助患者重新理解刚才发生了什么。</div>
+      <div class="trigger">🔑 低心智化持续 / 双方卡住</div>
+    </div>
+
+    <div class="technique-card">
+      <div class="tc-header">
+        <div class="tc-icon mentalize">🔍</div>
+        <h4>停下，探索<br/><small>Stop & Explore</small></h4>
+      </div>
+      <div class="when"><strong>使用时机：</strong>发现非心智化模式时</div>
+      <div class="how">在患者进入精神等同或假装模式前，<strong>主动停下来</strong>。微切片（micro-slice）当前体验：<em>「你说那句话的时候，心里突然冒出了什么感觉？」</em></div>
+      <div class="trigger">🔑 边缘心智化状态</div>
+    </div>
+
+    <div class="technique-card">
+      <div class="tc-header">
+        <div class="tc-icon challenge">🔄</div>
+        <h4>逆向介入<br/><small>Contrary Move</small></h4>
+      </div>
+      <div class="when"><strong>使用时机：</strong>心智化基本稳定，但存在盲区时</div>
+      <div class="how">主动引入<strong>被忽视的视角或情感</strong>。如果患者只表达愤怒，问<em>「愤怒背后，有没有一点受伤？」</em>如果患者一直在指责别人，问<em>「你自己在这件事里做了什么？」</em></div>
+      <div class="trigger">🔑 稳定但单向度的心智化</div>
+    </div>
+
+    <div class="technique-card">
+      <div class="tc-header">
+        <div class="tc-icon clarify">📝</div>
+        <h4>澄清与细化<br/><small>Clarification & Elaboration</small></h4>
+      </div>
+      <div class="when"><strong>使用时机：</strong>心智化稳定时</div>
+      <div class="how">引导患者<strong>扩展</strong>心理状态的描述：从模糊的「我很烦」细化为具体的情境、感受、念头；追问<strong>人际背景</strong>中的心理状态。</div>
+      <div class="trigger">🔑 稳定心智化 → 深化探索</div>
+    </div>
+
+    <div class="technique-card">
+      <div class="tc-header">
+        <div class="tc-icon relation">💜</div>
+        <h4>心智化治疗关系<br/><small>Mentalizing the Relationship</small></h4>
+      </div>
+      <div class="when"><strong>使用时机：</strong>心智化能力较强，依恋模式稳定时</div>
+      <div class="how">探索患者对治疗师的<strong>心理状态的理解</strong>：<em>「你觉得我刚才听到这些的时候，心里在想什么？」</em>利用此时此地的互动作为心智化素材。</div>
+      <div class="trigger">🔑 高级阶段 / 低唤起</div>
+    </div>
+
+    <div class="technique-card">
+      <div class="tc-header">
+        <div class="tc-icon supportive">⭐</div>
+        <h4>正面心智化确认<br/><small>Acknowledge Positive Mentalizing</small></h4>
+      </div>
+      <div class="when"><strong>使用时机：</strong>患者展现出良好的心智化时（不可错过！）</div>
+      <div class="how"><strong>即时标记</strong>患者成功的心智化时刻：<em>「你刚刚停了一下，问自己他为什么会那样做——这就是心智化，做得很好。」</em>强化此能力。</div>
+      <div class="trigger">🔑 任何时刻，抓住即用</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ================================ -->
+<!-- 核心原则 -->
+<!-- ================================ -->
+<div class="section">
+  <h2><span class="icon">⚡</span> MBT 核心临床「要」与「不要」</h2>
+  <div class="mermaid-wrapper">
+    <div class="mermaid">
+graph TB
+    subgraph DO["✅ 要 (Do)"]
+        direction TB
+        D1["👂 监测心智化<strong>过程</strong>而非内容"]
+        D2["💚 共情验证作为<strong>第一步</strong>"]
+        D3["🔄 从主导主题转向<strong>次主导</strong>情感主题"]
+        D4["🎯 低心智化时<strong>先恢复</strong>心智化，再谈内容"]
+        D5["🧘 滚动式应对患者的反应性和你自己的反应性"]
+        D6["⚖️ 在共情验证和挑战之间保持平衡"]
+    end
+
+    subgraph DONT["❌ 不要 (Don't)"]
+        direction TB
+        N1["🚫 不要加入低心智化——<br/>不要好像对方在正常心智化一样回应"]
+        N2["🚫 不要接管患者的心智化——<br/>不要用你的高心智化去「替代」对方的低心智化"]
+        N3["🚫 不要心智化患者的低心智化——<br/>不要分析他们为什么心智化不了"]
+        N4["🚫 不要假设患者的心智<br/>和你的心智运作一样"]
+        N5["🚫 不要在低心智化状态下<br/>细化内容（不要火上浇油）"]
+    end
+
+    DO --- DONT
+
+    style DO fill:#e8f5e9,stroke:#66bb6a,stroke-width:2px
+    style DONT fill:#ffebee,stroke:#ef5350,stroke-width:2px
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'default',
+  securityLevel: 'loose',
+  flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' },
+  themeVariables: {
+    fontFamily: '-apple-system,BlinkMacSystemFont,"Noto Sans SC",sans-serif',
+  }
+});
+</script>
+
+</body>
+</html>
