@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MBT 第四章通用技术 Mermaid 可视化</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+:root{--bg:#0f172a;--panel:#111827;--card:#1f2937;--line:#334155;--text:#e5e7eb;--muted:#94a3b8;--blue:#60a5fa;--green:#34d399;--purple:#a78bfa;--orange:#fb923c;--pink:#f472b6;--yellow:#facc15;--red:#f87171}
+*{box-sizing:border-box} body{margin:0;background:linear-gradient(135deg,#0f172a,#111827 55%,#0b1120);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.7}
+a{color:inherit}.layout{display:grid;grid-template-columns:280px 1fr;min-height:100vh}.side{position:sticky;top:0;height:100vh;overflow:auto;background:rgba(15,23,42,.9);border-right:1px solid var(--line);padding:24px 18px}.brand{font-weight:800;font-size:18px;margin-bottom:4px;color:#fff}.sub{font-size:12px;color:var(--muted);margin-bottom:22px}.nav a{display:block;text-decoration:none;color:var(--muted);font-size:13px;padding:8px 10px;border-radius:8px;margin:2px 0}.nav a:hover{background:#1e293b;color:#fff}.main{padding:38px 48px 80px;max-width:1250px}.hero{border:1px solid var(--line);background:radial-gradient(circle at top right,rgba(96,165,250,.18),transparent 35%),rgba(17,24,39,.8);border-radius:18px;padding:34px;margin-bottom:28px}.hero h1{font-size:32px;margin:0 0 10px}.hero p{color:var(--muted);max-width:850px;margin:0}.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.chip{font-size:12px;border:1px solid #334155;border-radius:999px;padding:4px 10px;color:#cbd5e1;background:#0f172a}.section{margin:34px 0 46px;scroll-margin-top:20px}.section h2{display:flex;align-items:center;gap:10px;font-size:23px;margin:0 0 16px}.badge{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;font-size:14px}.b1{background:rgba(96,165,250,.18);color:var(--blue)}.b2{background:rgba(52,211,153,.18);color:var(--green)}.b3{background:rgba(167,139,250,.18);color:var(--purple)}.b4{background:rgba(251,146,60,.18);color:var(--orange)}.b5{background:rgba(244,114,182,.18);color:var(--pink)}.b6{background:rgba(250,204,21,.18);color:var(--yellow)}.note{color:var(--muted);font-size:14px;margin:-6px 0 16px}.mermaid-box{background:rgba(17,24,39,.86);border:1px solid var(--line);border-radius:16px;padding:22px;margin:14px 0 18px;overflow-x:auto}.mermaid{display:flex;justify-content:center;min-width:760px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}.card{background:rgba(31,41,55,.78);border:1px solid var(--line);border-radius:14px;padding:15px}.card h3{font-size:15px;margin:0 0 6px}.card p{font-size:13px;color:var(--muted);margin:0}.footer{color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:18px;margin-top:50px}@media(max-width:900px){.layout{display:block}.side{position:relative;height:auto}.main{padding:24px 16px}.mermaid{min-width:720px}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="side">
+  <div class="brand">MBT 通用技术图谱</div>
+  <div class="sub">第四章 · Mermaid HTML 可视化</div>
+  <nav class="nav">
+    <a href="#overview">总览</a>
+    <a href="#selector">技术选择器</a>
+    <a href="#session">Session 总控流程</a>
+    <a href="#low">低心智化处理</a>
+    <a href="#loop">MBT Loop</a>
+    <a href="#contrary">相反移动</a>
+    <a href="#core">基础探索技术</a>
+    <a href="#rupture">联盟破裂与反移情</a>
+    <a href="#paranoid">偏执反应</a>
+    <a href="#group">团体技术</a>
+    <a href="#risk">高风险行为追踪</a>
+    <a href="#principle">总原则</a>
+  </nav>
+</aside>
+<main class="main">
+<section class="hero" id="overview">
+  <h1>MBT 第四章通用技术 · Mermaid 可视化</h1>
+  <p>本页面把第四章中可跨诊断、跨场景反复使用的 MBT 通用技术转换为 Mermaid 图：从共情确认、不知立场、澄清详述，到 MBT Loop、相反移动、偏执反应、团体三角化与高风险行为追踪。</p>
+  <div class="chips"><span class="chip">过程先于内容</span><span class="chip">低心智化恢复</span><span class="chip">We-mode</span><span class="chip">相反移动</span><span class="chip">MBT Loop</span><span class="chip">团体心智化</span></div>
+</section>
+
+<section class="section">
+<h2><span class="badge b1">0</span>通用技术地图</h2>
+<div class="mermaid-box"><div class="mermaid">
+flowchart TD
+  ROOT((MBT 通用技术))
+  ROOT --> A[基础探索]
+  ROOT --> B[低心智化恢复]
+  ROOT --> C[关系与联盟]
+  ROOT --> D[团体干预]
+  ROOT --> E[风险与安全]
+  A --> A1[共情确认]
+  A --> A2[不知立场]
+  A --> A3[澄清与详述]
+  A --> A4[情境化]
+  A --> A5[人际焦点]
+  B --> B1[Notice and Name]
+  B --> B2[MBT Loop]
+  B --> B3[相反移动]
+  B --> B4[Stop and Rewind]
+  B --> B5[Stop and Explore]
+  C --> C1[情感焦点]
+  C --> C2[联盟破裂修复]
+  C --> C3[We-mode]
+  C --> C4[反移情管理]
+  C --> C5[回到形成]
+  D --> D1[三角化]
+  D --> D2[角色扮演]
+  D --> D3[Siding]
+  D --> D4[团体人际心智化]
+  E --> E1[偏执反应处理]
+  E --> E2[高风险行为追踪]
+  E --> E3[安全计划更新]
+</div></div>
+<div class="grid">
+  <div class="card"><h3>基础探索</h3><p>先调节情绪、澄清材料、建立具体语境。</p></div>
+  <div class="card"><h3>低心智化恢复</h3><p>不争辩内容，先恢复“怎么想”的能力。</p></div>
+  <div class="card"><h3>关系与联盟</h3><p>把治疗关系本身作为材料，在 We-mode 中共同探索。</p></div>
+  <div class="card"><h3>团体与风险</h3><p>借助多视角和安全流程防止升级、促进反思。</p></div>
+</div>
+</section>
+
+<section class="section" id="selector">
+<h2><span class="badge b2">1</span>技术选择器：根据现场状态选择干预</h2>
+<div class="note">临床者先判断患者与会谈状态，再选择最小、最贴近过程的干预。</div>
+<div class="mermaid-box"><div class="mermaid">
+flowchart TD
+  S([观察当前状态]) --> Q1{情绪高涨?}
+  Q1 -->|是| T1[共情确认]
+  Q1 -->|否| Q2{叙事模糊/跳跃?}
+  Q2 -->|是| T2[澄清与详述]
+  Q2 -->|否| Q3{临床者太确定?}
+  Q3 -->|是| T3[不知立场]
+  Q3 -->|否| Q4{未说出的关系紧张?}
+  Q4 -->|是| T4[情感焦点]
+  Q4 -->|否| Q5{低心智化?}
+  Q5 -->|是| T5[Notice and Name + MBT Loop]
+  Q5 -->|否| Q6{固定在某一维度?}
+  Q6 -->|是| T6[相反移动]
+  Q6 -->|否| Q7{联盟破裂?}
+  Q7 -->|是| T7[破裂修复]
+  Q7 -->|否| Q8{团体冲突?}
+  Q8 -->|是| T8[三角化/角色扮演/Siding]
+  Q8 -->|否| Q9{心智化稳定?}
+  Q9 -->|是| T9[内容焦点 + We-mode]
+  Q9 -->|否| T10[滴定依恋焦虑]
+</div></div>
+</section>
+
+<section class="section" id="session">
+<h2><span class="badge b3">2</span>Session 总控流程</h2>
+<div class="mermaid-box"><div class="mermaid">
+flowchart TD
+  A([开始会谈]) --> B[识别当前困扰]
+  B --> C[共情确认]
+  C --> D[澄清与详述]
+  D --> E{持续监测心智化}
+  E --> F{临床者失心智化?}
+  F -->|是| F1[反移情管理 + 回到形成] --> E
+  F -->|否| G{低心智化?}
+  G -->|是| G1[避免加入低心智化] --> G2[Notice and Name] --> G3[MBT Loop] --> E
+  G -->|否| H{心智化僵化?}
+  H -->|是| H1[相反移动] --> E
+  H -->|否| I{关系/联盟材料?}
+  I -->|是| I1[情感焦点或破裂修复] --> E
+  I -->|否| J{心智化稳定?}
+  J -->|是| J1[内容焦点 + We-mode] --> K[总结学习并链接日常]
+  J -->|否| J2[滴定依恋焦虑] --> E
+  K --> L([结束会谈])
+</div></div>
+</section>
+
+<section class="section" id="low">
+<h2><span class="badge b4">3</span>低心智化处理总流程</h2>
+<div class="mermaid-box"><div class="mermaid">
+flowchart TD
+  A([发现低心智化]) --> B[不要争辩内容]
+  B --> C[不要过度解释/安慰/解释患者]
+  C --> D[放慢速度]
+  D --> E[共情确认当前情绪]
+  E --> F[Notice and Name 命名模式]
+  F --> G{是哪种模式?}
+  G -->|伪装模式| P[落回具体情境和真实情感]
+  G -->|心理等价| PE[承认其真实感 + 区分想法与事实]
+  G -->|目的论模式| TE[从具体行动转向心理状态]
+  G -->|行动心| AM[停止与回放行为链]
+  G -->|Outside-In| OI[从他人怎么看我转向自身体验]
+  P --> H[MBT Loop]
+  PE --> H
+  TE --> H
+  AM --> H
+  OI --> H
+  H --> I{心智化恢复?}
+  I -->|否| J[继续调节情绪/滴定依恋焦虑]
+  J --> E
+  I -->|是| K[回到原事件重新理解]
+</div></div>
+</section>
+
+<section class="section" id="loop">
+<h2><span class="badge b5">4</span>MBT Loop：先拉远，再拉近</h2>
+<div class="mermaid-box"><div class="mermaid">
+flowchart LR
+  A[低心智化事件] --> B[1 Notice and Name<br/>识别并命名状态]
+  B --> C[2 Zoom Out<br/>离开僵化内容<br/>回溯前情和更广语境]
+  C --> D[找到最后仍能心智化的点]
+  D --> E[追踪触发链<br/>触发-情绪-解释-身体-冲动]
+  E --> F{反思能力恢复?}
+  F -->|否| C
+  F -->|是| G[3 Zoom In<br/>回到原事件]
+  G --> H[用多视角和语境重建叙事]
+</div></div>
+</section>
+
+<section class="section" id="contrary">
+<h2><span class="badge b6">5</span>相反移动：四组心智化维度</h2>
+<div class="mermaid-box"><div class="mermaid">
+flowchart TD
+  A([识别僵化维度]) --> B{固定在哪一极?}
+  B -->|自我过度| B1[转向他人<br/>对方可能怎么想/感受?]
+  B -->|他人过度| B2[转向自我<br/>这让你自己感觉如何?]
+  B -->|认知过度| B3[转向情感<br/>身体和情绪上有什么?]
+  B -->|情感过度| B4[转向认知<br/>背后有什么信念/预期?]
+  B -->|自动反应| B5[转向受控<br/>慢下来观察推论过程]
+  B -->|只看内部| B6[转向外部<br/>外部发生了什么?]
+  B -->|只看外部| B7[转向内部<br/>这在你内心激起什么?]
+  B1 & B2 & B3 & B4 & B5 & B6 & B7 --> C[恢复两极间切换]
+  C --> D[增加心智化灵活性]
+</div></div>
+</section>
+
+<section class="section" id="core">
+<h2><span class="badge b1">6</span>基础探索技术链</h2>
+<div class="mermaid-box"><div class="mermaid">
+flowchart TD
+  A[患者叙述材料] --> B[共情确认<br/>确认主观体验和基本情绪]
+  B --> C[不知立场<br/>开放、好奇、暂定]
+  C --> D[澄清与详述<br/>谁/何时/何地/先后顺序]
+  D --> E[情境化<br/>把情绪放回事件和人际背景]
+  E --> F[人际焦点<br/>自我视角 + 他人视角 + 证据]
+  F --> G{心智化稳定?}
+  G -->|否| H[回到共情确认或 MBT Loop]
+  H --> B
+  G -->|是| I[内容焦点<br/>探索意义、过去与现在的链接]
+</div></div>
+</section>
+
+<section class="section" id="rupture">
+<h2><span class="badge b2">7</span>联盟破裂、反移情与回到形成</h2>
+<div class="mermaid-box"><div class="mermaid">
+flowchart TD
+  A([关系过程异常]) --> B{类型?}
+  B -->|患者退缩/愤怒/指责| C[联盟破裂修复]
+  B -->|临床者强烈反应| D[反移情管理]
+  B -->|会谈迷失方向| E[回到形成]
+  C --> C1[暂停当前话题]
+  C1 --> C2[询问患者如何体验临床者]
+  C2 --> C3[共情确认影响]
+  C3 --> C4[区分临床者意图与患者影响]
+  D --> D1[预期患者反应]
+  D1 --> D2[敏感表达]
+  D2 --> D3[监测患者反应]
+  D3 --> D4{临床者失心智化?}
+  D4 -->|是| D5[暂停并示范恢复心智化]
+  D4 -->|否| E
+  D5 --> E
+  E --> E1[回到共同形成地图]
+  E1 --> E2{新材料能否纳入形成?}
+  E2 -->|能| F[链接当前问题与既有模式]
+  E2 -->|不能| G[共同更新形成]
+</div></div>
+</section>
+
+<section class="section" id="paranoid">
+<h2><span class="badge b3">8</span>偏执反应处理</h2>
+<div class="mermaid-box"><div class="mermaid">
+flowchart TD
+  A([偏执反应出现]) --> B{有身体威胁?}
+  B -->|是| B1[确保安全/停止会谈/寻求支援]
+  B -->|否| C[不争辩偏执内容]
+  C --> D[共情确认威胁感]
+  D --> E[询问: 我说了或做了什么让你这样理解?]
+  E --> F{团体场景?}
+  F -->|是| G[开放团体讨论<br/>其他人如何理解刚才发生的事?]
+  G --> H[收集替代视角<br/>框定为共同学习]
+  F -->|否| I[继续一对一澄清与降级]
+  H --> J[等待患者冷静]
+  I --> J
+  J --> K{能反思了吗?}
+  K -->|否| D
+  K -->|是| L[探索底层驱动]
+  L --> M[恐惧无助?]
+  L --> N[羞耻?]
+  M --> O[探索失控/失去主体感]
+  N --> P[温和探索羞耻，避免羞辱]
+  O --> Q[偏执被心智化]
+  P --> Q
+</div></div>
+</section>
+
+<section class="section" id="group">
+<h2><span class="badge b4">9</span>团体技术：三角化 / 角色扮演 / Siding</h2>
+<div class="mermaid-box"><div class="mermaid">
+flowchart TD
+  A([团体中出现人际材料]) --> B{现场状态?}
+  B -->|二元冲突僵化| C[三角化]
+  C --> C1[暂停 A-B 冲突]
+  C1 --> C2[邀请第三方描述所见]
+  C2 --> C3[收集 A/B/第三方多视角]
+  B -->|需要体验他人位置| D[角色扮演]
+  D --> D1[说明目的: 理解而非表演]
+  D1 --> D2[慢速重演冲突]
+  D2 --> D3[交换角色并询问心理状态]
+  B -->|弱势成员被压垮| E[Siding]
+  E --> E1[暂时站到弱势患者旁边]
+  E1 --> E2[确认其体验，恢复安全]
+  E2 --> E3[不共谋扭曲信念]
+  C3 --> F[开放全组反思]
+  D3 --> F
+  E3 --> F
+  F --> G[个体学习 + 集体学习]
+</div></div>
+</section>
+
+<section class="section" id="risk">
+<h2><span class="badge b5">10</span>高风险行为后的 MBT 追踪</h2>
+<div class="mermaid-box"><div class="mermaid">
+flowchart TD
+  A([自伤/自杀/暴力/物质滥用]) --> B[立即安全评估]
+  B --> C[确认共同安全责任]
+  C --> D[共情确认]
+  D --> E[Stop and Rewind]
+  E --> F[找到最后仍能心智化的点]
+  F --> G[识别脆弱触发点]
+  G --> H[追踪级联链条]
+  H --> H1[触发]
+  H1 --> H2[情绪]
+  H2 --> H3[解释]
+  H3 --> H4[身体状态]
+  H4 --> H5[心智化丧失]
+  H5 --> H6[行动冲动]
+  H6 --> H7[风险行为]
+  H7 --> I[寻找可改变节点]
+  I --> J[共创替代方案]
+  J --> K[更新安全计划]
+</div></div>
+</section>
+
+<section class="section" id="principle">
+<h2><span class="badge b6">11</span>过程先于内容：总原则图</h2>
+<div class="mermaid-box"><div class="mermaid">
+flowchart LR
+  A[患者说了什么<br/>Content] --> B{患者如何在想?<br/>Process}
+  B -->|僵化/确定/反应性/行动化| C[先恢复心智化过程]
+  C --> C1[放慢]
+  C --> C2[确认情绪]
+  C --> C3[命名模式]
+  C --> C4[拉远再拉近]
+  B -->|灵活/好奇/反思性| D[进入内容焦点]
+  D --> D1[探索意义]
+  D --> D2[链接过去和现在]
+  D --> D3[整合人际视角]
+  C4 --> E{心智化恢复?}
+  E -->|否| C
+  E -->|是| D
+</div></div>
+</section>
+
+<div class="footer">生成依据：main 知识库中 MBT PDF 第四章内容及前序伪代码整理。建议在联网环境中打开本 HTML，以加载 Mermaid CDN。</div>
+</main>
+</div>
+<script>
+mermaid.initialize({
+  startOnLoad:true,
+  theme:'dark',
+  securityLevel:'loose',
+  themeVariables:{
+    primaryColor:'#1e293b',primaryTextColor:'#e5e7eb',primaryBorderColor:'#60a5fa',lineColor:'#64748b',secondaryColor:'#111827',tertiaryColor:'#0f172a',fontFamily:'-apple-system, BlinkMacSystemFont, PingFang SC, Microsoft YaHei, Arial',fontSize:'14px'
+  },
+  flowchart:{htmlLabels:true,curve:'basis',padding:18,nodeSpacing:42,rankSpacing:52}
+});
+</script>
+</body>
+</html>
