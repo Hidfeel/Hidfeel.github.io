@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBT 第四章 · 临床流程可视化</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #181b24;
+    --card: #1e2230;
+    --border: #2a2f40;
+    --text: #e4e6ef;
+    --text2: #9ca3b8;
+    --accent: #6c8cff;
+    --accent2: #38bdf8;
+    --accent3: #a78bfa;
+    --accent4: #34d399;
+    --accent5: #fb923c;
+    --accent6: #f472b6;
+    --accent7: #facc15;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* ── Nav Sidebar ── */
+  .sidebar {
+    position: fixed; left:0; top:0; bottom:0; width:260px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    overflow-y: auto;
+    z-index: 100;
+  }
+  .sidebar::-webkit-scrollbar { width:4px; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius:4px; }
+  .sidebar .logo {
+    padding: 0 24px 20px;
+    font-size: 15px; font-weight:700; color: var(--accent);
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 12px;
+  }
+  .sidebar .logo span { color: var(--text2); font-weight:400; font-size:12px; display:block; margin-top:2px; }
+  .nav-item {
+    display: block; padding: 9px 24px; font-size:13px; color: var(--text2);
+    text-decoration: none; transition: all .2s;
+    border-left: 3px solid transparent;
+  }
+  .nav-item:hover, .nav-item.active {
+    color: var(--text); background: rgba(108,140,255,.08);
+    border-left-color: var(--accent);
+  }
+
+  /* ── Main ── */
+  .main { margin-left: 260px; padding: 40px 48px 80px; max-width: 1100px; }
+
+  /* ── Hero ── */
+  .hero {
+    background: linear-gradient(135deg, #1a1f35 0%, #0f1117 60%, #121828 100%);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 48px 52px;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content:''; position:absolute; top:-80px; right:-80px; width:300px; height:300px;
+    background: radial-gradient(circle, rgba(108,140,255,.15), transparent 70%);
+    border-radius:50%;
+  }
+  .hero h1 { font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+  .hero h1 em { font-style:normal; color: var(--accent); }
+  .hero .sub { color: var(--text2); font-size:14px; max-width:640px; }
+  .hero .tags { margin-top:16px; display:flex; gap:8px; flex-wrap:wrap; }
+  .hero .tag {
+    background: rgba(108,140,255,.12); color: var(--accent); padding:3px 12px;
+    border-radius:20px; font-size:12px; border:1px solid rgba(108,140,255,.2);
+  }
+
+  /* ── Section ── */
+  .section { margin-bottom: 56px; scroll-margin-top: 24px; }
+  .section-header {
+    display: flex; align-items: center; gap:12px; margin-bottom:20px;
+  }
+  .section-num {
+    width:36px; height:36px; border-radius:10px; display:flex;
+    align-items:center; justify-content:center; font-weight:800; font-size:15px;
+    flex-shrink:0;
+  }
+  .section-header h2 { font-size:22px; font-weight:700; }
+  .section-header p { color:var(--text2); font-size:13px; margin-left:auto; white-space:nowrap; }
+
+  /* ── Card ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 16px;
+  }
+  .card h3 { font-size:16px; font-weight:600; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+  .card h3 .dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+
+  /* ── Mermaid ── */
+  .mermaid-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 16px;
+    overflow-x: auto;
+  }
+  .mermaid-container .mermaid {
+    display: flex; justify-content: center;
+  }
+  .mermaid-container .mermaid svg { max-width: 100%; height: auto; }
+
+  /* ── Pseudocode block ── */
+  .pseudo {
+    background: #141720;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 13px; line-height:1.8;
+    overflow-x:auto; white-space: pre-wrap; color: #c5cae0;
+    margin-bottom: 16px;
+  }
+  .pseudo .kw { color: #6c8cff; }
+  .pseudo .fn { color: #38bdf8; }
+  .pseudo .cm { color: #5c6378; font-style:italic; }
+  .pseudo .op { color: #a78bfa; }
+  .pseudo .st { color: #34d399; }
+
+  /* ── Principle List ── */
+  .principle-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+  .principle-item {
+    background: var(--card); border:1px solid var(--border);
+    border-radius: 10px; padding: 16px 20px;
+    font-size:13px; display:flex; align-items:flex-start; gap:10px;
+  }
+  .principle-item .icon {
+    width:28px; height:28px; border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:14px; flex-shrink:0; margin-top:2px;
+  }
+  .principle-item .icon.yes { background: rgba(52,211,153,.12); color: #34d399; }
+  .principle-item .icon.no  { background: rgba(244,114,182,.12); color: #f472b6; }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .sidebar { display:none; }
+    .main { margin-left:0; padding:24px 16px 60px; }
+    .hero { padding:32px 24px; }
+    .hero h1 { font-size:24px; }
+  }
+
+  /* ── Colors per section ── */
+  .c1 { background: rgba(108,140,255,.15); color: #6c8cff; }
+  .c2 { background: rgba(56,189,248,.15); color: #38bdf8; }
+  .c3 { background: rgba(167,139,250,.15); color: #a78bfa; }
+  .c4 { background: rgba(52,211,153,.15); color: #34d399; }
+  .c5 { background: rgba(251,146,60,.15); color: #fb923c; }
+  .c6 { background: rgba(244,114,182,.15); color: #f472b6; }
+  .c7 { background: rgba(250,204,21,.15);  color: #facc15; }
+
+  /* ── Collapsible ── */
+  details { margin-bottom: 8px; }
+  details summary {
+    cursor:pointer; padding:10px 16px; background: var(--card);
+    border:1px solid var(--border); border-radius:8px; font-size:14px;
+    font-weight:600; list-style:none; display:flex; align-items:center; gap:8px;
+    transition: background .2s;
+  }
+  details summary:hover { background: rgba(108,140,255,.06); }
+  details summary::before { content:'▸'; color: var(--accent); font-size:12px; transition: transform .2s; }
+  details[open] summary::before { transform: rotate(90deg); }
+  details .detail-body { padding: 16px 16px 8px; }
+</style>
+</head>
+<body>
+
+<!-- ━━ Sidebar ━━ -->
+<nav class="sidebar">
+  <div class="logo">MBT Ch.4<span>临床流程可视化</span></div>
+  <a class="nav-item" href="#s0">🏠 总览</a>
+  <a class="nav-item" href="#s1">1 评估 Assessment</a>
+  <a class="nav-item" href="#s2">2 形成 Formulation</a>
+  <a class="nav-item" href="#s3">3 心理教育 MBT-I</a>
+  <a class="nav-item" href="#s4">4 治疗初期</a>
+  <a class="nav-item" href="#s5">5 Session 通用策略</a>
+  <a class="nav-item" href="#s6">6 特殊人群策略</a>
+  <a class="nav-item" href="#s7">7 管理无效心智化</a>
+  <a class="nav-item" href="#s8">8 反移情管理</a>
+  <a class="nav-item" href="#s9">9 结束阶段</a>
+  <a class="nav-item" href="#s10">10 团体工作流</a>
+  <a class="nav-item" href="#s11">11 核心原则</a>
+</nav>
+
+<!-- ━━ Main Content ━━ -->
+<div class="main">
+
+<!-- Hero -->
+<div class="hero" id="s0">
+  <h1>MBT <em>临床流程</em> 可视化</h1>
+  <div class="sub">《Cambridge Guide to Mentalization-Based Treatment》第四章 — The Clinical Process of MBT: A Step-by-Step Guide。以下将全部主要流程以 Mermaid 图 + 伪代码双通道呈现。</div>
+  <div class="tags">
+    <span class="tag">评估</span><span class="tag">形成</span><span class="tag">心理教育</span>
+    <span class="tag">问题探索</span><span class="tag">We-mode</span><span class="tag">心智化</span><span class="tag">BPD</span>
+  </div>
+</div>
+
+<!-- ════════ 0. 整体治疗流程 ════════ -->
+<div class="mermaid-container">
+<div class="mermaid">
+flowchart LR
+  A["🔍 评估<br/>Assessment"] --> B["📝 形成<br/>Formulation"]
+  B --> C["📚 心理教育<br/>Psychoeducation"]
+  C --> D["🌀 问题探索<br/>Exploration"]
+  D --> E["✅ 结束<br/>Finishing"]
+  D -.->|"持续更新"| B
+
+  style A fill:#1e3a5f,stroke:#6c8cff,stroke-width:2px,color:#e4e6ef
+  style B fill:#1e2f4a,stroke:#38bdf8,stroke-width:2px,color:#e4e6ef
+  style C fill:#2a1f4a,stroke:#a78bfa,stroke-width:2px,color:#e4e6ef
+  style D fill:#1a3a2f,stroke:#34d399,stroke-width:2px,color:#e4e6ef
+  style E fill:#3a2a1a,stroke:#fb923c,stroke-width:2px,color:#e4e6ef
+</div>
+</div>
+
+<!-- ════════ 1. 评估 ════════ -->
+<div class="section" id="s1">
+  <div class="section-header">
+    <div class="section-num c1">1</div>
+    <h2>评估 Assessment</h2>
+  </div>
+
+  <div class="mermaid-container">
+  <div class="mermaid">
+  flowchart TD
+    START(["患者进入评估"]) --> CORE["四大优先评估领域"]
+    
+    CORE --> A1["自我功能与他人表征"]
+    CORE --> A2["心智化脆弱性<br/>（高风险行为相关）"]
+    CORE --> A3["触发无效心智化<br/>模式的情境"]
+    CORE --> A4["自伤/自杀/暴力风险"]
+
+    A1 & A2 & A3 & A4 --> POP{"特定人群?"}
+
+    POP -->|"自恋型"| N1["优先：自我/他人表征"]
+    POP -->|"反社会型"| N2["增加：暴力↔心智化丧失链接"]
+    POP -->|"抑郁+躯体化"| N3["增加：躯体标记评估"]
+    POP -->|"其他"| RESULT
+
+    N1 & N2 & N3 --> ONLINE{"线上模式?"}
+
+    ONLINE -->|"是"| O1["优先面谈（如可能）"]
+    O1 --> O2["早期评估依恋焦虑"]
+    O2 --> O3["调整互动风格"]
+    O3 --> RESULT
+
+    ONLINE -->|"否"| RESULT(["评估结果输出"])
+
+    style CORE fill:#1e3a5f,stroke:#6c8cff,stroke-width:2px,color:#e4e6ef
+    style POP fill:#2a1f4a,stroke:#a78bfa,stroke-width:2px,color:#e4e6ef
+    style ONLINE fill:#1a3a2f,stroke:#34d399,stroke-width:2px,color:#e4e6ef
+    style RESULT fill:#3a2a1a,stroke:#fb923c,stroke-width:2px,color:#e4e6ef
+  </div>
+  </div>
+
+  <details>
+    <summary>📋 查看伪代码</summary>
+    <div class="detail-body">
+      <div class="pseudo"><span class="kw">FUNCTION</span> <span class="fn">run_Assessment</span>(patient):
+    <span class="cm">// 优先评估领域</span>
+    assess(patient.self_function)
+    assess(patient.mentalizing_vulnerabilities)
+    assess(patient.trigger_contexts)
+    assess(patient.risk_factors)
+
+    <span class="cm">// 特定人群适配</span>
+    <span class="kw">IF</span> patient.has_narcissistic_traits:
+        PRIORITIZE assess(patient.self_other_representation)
+    <span class="kw">ELSE IF</span> patient.has_antisocial_PD:
+        ADD assess(patient.violence_link_to_mentalizing_loss)
+    <span class="kw">ELSE IF</span> patient.has_depression_with_somatoform:
+        ADD assess(patient.somatic_markers)
+    <span class="kw">END IF</span>
+
+    <span class="cm">// 线上 MBT 额外步骤</span>
+    <span class="kw">IF</span> modality <span class="op">==</span> <span class="st">"online"</span>:
+        <span class="kw">IF</span> possible: schedule_face_to_face_meeting_first()
+        early_appraise(patient.attachment_anxiety)
+        adjust_interaction_style_accordingly()
+    <span class="kw">END IF</span>
+
+    <span class="kw">RETURN</span> assessment_results
+<span class="kw">END FUNCTION</span></div>
+    </div>
+  </details>
+</div>
+
+<!-- ════════ 2. 形成 ════════ -->
+<div class="section" id="s2">
+  <div class="section-header">
+    <div class="section-num c2">2</div>
+    <h2>形成 Formulation</h2>
+  </div>
+
+  <div class="mermaid-container">
+  <div class="mermaid">
+  flowchart TD
+    START(["开始共同创建"]) --> S1["Step 1: 临床者起草初版<br/>使用患者可理解的语言<br/>链接呈现问题↔心智化困难"]
+
+    S1 --> S2["Step 2: 向患者解释<br/>示范心智化过程<br/>协作讨论"]
+
+    S2 --> S3["Step 3: 患者审核与改写<br/>必要时临床者提供支持"]
+
+    S3 --> S4["Step 4: 达成协作临床协议<br/>🤝 We-mode<br/>双方聚焦共同目标"]
+
+    S4 --> LOOP{"治疗进行中<br/>新材料出现?"}
+    LOOP -->|"是"| UPDATE["更新形成<br/>融入新视角"]
+    UPDATE --> LOOP
+    LOOP -->|"进入团体?"| GROUP
+
+    GROUP["准备关系护照<br/>Relational Passport<br/>强调关系困难"] --> CHECK{"评估者≠<br/>团体临床者?"}
+    CHECK -->|"是"| TRI["三方会议<br/>评估者+团体临床者+患者"]
+    CHECK -->|"否"| DONE
+    TRI --> DONE(["形成完成 ✅"])
+    LOOP -->|"否, 不入组"| DONE
+
+    style S4 fill:#1e2f4a,stroke:#38bdf8,stroke-width:2px,color:#e4e6ef
+    style LOOP fill:#2a1f4a,stroke:#a78bfa,stroke-width:2px,color:#e4e6ef
+    style GROUP fill:#1a3a2f,stroke:#34d399,stroke-width:2px,color:#e4e6ef
+  </div>
+  </div>
+
+  <details>
+    <summary>📋 查看伪代码</summary>
+    <div class="detail-body">
+      <div class="pseudo"><span class="kw">FUNCTION</span> <span class="fn">co_create_Formulation</span>(patient, clinician):
+    <span class="cm">// Step 1-4: 起草→解释→改写→协议</span>
+    draft = clinician.draft_formulation(language=<span class="st">"patient_meaningful"</span>)
+    clinician.explain(draft); collaboratively_discuss(draft)
+    patient.review_and_rewrite(draft, support_if_needed)
+    agreement = JOINTLY_AGREE_ON(focus=<span class="st">"session_focus"</span>)
+
+    <span class="cm">// 持续更新</span>
+    <span class="kw">WHILE</span> treatment_in_progress:
+        <span class="kw">IF</span> new_material_emerges: UPDATE formulation <span class="kw">END IF</span>
+    <span class="kw">END WHILE</span>
+
+    <span class="cm">// 入组准备</span>
+    <span class="kw">IF</span> entering_group:
+        relational_passport = summarize(attendance_rationale, emphasis=relational_difficulties)
+        <span class="kw">IF</span> assessor <span class="op">!=</span> group_clinician: hold_tripartite_meeting() <span class="kw">END IF</span>
+    <span class="kw">END IF</span>
+
+    <span class="kw">RETURN</span> collaborative_agreement, relational_passport
+<span class="kw">END FUNCTION</span></div>
+    </div>
+  </details>
+</div>
+
+<!-- ════════ 3. 心理教育 ════════ -->
+<div class="section" id="s3">
+  <div class="section-header">
+    <div class="section-num c3">3</div>
+    <h2>心理教育 MBT-I</h2>
+  </div>
+
+  <div class="mermaid-container">
+  <div class="mermaid">
+  flowchart TD
+    START(["MBT-I 介绍组"]) --> LOOP["遍历各主题"]
+    LOOP --> T1["引入主题"]
+    T1 --> T2["创建练习<br/>情感距离 → 个性化内容"]
+    T2 --> T3["执行练习"]
+    T3 --> T4["启动 We-mode<br/>成员共同思考并应用"]
+    T4 --> MORE{"还有主题?"}
+    MORE -->|"是"| LOOP
+    MORE -->|"否"| POP{"特定人群?"}
+
+    POP -->|"反社会型 PD"| ASPD["修改示例适配 ASPD<br/>增加模块：暴力↔心智化丧失"]
+    POP -->|"线上模式"| ONLINE["材料存入可访问平台<br/>提供使用教程"]
+    POP -->|"标准"| DONE
+    ASPD --> DONE(["心理教育完成 ✅"])
+    ONLINE --> DONE
+
+    style LOOP fill:#2a1f4a,stroke:#a78bfa,stroke-width:2px,color:#e4e6ef
+    style T4 fill:#1a3a2f,stroke:#34d399,stroke-width:2px,color:#e4e6ef
+  </div>
+  </div>
+
+  <details>
+    <summary>📋 查看伪代码</summary>
+    <div class="detail-body">
+      <div class="pseudo"><span class="kw">FUNCTION</span> <span class="fn">deliver_Psychoeducation</span>(patient):
+    <span class="kw">FOR</span> each_topic <span class="kw">IN</span> MBT_I_topics:
+        introduce(topic)
+        exercise = create_exercise(progression = <span class="st">"distant → personalized"</span>)
+        run_exercise(exercise)
+        group_think_together(topic)
+        apply_knowledge_to_self(topic)
+    <span class="kw">END FOR</span>
+
+    <span class="kw">IF</span> patient.has_antisocial_PD:
+        modify_examples(relevant_to_ASPD)
+        ADD module(violence <span class="op">↔</span> loss_of_mentalizing)
+    <span class="kw">END IF</span>
+
+    <span class="kw">IF</span> modality <span class="op">==</span> <span class="st">"online"</span>:
+        store_materials_on_accessible_platform()
+        provide_tutorials()
+    <span class="kw">END IF</span>
+
+    <span class="kw">RETURN</span> psychoeducation_complete
+<span class="kw">END FUNCTION</span></div>
+    </div>
+  </details>
+</div>
+
+<!-- ════════ 4. 治疗初期 ════════ -->
+<div class="section" id="s4">
+  <div class="section-header">
+    <div class="section-num c4">4</div>
+    <h2>治疗初期阶段</h2>
+  </div>
+
+  <div class="mermaid-container">
+  <div class="mermaid">
+  flowchart LR
+    S1["1️⃣ 心理教育<br/>MBT-I"] --> S2["2️⃣ 共同创建<br/>工作性形成"]
+    S2 --> S3["3️⃣ 建立治疗联盟<br/>基于长期依恋理解"]
+    S3 --> S4["4️⃣ 安全计划<br/>高风险行为"]
+    S4 --> S5["5️⃣ 识别与映射<br/>心智化脆弱性+触发情境"]
+
+    style S1 fill:#1e3a5f,stroke:#6c8cff,stroke-width:2px,color:#e4e6ef
+    style S2 fill:#1e2f4a,stroke:#38bdf8,stroke-width:2px,color:#e4e6ef
+    style S3 fill:#2a1f4a,stroke:#a78bfa,stroke-width:2px,color:#e4e6ef
+    style S4 fill:#3a1a1a,stroke:#f472b6,stroke-width:2px,color:#e4e6ef
+    style S5 fill:#1a3a2f,stroke:#34d399,stroke-width:2px,color:#e4e6ef
+  </div>
+  </div>
+</div>
+
+<!-- ════════ 5. Session 通用策略 ════════ -->
+<div class="section" id="s5">
+  <div class="section-header">
+    <div class="section-num c5">5</div>
+    <h2>Session 通用策略 — 8阶段逐步干预</h2>
+    <p>灵活执行，非机械套用</p>
+  </div>
+
+  <div class="mermaid-container">
+  <div class="mermaid">
+  flowchart TD
+    P1["<b>Phase 1</b><br/>共情探索<br/>识别当前困扰<br/>在工作性形成语境中探索"] --> P2
+
+    P2["<b>Phase 2</b><br/>共情确认 ⭐首选干预<br/>① 识别与共振情绪<br/>② 优先基本情绪<br/>③ 识别情绪对患者的效应"] --> P3
+
+    P3["<b>Phase 3</b><br/>不知立场探索<br/>扩展叙事视角<br/>确定进一步工作焦点"] --> CHK1{"主题是否<br/>关联形成?"}
+
+    CHK1 -->|"否"| LINK["请患者链接形成"]
+    LINK --> CHK2{"仍不明确?"}
+    CHK2 -->|"是"| REVISE["用新材料修订形成"]
+    CHK2 -->|"否"| P4
+    CHK1 -->|"是"| P4
+    REVISE --> P4
+
+    P4["<b>Phase 4</b><br/>澄清与详述<br/>情感识别 + 情境化<br/>建立基础心智化"] --> P5
+
+    P5["<b>Phase 5</b><br/>人际焦点<br/>探索替代视角"] --> P6
+
+    P6{"联盟破裂?"} -->|"是"| REPAIR["修复破裂"]
+    P6 -->|"否"| P7
+    REPAIR --> P7
+
+    P7{"低心智化<br/>已稳定?"} -->|"是"| CONTENT["<b>Phase 7</b><br/>内容焦点<br/>链接事件↔心理状态<br/>构建连贯叙事"]
+    P7 -->|"否"| P8
+
+    CONTENT --> P8
+
+    P8["<b>Phase 8</b><br/>We-mode 协作<br/>并肩而坐（隐喻）<br/>共同聚焦<br/>协作探索替代视角"]
+
+    P8 --> MON["👁 持续监测<br/>患者反应 + 临床者反应"]
+
+    style P2 fill:#2a1f4a,stroke:#a78bfa,stroke-width:2px,color:#e4e6ef
+    style P4 fill:#1a3a2f,stroke:#34d399,stroke-width:2px,color:#e4e6ef
+    style P8 fill:#1e2f4a,stroke:#38bdf8,stroke-width:2px,color:#e4e6ef
+    style CHK1 fill:#3a2a1a,stroke:#fb923c,stroke-width:2px,color:#e4e6ef
+    style P6 fill:#3a1a2a,stroke:#f472b6,stroke-width:2px,color:#e4e6ef
+    style P7 fill:#3a1a2a,stroke:#f472b6,stroke-width:2px,color:#e4e6ef
+  </div>
+  </div>
+
+  <details>
+    <summary>📋 查看伪代码</summary>
+    <div class="detail-body">
+      <div class="pseudo"><span class="kw">FUNCTION</span> <span class="fn">session_Intervention</span>(patient, clinician, formulation):
+    <span class="cm">// Phase 1: 共情探索</span>
+    troubling_issue = identify_current_trouble(patient)
+    explore(troubling_issue, context = formulation)
+
+    <span class="cm">// Phase 2: 共情确认（首选干预）</span>
+    SHOW_RECOGNITION_AND_RESONANCE(patient.emotion_then_and_now)
+    EMPATHIZE_WITH(primary_emotions)
+    IDENTIFY_AND_RECOGNIZE(effect_on_patient)
+
+    <span class="cm">// Phase 3: 不知立场探索</span>
+    expand_perspectives(patient.narrative)
+    theme = gauge_focus_for_further_work()
+    <span class="kw">IF</span> theme NOT linked_to_formulation:
+        ASK patient TO link_subject_to_formulation()
+        <span class="kw">IF</span> still_unclear: REVISE formulation <span class="kw">END IF</span>
+    <span class="kw">END IF</span>
+
+    <span class="cm">// Phase 4-8 ...</span>
+    affect_identification(); contextualization()
+    explore_alternative_perspectives()
+    <span class="kw">IF</span> alliance_rupture: repair_rupture() <span class="kw">END IF</span>
+    <span class="kw">IF</span> low_mentalizing_stabilized: focus_on_content() <span class="kw">END IF</span>
+    sit_side_by_side(); collaborate_on_alternative_perspectives()
+    MONITOR patient.reaction; MONITOR clinician.reaction
+<span class="kw">END FUNCTION</span></div>
+    </div>
+  </details>
+</div>
+
+<!-- ════════ 6. 特殊人群策略 ════════ -->
+<div class="section" id="s6">
+  <div class="section-header">
+    <div class="section-num c6">6</div>
+    <h2>特殊人群策略</h2>
+  </div>
+
+  <div class="mermaid-container">
+  <div class="mermaid">
+  flowchart TD
+    START(["识别患者类型"]) --> TYPE{"人群类型"}
+
+    TYPE -->|"回避型 PD"| AVD["侧重自我心智化<br/>↓<br/>转向他人心智化<br/>应用相反移动：认知↔情感"]
+
+    TYPE -->|"抑郁"| DEP["停止与回放<br/>躯体化体验<br/>链接：躯体标记→未心智化状态<br/>过度理智化时：转向情感"]
+
+    TYPE -->|"反社会型 PD<br/>团体"| ASPD["暴力叙述流程<br/>① 探索叙述者事件中感受<br/>② 询问回顾性反思<br/>③ 询问讲述中体验<br/>④ 成员反思自身反应<br/>---<br/>挑战固定伪装模式<br/>反直觉评论/澄清循环性"]
+
+    TYPE -->|"精神病性"| PSY["谨慎探索伪心智化<br/>Notice and Name<br/>标记伪心智化"]
+
+    AVD --> DONE(["策略应用完成"])
+    DEP --> DONE
+    ASPD --> DONE
+    PSY --> DONE
+
+    style TYPE fill:#2a1f4a,stroke:#a78bfa,stroke-width:2px,color:#e4e6ef
+    style AVD fill:#1e3a5f,stroke:#6c8cff,stroke-width:2px,color:#e4e6ef
+    style DEP fill:#1a3a2f,stroke:#34d399,stroke-width:2px,color:#e4e6ef
+    style ASPD fill:#3a2a1a,stroke:#fb923c,stroke-width:2px,color:#e4e6ef
+    style PSD fill:#3a1a2a,stroke:#f472b6,stroke-width:2px,color:#e4e6ef
+  </div>
+  </div>
+</div>
+
+<!-- ════════ 7. 管理无效心智化 ════════ -->
+<div class="section" id="s7">
+  <div class="section-header">
+    <div class="section-num c7">7</div>
+    <h2>管理无效心智化模式</h2>
+  </div>
+
+  <div class="mermaid-container">
+  <div class="mermaid">
+  flowchart TD
+    START(["识别无效模式"]) --> MODE{"心智化模式"}
+
+    MODE -->|"伪装模式<br/>Pretend Mode"| M1["Notice and Name<br/>标记伪心智化<br/>挑战：反直觉评论<br/>澄清肤浅性"]
+
+    MODE -->|"心理等价<br/>Psychic Equivalence"| M2["MBT Loop<br/>Zoom Out 扩大视角<br/>Zoom In 聚焦具体关切"]
+
+    MODE -->|"目的论模式<br/>Teleological"| M3["从行动转向<br/>心理状态探索"]
+
+    M1 & M2 & M3 --> TECH{"通用技术选择"}
+
+    TECH -->|"视角狭窄"| T1["MBT Loop<br/>Zoom Out → Zoom In"]
+    TECH -->|"心智化僵化"| T2["相反移动<br/>自我↔他人<br/>认知↔情感"]
+    TECH -->|"具身断裂"| T3["停止与回放<br/>微切片具身体验<br/>停止与探索"]
+    TECH -->|"偏执反应"| T4["开放团体讨论<br/>等待冷静→识别底层驱动<br/>恐惧无助/羞耻"]
+    TECH -->|"团体人际冲突"| T5["三角化/角色扮演<br/>暂停→回放→交换角色<br/>拒绝则下次处理"]
+    TECH -->|"团体紧张升级"| T6["Siding<br/>支持弱势患者"]
+
+    T1 & T2 & T3 & T4 & T5 & T6 --> DONE(["心智化恢复 ✅"])
+
+    style MODE fill:#2a1f4a,stroke:#a78bfa,stroke-width:2px,color:#e4e6ef
+    style TECH fill:#3a2a1a,stroke:#fb923c,stroke-width:2px,color:#e4e6ef
+  </div>
+  </div>
+
+  <details>
+    <summary>📋 查看伪代码</summary>
+    <div class="detail-body">
+      <div class="pseudo"><span class="kw">FUNCTION</span> <span class="fn">manage_Ineffective_Mentalizing</span>(patient, mode):
+    <span class="kw">SWITCH</span> mode:
+        <span class="st">"pretend_mode"</span>:   notice_and_name(); challenge()
+        <span class="st">"psychic_equivalence"</span>: MBT_Loop(zoom_out, zoom_in)
+        <span class="st">"teleological_mode"</span>: shift_to_mental_state()
+    <span class="kw">END SWITCH</span>
+
+    <span class="kw">IF</span> narrow_view:        MBT_Loop()
+    <span class="kw">IF</span> mentalizing_inflexibility: contrary_move()
+    <span class="kw">IF</span> embodied_break:     stop_and_rewind(); stop_and_explore()
+    <span class="kw">IF</span> paranoid_reaction:  open_group_discuss(); WAIT calm: identify_drivers()
+    <span class="kw">IF</span> group_conflict:     triangulation_role_play()
+    <span class="kw">IF</span> group_tension:      siding(vulnerable_patient)
+
+    <span class="kw">RETURN</span> mentalizing_restored
+<span class="kw">END FUNCTION</span></div>
+    </div>
+  </details>
+</div>
+
+<!-- ════════ 8. 反移情管理 ════════ -->
+<div class="section" id="s8">
+  <div class="section-header">
+    <div class="section-num c1">8</div>
+    <h2>管理临床者反移情</h2>
+  </div>
+
+  <div class="mermaid-container">
+  <div class="mermaid">
+  flowchart TD
+    START(["反移情出现"]) --> BRANCH{"场景"}
+
+    BRANCH -->|"需表达复杂<br/>反移情"| EX1["① 预期患者反应"]
+    EX1 --> EX2["② 表达认可<br/>患者可能的感受"]
+    EX2 --> EX3["③ 敏感地传达评论"]
+    EX3 --> EX4["④ 仔细监测患者反应"]
+
+    BRANCH -->|"临床者自身<br/>失去心智化"| LOST1["示范恢复心智化<br/>'I need a moment<br/>to get my mind back...'"]
+    LOST1 --> LOST2["回到达成的形成"]
+    LOST2 --> LOST3["使用共情确认立场"]
+    LOST3 --> LOST4["重启问题探索<br/>聚焦心智化过程"]
+
+    EX4 --> DONE(["临床者稳定 ✅"])
+    LOST4 --> DONE
+
+    style BRANCH fill:#2a1f4a,stroke:#a78bfa,stroke-width:2px,color:#e4e6ef
+    style LOST1 fill:#3a1a1a,stroke:#f472b6,stroke-width:2px,color:#e4e6ef
+  </div>
+  </div>
+</div>
+
+<!-- ════════ 9. 结束阶段 ════════ -->
+<div class="section" id="s9">
+  <div class="section-header">
+    <div class="section-num c2">9</div>
+    <h2>结束阶段 Finishing</h2>
+  </div>
+
+  <div class="mermaid-container">
+  <div class="mermaid">
+  flowchart TD
+    START(["进入结束阶段"]) --> F1["处理结束体验<br/>患者 + 临床者"]
+    F1 --> F2["回顾完整治疗过程"]
+    F2 --> BPD{"BPD 患者?"}
+    BPD -->|"是"| F3["聚焦：被抛弃恐惧"]
+    BPD -->|"否"| F4
+    F3 --> F4["泛化稳定心智化 → 日常生活"]
+    F4 --> F5["泛化习得社会理解 → 日常生活"]
+    F5 --> DONE(["治疗完成 🎓"])
+
+    style F4 fill:#1a3a2f,stroke:#34d399,stroke-width:2px,color:#e4e6ef
+    style F5 fill:#1a3a2f,stroke:#34d399,stroke-width:2px,color:#e4e6ef
+  </div>
+  </div>
+</div>
+
+<!-- ════════ 10. 团体工作流 ════════ -->
+<div class="section" id="s10">
+  <div class="section-header">
+    <div class="section-num c3">10</div>
+    <h2>MBT 团体工作流</h2>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#6c8cff"></span>团体 Session 结构</h3>
+  </div>
+  <div class="mermaid-container">
+  <div class="mermaid">
+  flowchart LR
+    G1["欢迎患者"] --> G2["回顾上次内容"]
+    G2 --> G3["检查上次作业"]
+    G3 --> G4["引入新主题"]
+    G4 --> G5["讨论主题与<br/>症状/生活的关联"]
+    G5 --> G6["总结 + 布置作业"]
+
+    style G1 fill:#1e3a5f,stroke:#6c8cff,stroke-width:2px,color:#e4e6ef
+    style G4 fill:#2a1f4a,stroke:#a78bfa,stroke-width:2px,color:#e4e6ef
+    style G6 fill:#1a3a2f,stroke:#34d399,stroke-width:2px,color:#e4e6ef
+  </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#a78bfa"></span>新成员入组流程</h3>
+  </div>
+  <div class="mermaid-container">
+  <div class="mermaid">
+  flowchart TD
+    START(["新成员即将加入"]) --> PREP["准备现有成员<br/>排练欢迎 / 回顾形成 / 讨论学习"]
+    PREP --> PASS["新成员准备关系护照<br/>与团体临床者个别会面"]
+    PASS --> INTRO["入组首次<br/>现有成员：基于形成的自我介绍<br/>新成员：递交关系护照"]
+    INTRO --> EVAL["重新评估团体<br/>价值观与文化"]
+    EVAL --> DONE(["入组完成 ✅"])
+
+    style PREP fill:#1e3a5f,stroke:#6c8cff,stroke-width:2px,color:#e4e6ef
+    style PASS fill:#2a1f4a,stroke:#a78bfa,stroke-width:2px,color:#e4e6ef
+    style INTRO fill:#1a3a2f,stroke:#34d399,stroke-width:2px,color:#e4e6ef
+  </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot" style="background:#34d399"></span>刺激人际心智化</h3>
+  </div>
+  <div class="mermaid-container">
+  <div class="mermaid">
+  flowchart TD
+    S1["指定两名主角讨论问题"] --> S2["引导第三参与者<br/>采取不知立场 / 避免建议"]
+    S2 --> S3{"问题已详述?"}
+    S3 -->|"是"| S4["开放全组讨论<br/>反思学习：个体+集体"]
+    S3 -->|"否"| S2
+
+    style S2 fill:#2a1f4a,stroke:#a78bfa,stroke-width:2px,color:#e4e6ef
+    style S4 fill:#1a3a2f,stroke:#34d399,stroke-width:2px,color:#e4e6ef
+  </div>
+  </div>
+</div>
+
+<!-- ════════ 11. 核心原则 ════════ -->
+<div class="section" id="s11">
+  <div class="section-header">
+    <div class="section-num c4">11</div>
+    <h2>核心临床者原则</h2>
+    <p>贯穿所有流程</p>
+  </div>
+
+  <div class="principle-grid">
+    <div class="principle-item">
+      <div class="icon yes">✓</div>
+      <div>识别无效的低水平心智化</div>
+    </div>
+    <div class="principle-item">
+      <div class="icon no">✗</div>
+      <div>不为患者代劳心智化</div>
+    </div>
+    <div class="principle-item">
+      <div class="icon no">✗</div>
+      <div>不对非心智化话语进行心智化</div>
+    </div>
+    <div class="principle-item">
+      <div class="icon no">✗</div>
+      <div>不参与空洞的表面心智化</div>
+    </div>
+    <div class="principle-item">
+      <div class="icon yes">✓</div>
+      <div>监测当前心智化（过程 vs 内容）</div>
+    </div>
+    <div class="principle-item">
+      <div class="icon no">✗</div>
+      <div>不附和低心智化</div>
+    </div>
+    <div class="principle-item">
+      <div class="icon yes">✓</div>
+      <div>管理焦虑，滴定依恋焦虑</div>
+    </div>
+    <div class="principle-item">
+      <div class="icon yes">✓</div>
+      <div>平衡心智化：稳定→跟随情感；不稳定→相反移动</div>
+    </div>
+    <div class="principle-item">
+      <div class="icon yes">✓</div>
+      <div>激活关系过程：去激活↔超激活</div>
+    </div>
+    <div class="principle-item">
+      <div class="icon yes">✓</div>
+      <div>顺应患者和自身反应性</div>
+    </div>
+    <div class="principle-item">
+      <div class="icon yes">✓</div>
+      <div>保持定期督导/同辈讨论</div>
+    </div>
+  </div>
+
+  <div class="mermaid-container" style="margin-top:20px;">
+  <div class="mermaid">
+  mindmap
+    root((MBT 核心<br/>临床原则))
+      识别与监测
+        识别低水平心智化
+        监测过程vs内容
+        管理焦虑与依恋
+      不做的事
+        不代劳心智化
+        不心智化非心智化话语
+        不参与表面心智化
+        不附和低心智化
+      平衡与激活
+        平衡心智化模式
+        激活关系过程
+        顺应反应性
+      持续保障
+        定期督导
+        同辈讨论
+  </div>
+  </div>
+</div>
+
+</div><!-- .main -->
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'dark',
+    themeVariables: {
+      primaryColor: '#1e2f4a',
+      primaryTextColor: '#e4e6ef',
+      primaryBorderColor: '#6c8cff',
+      lineColor: '#6c8cff',
+      secondaryColor: '#2a1f4a',
+      tertiaryColor: '#1a3a2f',
+      fontFamily: '-apple-system, PingFang SC, Microsoft YaHei, sans-serif',
+      fontSize: '14px',
+      nodeBorder: '#6c8cff',
+      clusterBkg: '#181b24',
+    },
+    flowchart: { htmlLabels: true, curve: 'basis', padding: 16 },
+    mindmap: { padding: 16 }
+  });
+
+  // Active nav tracking
+  const sections = document.querySelectorAll('.section, .hero');
+  const navItems = document.querySelectorAll('.nav-item');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navItems.forEach(n => n.classList.remove('active'));
+        const id = e.target.id;
+        if (id) {
+          const nav = document.querySelector(`.nav-item[href="#${id}"]`);
+          if (nav) nav.classList.add('active');
+        }
+      }
+    });
+  }, { threshold: 0.2 });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
