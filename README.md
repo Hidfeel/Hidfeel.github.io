@@ -11,9 +11,8 @@ Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN�
 
 #### 安装教程
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.  [MBT 第四章临床流程可视化](/docs/mbt2/mbt_chapter4_visualization.html)
+2.  [MBT 第四章通用技术Mermaid图谱](/docs/mbt2/mbt_chapter4_general_techniques_mermaid.html)
 
 #### 使用说明
 
