@@ -1,0 +1,70 @@
+<!DOCTYPE html><html lang='zh-CN'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Schema · 麻将技巧解析 LLM Wiki</title><style>
+:root{--bg:#fbf7f0;--card:#fff;--ink:#2b2320;--muted:#8a7d70;--line:#ece2d4;
+--red:#c0392b;--gold:#c8a04b;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,sans-serif;line-height:1.7}
+.topnav{position:sticky;top:0;z-index:9;background:var(--red);display:flex;flex-wrap:wrap;gap:2px;padding:8px 14px}
+.topnav a{color:#fff;text-decoration:none;font-size:13px;padding:5px 11px;border-radius:8px}
+.topnav a:hover{background:rgba(255,255,255,.18)}
+.wrap{max-width:1000px;margin:0 auto;padding:0 18px 70px}
+header.hero{background:linear-gradient(135deg,#c0392b,#9c2a1e);color:#fff;padding:30px 22px 22px}
+header.hero h1{margin:0 0 6px;font-size:25px;letter-spacing:1px}
+header.hero .sub{opacity:.92;font-size:14px}
+.stats{display:flex;flex-wrap:wrap;gap:11px;margin-top:16px}
+.stat{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);border-radius:12px;padding:9px 15px;min-width:92px}
+.stat b{display:block;font-size:21px;line-height:1.1}.stat span{font-size:12px;opacity:.85}
+h2.sec{margin-top:30px;border-left:5px solid var(--red);padding-left:12px;font-size:20px}
+h3{border-bottom:1px solid var(--line);padding-bottom:6px;margin-top:26px;font-size:17px}
+.search{padding:14px 0 4px}.search input{width:100%;padding:11px 15px;border:1px solid var(--line);border-radius:12px;font-size:15px;background:var(--card);outline:none}
+.search input:focus{border-color:var(--red)}
+.catnav{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+.catnav a{text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:18px;padding:5px 12px;font-size:13px}
+.catnav a b{color:var(--red)}
+.sum,.concept,.overview{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 17px;margin:12px 0;box-shadow:0 1px 3px rgba(0,0,0,.03)}
+.badge{font-size:11px;padding:2px 8px;border-radius:8px;background:#fdecea;color:#c0392b;margin-left:6px}
+.tags{margin-top:8px;font-size:13px}.tags a{color:#2e6da4;text-decoration:none;background:#eef5fb;border:1px solid #d6e6f3;border-radius:8px;padding:2px 8px;margin:2px 3px;display:inline-block}
+.tags .lab{color:var(--muted);background:none;border:none;padding-left:0}
+.meta{margin-top:7px;font-size:12px;color:var(--muted)}
+.meta a{color:#2e6da4}
+.idxlist{list-style:none;padding:0;margin:6px 0}
+.idxlist li{padding:7px 4px;border-bottom:1px dashed var(--line)}
+.idxlist a{color:var(--red);text-decoration:none;font-weight:600}
+.idxlist .one{color:var(--muted);font-size:13px;display:block;margin-top:2px}
+.note{background:#fff8e9;border:1px solid #f0e0b8;border-radius:12px;padding:12px 15px;color:#7a5e1e;font-size:13px;margin:14px 0}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:24px}
+.empty{display:none;text-align:center;color:var(--muted);padding:30px}
+code{background:#f3ece1;padding:1px 5px;border-radius:4px;font-size:12px}
+</style></head><body><!--
+title: Schema
+date: 2026-07-09 04:11
+sources: Karpathy LLM Wiki pattern
+related: index.html, summaries.html, concepts.html, analysis.html, entities.html
+-->
+<nav class="topnav"><a href="index.html">🏠 索引</a><a href="summaries.html">📄 摘要页</a><a href="concepts.html">🏷️ 概念页</a><a href="analysis.html">🧩 综述页</a><a href="entities.html">👤 实体页</a><a href="SCHEMA.html">⚙️ Schema</a><a href="log.html">📜 日志</a></nav><div class='wrap'>
+<header class='hero'><h1>⚙️ Schema · LLM Wiki 规范</h1>
+<div class='sub'>本 wiki 遵循 Karpathy LLM Wiki pattern</div></header>
+<section class='overview'>
+<h3>一、三层架构</h3>
+<p><code>Raw Sources</code>（原始资料层，只读）：本库 175 篇导出内容（157 公众号文章 + 18 图片），存放于独立导出包，未并入 wiki。</p>
+<p><code>The Wiki</code>（知识层，LLM 生成维护）：本目录下的互链 HTML 页面——摘要页 / 概念页 / 综述页 / 实体页 / 索引页。</p>
+<p><code>The Schema</code>（配置层）：本页定义结构、页面模板与 ingest 工作流。</p>
+<h3>二、页面类型与本库对应</h3>
+<p>摘要页 <code>summaries.html</code>：101 篇有效文章的 LLM 要点摘要，每篇含概念交叉引用。<br>
+概念页 <code>concepts.html</code>：34 个高频术语的解释与涉及文章。<br>
+综述页 <code>analysis.html</code>：4 篇跨文章综合分析。<br>
+实体页 <code>entities.html</code>：内容来源「阿发麻将」画像。<br>
+索引页 <code>index.html</code>：全局导航与分类目录。</p>
+<h3>三、Ingest 工作流（本库已执行）</h3>
+<p>1. 导出 raw（175 篇）→ 2. 筛查有效正文（101 篇，剔除 56 篇微信验证壳）→ 3. 为每篇生成摘要页 + 概念标签 → 4. 聚合概念生成概念页、综合多篇生成综述页 → 5. 更新索引页与日志。</p>
+<h3>四、Frontmatter 约定</h3>
+<p>每页顶部以 HTML 注释模拟 YAML frontmatter：<code>title / date / sources / related</code>，便于程序化解析与后续 LLM 维护。</p>
+<h3>五、质检（Lint）</h3>
+<p>媒体_id 原样使用；交叉引用双向可达（摘要→概念、概念→摘要）；验证壳不入摘要页，仅在索引页标注"正文受限"。</p>
+</section>
+</div><footer>麻将技巧解析 · LLM Wiki（Karpathy pattern）· 生成于 2026-07-09 04:11</footer><script>
+const q=document.getElementById('q');
+if(q){q.addEventListener('input',()=>{const v=q.value.trim().toLowerCase();
+document.querySelectorAll('.sum,.concept,.overview,.idxlist li').forEach(el=>{
+const hit=!v||el.textContent.toLowerCase().includes(v);el.style.display=hit?'':'none';});});}
+</script></body></html>

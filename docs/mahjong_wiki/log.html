@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang='zh-CN'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>日志 · 麻将技巧解析 LLM Wiki</title><style>
+:root{--bg:#fbf7f0;--card:#fff;--ink:#2b2320;--muted:#8a7d70;--line:#ece2d4;
+--red:#c0392b;--gold:#c8a04b;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,sans-serif;line-height:1.7}
+.topnav{position:sticky;top:0;z-index:9;background:var(--red);display:flex;flex-wrap:wrap;gap:2px;padding:8px 14px}
+.topnav a{color:#fff;text-decoration:none;font-size:13px;padding:5px 11px;border-radius:8px}
+.topnav a:hover{background:rgba(255,255,255,.18)}
+.wrap{max-width:1000px;margin:0 auto;padding:0 18px 70px}
+header.hero{background:linear-gradient(135deg,#c0392b,#9c2a1e);color:#fff;padding:30px 22px 22px}
+header.hero h1{margin:0 0 6px;font-size:25px;letter-spacing:1px}
+header.hero .sub{opacity:.92;font-size:14px}
+.stats{display:flex;flex-wrap:wrap;gap:11px;margin-top:16px}
+.stat{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);border-radius:12px;padding:9px 15px;min-width:92px}
+.stat b{display:block;font-size:21px;line-height:1.1}.stat span{font-size:12px;opacity:.85}
+h2.sec{margin-top:30px;border-left:5px solid var(--red);padding-left:12px;font-size:20px}
+h3{border-bottom:1px solid var(--line);padding-bottom:6px;margin-top:26px;font-size:17px}
+.search{padding:14px 0 4px}.search input{width:100%;padding:11px 15px;border:1px solid var(--line);border-radius:12px;font-size:15px;background:var(--card);outline:none}
+.search input:focus{border-color:var(--red)}
+.catnav{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+.catnav a{text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:18px;padding:5px 12px;font-size:13px}
+.catnav a b{color:var(--red)}
+.sum,.concept,.overview{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 17px;margin:12px 0;box-shadow:0 1px 3px rgba(0,0,0,.03)}
+.badge{font-size:11px;padding:2px 8px;border-radius:8px;background:#fdecea;color:#c0392b;margin-left:6px}
+.tags{margin-top:8px;font-size:13px}.tags a{color:#2e6da4;text-decoration:none;background:#eef5fb;border:1px solid #d6e6f3;border-radius:8px;padding:2px 8px;margin:2px 3px;display:inline-block}
+.tags .lab{color:var(--muted);background:none;border:none;padding-left:0}
+.meta{margin-top:7px;font-size:12px;color:var(--muted)}
+.meta a{color:#2e6da4}
+.idxlist{list-style:none;padding:0;margin:6px 0}
+.idxlist li{padding:7px 4px;border-bottom:1px dashed var(--line)}
+.idxlist a{color:var(--red);text-decoration:none;font-weight:600}
+.idxlist .one{color:var(--muted);font-size:13px;display:block;margin-top:2px}
+.note{background:#fff8e9;border:1px solid #f0e0b8;border-radius:12px;padding:12px 15px;color:#7a5e1e;font-size:13px;margin:14px 0}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:24px}
+.empty{display:none;text-align:center;color:var(--muted);padding:30px}
+code{background:#f3ece1;padding:1px 5px;border-radius:4px;font-size:12px}
+</style></head><body><!--
+title: 日志
+date: 2026-07-09 04:11
+sources: 本次 ingest
+related: index.html, SCHEMA.html
+-->
+<nav class="topnav"><a href="index.html">🏠 索引</a><a href="summaries.html">📄 摘要页</a><a href="concepts.html">🏷️ 概念页</a><a href="analysis.html">🧩 综述页</a><a href="entities.html">👤 实体页</a><a href="SCHEMA.html">⚙️ Schema</a><a href="log.html">📜 日志</a></nav><div class='wrap'>
+<header class='hero'><h1>📜 日志 · Log</h1><div class='sub'>append-only 操作时间线</div></header>
+<section class='overview'>
+<h3>[2026-07-09 04:11] ingest | 麻将技巧解析（全库 175 篇）</h3>
+<p>导出 175 篇原始资料（157 公众号文章 + 18 图片）至 raw 层。</p>
+<p>筛查：101 篇含有效正文；56 篇触发微信"环境异常"验证壳，正文受限，未编译。</p>
+<p>生成摘要页 101（summaries.html）；聚合概念页 34（concepts.html）；综述页 4（analysis.html）；实体页 1（entities.html）；索引页 1（index.html）。</p>
+<p>更新：index.html, summaries.html, concepts.html, analysis.html, entities.html, SCHEMA.html, log.html。</p>
+<p>交叉引用：摘要↔概念双向链接已建立；概念频次 Top：两对半(18)、一进听/听口/三连坎/四人抬轿(14)、最大几率打法(13)。</p>
+</section>
+</div><footer>麻将技巧解析 · LLM Wiki（Karpathy pattern）· 生成于 2026-07-09 04:11</footer><script>
+const q=document.getElementById('q');
+if(q){q.addEventListener('input',()=>{const v=q.value.trim().toLowerCase();
+document.querySelectorAll('.sum,.concept,.overview,.idxlist li').forEach(el=>{
+const hit=!v||el.textContent.toLowerCase().includes(v);el.style.display=hit?'':'none';});});}
+</script></body></html>
