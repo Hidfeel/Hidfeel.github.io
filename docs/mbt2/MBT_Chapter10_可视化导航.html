@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cambridge Guide to MBT · 第10章 精神病性障碍 — 可视化导航</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true, theme:"default", flowchart:{curve:"basis", htmlLabels:true}});</script>
+<style>
+  :root{ --side:#2c2440; --side2:#3a2f55; --accent:#7d5fb0; --ink:#222; --bg:#f6f5fa; --card:#fff; }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;font-family:"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);}
+  #sidebar{position:fixed;top:0;left:0;width:300px;height:100vh;overflow-y:auto;background:var(--side);color:#e8e4f2;padding:18px 14px 40px;}
+  #sidebar h1{font-size:16px;margin:0 0 4px;color:#fff;line-height:1.35;}
+  #sidebar .sub{font-size:11.5px;color:#b9aed6;margin-bottom:14px;}
+  #sidebar nav a{display:block;color:#d8d1ec;text-decoration:none;padding:5px 9px;border-radius:6px;font-size:13px;line-height:1.4;margin:1px 0;transition:background .15s;}
+  #sidebar nav a:hover{background:var(--side2);color:#fff;}
+  #sidebar nav a.lvl2{font-weight:600;color:#fff;margin-top:8px;}
+  #sidebar nav a.lvl3{padding-left:22px;font-size:12px;color:#c4b8e0;}
+  #sidebar .sec-h{margin:16px 0 4px;font-size:11px;letter-spacing:1px;color:var(--accent);text-transform:uppercase;}
+  #main{margin-left:300px;padding:34px 40px 80px;max-width:1100px;}
+  section{background:var(--card);border-radius:12px;padding:26px 30px;margin-bottom:26px;box-shadow:0 2px 10px rgba(40,30,70,.06);scroll-margin-top:20px;}
+  section h2{margin:0 0 4px;font-size:21px;color:#342a4d;border-bottom:2px solid var(--accent);padding-bottom:8px;}
+  section h3{margin:18px 0 2px;font-size:15px;color:#6b5a92;}
+  section .lead{color:#5a5470;font-size:13.5px;margin:6px 0 14px;line-height:1.6;}
+  .tag{display:inline-block;background:#efeaf8;color:#6b5a92;border-radius:20px;font-size:11px;padding:2px 10px;margin:0 6px 8px 0;}
+  pre.mermaid{background:#fbfaff;border:1px solid #e7e1f3;border-radius:10px;padding:14px;overflow-x:auto;}
+  #topbar{position:sticky;top:0;background:linear-gradient(90deg,#2c2440,#4a3a6e);color:#fff;padding:10px 40px;margin:-34px -40px 22px;font-size:13px;display:flex;justify-content:space-between;align-items:center;}
+  #topbar b{font-size:14px;}
+  .foot{color:#9a93ad;font-size:12px;text-align:center;margin-top:30px;}
+  @media(max-width:820px){#sidebar{position:relative;width:100%;height:auto;}#main{margin-left:0;padding:20px;}}
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <h1>第10章 · Psychosis 精神病性障碍</h1>
+  <div class="sub">Cambridge Guide to Mentalization-Based Treatment — Part III · 可视化目录导航</div>
+  <nav>
+    <a class="lvl2" href="#s0">章 · 总览</a>
+    <a class="lvl2" href="#s1">引言 Introduction</a>
+    <a class="lvl2" href="#s2">一、MBT 精神病的临床路径</a>
+    <a class="lvl3" href="#s2a">评估疾病的发育阶段</a>
+    <a class="lvl3" href="#s2b">识别治疗中的社会资源</a>
+    <a class="lvl3" href="#s2c">形成契合心智化的治疗目标</a>
+    <a class="lvl2" href="#s3">二、MBT 视角下的精神病理解</a>
+    <a class="lvl3" href="#s3a">精神病学与心智化的历史联系</a>
+    <a class="lvl3" href="#s3b">从神经科学到诊室</a>
+    <a class="lvl3" href="#s3c">患者生活中的临床表现</a>
+    <a class="lvl3" href="#s3d">核心自我紊乱→非心智化模式与循环</a>
+    <a class="lvl2" href="#s4">三、MBT 精神病：核心实践要素</a>
+    <a class="lvl3" href="#s4a">治疗与设置结构</a>
+    <a class="lvl3" href="#s4b">不知立场 Not-Knowing</a>
+    <a class="lvl3" href="#s4c">心智化过程</a>
+    <a class="lvl3" href="#s4d">非心智化模式</a>
+    <a class="lvl3" href="#s4e">情感叙事</a>
+    <a class="lvl3" href="#s4f">心智化关系</a>
+    <a class="lvl2" href="#s5">结语 Concluding Remarks</a>
+    <a class="lvl2" href="#s6">参考文献 References (45)</a>
+  </nav>
+</div>
+
+<div id="main">
+
+<div id="topbar">
+  <b>MBT 第10章 · 一图一栏</b>
+  <span>点击左栏目录跳转 · 每栏以 mermaid 表述关键概念/流程/内容</span>
+</div>
+
+<!-- ============ 章总览 ============ -->
+<section id="s0">
+  <h2>章 · 总览（Chapter 10: Psychosis）</h2>
+  <div class="lead">MBT 框架应用于精神病性谱系障碍（精神分裂症谱系及其他精神病性障碍）。本章整合 15 年来实证与临床经验，沿「临床路径 → 病理理解 → 核心实践」三幕展开，并以 Robert、Johanna 等临床案例贯穿。</div>
+  <span class="tag">Part III</span><span class="tag">MBT for Psychosis</span>
+  <pre class="mermaid">
+graph TD
+  Ch["第10章：精神病性障碍 (Psychosis)<br/>MBT 的应用与适配 · Part III"]
+  Intro["引言<br/>整合 MBT 用于精神病性谱系障碍的<br/>实证与临床知识"]
+  C1["一、MBT 精神病的临床路径<br/>分期评估 + 三个临床参考点"]
+  C2["二、MBT 视角下的精神病理解<br/>发展史 + 神经科学 + 临床表现 + 核心自我→非心智化"]
+  C3["三、MBT 精神病：核心实践要素<br/>5 大领域 · 6 个实践要素"]
+  End["结语<br/>框架涵盖 临床原理·参考点·干预领域; 需进一步研究"]
+  Ch --> Intro --> C1 --> C2 --> C3 --> End
+  classDef ch fill:#5b3a8c,color:#fff;
+  classDef c1 fill:#3a6ea5,color:#fff;
+  classDef c2 fill:#3a8a6e,color:#fff;
+  classDef c3 fill:#a5633a,color:#fff;
+  class Ch ch; class C1 c1; class C2 c2; class C3 c3;
+  </pre>
+</section>
+
+<!-- ============ 引言 ============ -->
+<section id="s1">
+  <h2>引言 Introduction</h2>
+  <div class="lead">过去 15 年，临床界尝试将 MBT 框架用于精神分裂症谱系等精神病性障碍；先驱工作已识别出三项贡献，并推动核心成分的形成。本章目标是呈现并阐释 MBT 模型应用于精神病性障碍的核心原则（对接核心 MBT 模型，见第4章）。</div>
+  <pre class="mermaid">
+flowchart LR
+  A["过去15年<br/>临床尝试将 MBT 框架<br/>用于精神病性谱系障碍"]
+  A --> B["先驱工作的三大贡献"]
+  B --> B1["① 初步证据<br/>MBT 取向治疗在精神病患者中的<br/>可行性与可接受性"]
+  B --> B2["② 识别需求<br/>临床画像与疾病严重程度"]
+  B --> B3["③ 激发创造力<br/>缓解患者痛苦与疏离"]
+  B1 --> C["概念发展 + 临床经验<br/>→ 识别 MBT 精神病路径核心成分"]
+  B2 --> C
+  B3 --> C
+  C --> D["本章目标<br/>呈现并阐释 MBT 模型<br/>应用于精神病性障碍的核心原则"]
+  D --> E["对接核心 MBT 模型 (见第4章)"]
+  </pre>
+</section>
+
+<!-- ============ 一、临床路径 ============ -->
+<section id="s2">
+  <h2>一、The MBT Clinical Approach to Psychosis · MBT 精神病的临床路径</h2>
+  <div class="lead">将精神病理解为（神经）发育性障碍：基因基础 + 早期逆境/发育创伤/依恋不安全共同作用。发育模型要求三项主要临床行动，并以 Robert 案例贯穿后续三个参考点。</div>
+  <pre class="mermaid">
+flowchart TD
+  Root["MBT 精神病临床路径<br/>(以 Robert 为例)"]
+  Root --> Dev["将精神病理解为<br/>(神经)发育性障碍<br/>基因基础 + 早期逆境/创伤/依恋不安全"]
+  Root --> Three["发育模型 → 三项主要临床行动"]
+  Three --> R1["(1) 评估疾病的发育阶段"]
+  Three --> R2["(2) 识别患者的社会资源<br/>(作为干预因素)"]
+  Three --> R3["(3) 形成治疗目标与障碍<br/>(医患共建表征)"]
+  Root --> C["起点: 以心智化为工具沟通需求与情绪"]
+  Root --> D["协作: 建立安全有意义的关系 + 社会/职业连接"]
+  D --> E["以 Robert 临床案例贯穿后续三参考点"]
+  </pre>
+
+  <h3 id="s2a">① 评估疾病的发育阶段 · Assessing the Developmental Stage of the Illness</h3>
+  <div class="lead">MBT 可用于疾病的任何期。沿发育–临床连续体区分四个期，并结合 Robert 的轨迹示例说明。</div>
+  <pre class="mermaid">
+flowchart TD
+  T["评估疾病的发育阶段<br/>MBT 可用于任何期"]
+  T --> Four["沿发育-临床连续体的四个期"]
+  Four --> F1["① 病前期 (premorbid)<br/>conception→青春期<br/>远端风险: 基因/围产期/环境/分裂型人格特质"]
+  Four --> F2["② 临床高风险期<br/>亚综合征症状(感知/认知/行为)<br/>低于诊断阈值; 预防契机"]
+  Four --> F3["③ 首发精神病发作<br/>常持续 1–2 月方被察觉"]
+  Four --> F4["④ 精神病性轨迹期<br/>缓解型 ~1/3 / 治疗-复发型 / 慢性难治型"]
+  T --> Ex["Robert 案例:<br/>家族史(祖父/叔父精神分裂症)<br/>青春期社交退缩 → 大学孤独+大麻 → 偏执 → 首发发作"]
+  </pre>
+
+  <h3 id="s2b">② 识别治疗中的社会资源 · Identifying the Social Resources within the Treatment</h3>
+  <div class="lead">分析依恋人物，将支持赋能作为提升生活质量的关键，并维持人际网络中的心智化活跃。</div>
+  <pre class="mermaid">
+flowchart TD
+  S["识别治疗中的社会资源"]
+  S --> A["分析依恋人物"]
+  A --> A1["家人(如母亲)"]
+  A --> A2["其他服务对象(团体同伴)"]
+  A --> A3["社区关键工作者"]
+  S --> B["支持赋能 = 提升生活质量的关键"]
+  S --> C["维持人际网络中的心智化活跃"]
+  S --> D["整合进: 概念化 + 治疗计划 + 网络会议"]
+  S --> E["监测友谊与人际信任<br/>(幸福感晴雨表)"]
+  </pre>
+
+  <h3 id="s2c">③ 形成契合心智化能力的治疗目标 · Formulating Concrete Treatment Goals</h3>
+  <div class="lead">目标是一枚「两面硬币」：完整复杂概念化 ↔ 显性工具（书面表单）；从人际动机出发，含危机计划。</div>
+  <pre class="mermaid">
+flowchart TD
+  G["形成契合心智化能力的具体治疗目标"]
+  G --> Coin["两面硬币:<br/>完整复杂概念化 ↔ 显性工具(书面)"]
+  G --> Form["表单: 目标与障碍 × 行为/感受/想法"]
+  G --> Start["从人际动机出发<br/>鼓励显化感受与想法"]
+  G --> Care["避免过度刺激"]
+  G --> Crisis["危机计划"]
+  Crisis --> C1["识别触发"]
+  Crisis --> C2["规划住院前干预"]
+  Crisis --> C3["权衡住院利弊"]
+  </pre>
+</section>
+
+<!-- ============ 二、病理理解 ============ -->
+<section id="s3">
+  <h2>二、Understanding Psychosis from an MBT-Informed Perspective · MBT 视角下的精神病理解</h2>
+  <div class="lead">核心议题是「心智化 ↔ 核心自我紊乱」的关系。本章从发展史、神经科学、临床呈现，到核心自我紊乱如何演化为非心智化模式与循环，逐层展开。</div>
+  <pre class="mermaid">
+flowchart TD
+  U["MBT 视角下的精神病理解"]
+  U --> H["① 历史联系<br/>精神病学与心智化的交汇"]
+  U --> N["② 从神经科学到诊室<br/>感觉-认知先验 / 反馈回路断开 / 核心自我紊乱"]
+  U --> L["③ 患者生活中的临床表现<br/>三种临床呈现"]
+  U --> K["④ 核心自我紊乱 → 非心智化模式与循环<br/>(图10.1 / 10.2 / 10.3)"]
+  </pre>
+
+  <h3 id="s3a">① 精神病学与心智化的历史联系 · Psychosis and Mentalizing: Historical Links</h3>
+  <div class="lead">Bleuler 创「schizophrenias」、Freud 的精神分析传统、现象学的「核心自我紊乱」、Lysaker 的元认知反思疗法——共同指向：精神病性症状是对核心自我紊乱的调节尝试（但心智化功能障碍并非精神病的病因）。</div>
+  <pre class="mermaid">
+flowchart TD
+  H["精神病学与心智化的历史联系"]
+  H --> C["核心论点:<br/>心智化 ↔ 核心自我紊乱的关系<br/>是 MBT 精神病路径的中心议题"]
+  H --> Origins["溯源:<br/>Bleuler 创 'schizophrenias'(心智分裂)<br/>Freud 的精神分析传统"]
+  H --> Phen["现象学观点:<br/>最小自我感不稳定 → 核心自我紊乱<br/>表现: 自我整合减弱 / 过度反思 (hyper-reflectivity)"]
+  H --> Meta["当代: Lysaker 元认知反思疗法<br/>元认知 = 维系思-情整合的关键过程"]
+  Phen --> Impl["心理治疗含义:<br/>精神病性症状 = 调节/塑形核心自我紊乱的尝试<br/>症状最终保护 能动性/情感/意义/自我连贯性"]
+  Impl --> Note["但: 心智化功能障碍 ≠ 精神病的病因"]
+  </pre>
+
+  <h3 id="s3b">② 从神经科学到诊室 · From Neuroscience to the Consulting Room</h3>
+  <div class="lead">感知是「建构」出来的：大脑以感觉–认知先验预测世界，再用信息更新。精神病患者的反馈回路意外断开 → 自我/他人监控受损、能动性丧失 → 核心自我紊乱。临床需维持心智化认知极↔情感极的平衡。</div>
+  <pre class="mermaid">
+flowchart TD
+  N["从神经科学到诊室"]
+  N --> P["感知建构理论:<br/>感觉-认知先验 (priors)<br/>用新信息更新 → '刷新'的先验"]
+  P --> Loop["意向↔行动 的内部反馈回路<br/>= 维持'我能影响世界'的能动性感"]
+  N --> Disc["精神病患者:<br/>反馈回路/自我监控意外断开<br/>触发点常为情感性, 时间性模糊"]
+  Disc --> Self["后果: 自我/他人监控受损 + 能动性丧失<br/>→ 不同严重度的核心自我紊乱"]
+  Self --> Clin["临床含义:<br/>维持 心智化 认知极↔情感极 平衡<br/>持续监测 感觉-认知 平衡"]
+  Clin --> Note["心智化工作可能过度激活 →<br/>需识别可开展心智化工作的临床呈现"]
+  </pre>
+
+  <h3 id="s3c">③ 患者生活中的临床表现 · Psychosis in the Patient's Life: Clinical Presentations</h3>
+  <div class="lead">三种临床呈现反映精神病性体验在患者生活中的整合/解离程度。心智化工作有助于第②、③种；完全失代偿时只增混乱，但照护者须保持自身心智化。</div>
+  <pre class="mermaid">
+flowchart TD
+  L["患者生活中的临床表现<br/>三种临床呈现(反映整合/解离程度)"]
+  L --> P1["① 失代偿 (Decompensation)<br/>症状无法承载困扰性自我体验<br/>依赖外部环境容纳 → 常需住院"]
+  L --> P2["② 显著功能受损但避免失代偿<br/>妄想叙事锚定(恐惧/怀疑他人)<br/>门诊/社区可管理; 易因核心自我紊乱失代偿"]
+  L --> P3["③ 整合与逐步去激活<br/>经心理社会活动/团体教育/重要关系/职业训练<br/>整合脆弱自我 → 康复之路"]
+  P2 --> Help["心智化工作有助于 ② 与 ③"]
+  P3 --> Help
+  P1 --> X["完全失代偿: 心智化工作只增混乱<br/>但照护者须保持自身心智化"]
+  </pre>
+
+  <h3 id="s3d">④ 核心自我紊乱 → 非心智化模式与循环 · Linking Core Self-Disturbances</h3>
+  <div class="lead">MBT 术语中「核心自我紊乱」= 患者以非心智化模式体验自我与世界；极端时非心智化模式嵌入/呈现为精神病性症状。对应图 10.1（3×3 矩阵）与图 10.2（非心智化循环）。</div>
+  <pre class="mermaid">
+flowchart TD
+  K["核心自我紊乱 → 非心智化模式与循环"]
+  K --> Def["MBT 术语: '核心自我紊乱'<br/>= 患者以非心智化模式体验自我与世界"]
+  Def --> Modes["极端时非心智化模式<br/>嵌入/呈现为精神病性症状"]
+  Modes --> Ex1["偏执思维: 妄想心境(心理等价短暂)→固定妄想(心理等价主导)"]
+  Modes --> Ex2["过度反思 = 假装模式极端"]
+  Modes --> Ex3["基于行动的突发妄想 = 目的论功能极端"]
+  K --> Fig1["图10.1: 沿临床连续体的非心智化模式 3×3 矩阵<br/>(良性/边缘/精神病性 × 心理等价/目的论/假装)"]
+  K --> Fig2["图10.2: 核心自我紊乱后的非心智化循环<br/>(6阶段: 受损→丧失外部线索→试图挽回能动性→现实不确定→退缩主观→症状维持)"]
+  </pre>
+</section>
+
+<!-- ============ 三、核心实践要素 ============ -->
+<section id="s4">
+  <h2>三、MBT for Psychosis: Key Elements of Practice · MBT 精神病：核心实践要素</h2>
+  <div class="lead">在 MBT 干预的各领域中，针对精神病患者给出关键临床适配。涵盖六大要素：治疗结构、不知立场、心智化过程、非心智化模式、情感叙事、心智化关系。</div>
+  <pre class="mermaid">
+flowchart TD
+  P["MBT 精神病: 核心实践要素"]
+  P --> S["治疗与设置结构"]
+  P --> NK["不知立场 (Not-Knowing)"]
+  P --> MP["心智化过程"]
+  P --> NM["非心智化模式"]
+  P --> AN["情感叙事"]
+  P --> MR["心智化关系"]
+  </pre>
+
+  <h3 id="s4a">① 治疗与设置结构 · Treatment and Session Structure</h3>
+  <div class="lead">结构适配服务机构文化与能力。以三参考点为基础，组合心理教育 + 团体 + 个体治疗，并适配患者心智化水平与自我调节/注意控制能力。对应框 10.1。</div>
+  <pre class="mermaid">
+flowchart TD
+  TS["治疗与设置结构<br/>(适配服务机构文化与能力)"]
+  TS --> Basis["三临床参考点决定结构:<br/>分期 / 社会资源 / 治疗目标"]
+  TS --> Combo["组合: 心理教育 + 团体 + 个体治疗"]
+  TS --> Adapt["适配患者心智化水平<br/>兼顾自我调节与注意控制能力"]
+  TS --> Assess["心智化评估识别:<br/>优势 / 核心自我紊乱触发 / 非心智化模式使用模式"]
+  Combo --> PE["心理教育团体:<br/>教育患者与家属 精神病/症状本质/<br/>将生活轨迹整合入发展叙事/自我威胁/依恋"]
+  Combo --> Grp["团体MBT: 每周/结构化/≤8人<br/>可缩短至60分钟; 中介工具(游戏性/绘画)"]
+  Combo --> Ind["个体治疗: 目标提示有用;<br/>可提供≥18月长期咨询 防止假装模式"]
+  TS --> Box1["框10.1: 明确临床参考点 / 规划设置 / 创造性预期并使用中介工具"]
+  </pre>
+
+  <h3 id="s4b">② 不知立场 · The Not-Knowing Stance</h3>
+  <div class="lead">面对明显妄想时保持不知立场的关键是咨询师自我调节。在认知信任框架下以反思性好奇调入患者体验，并将好奇「翻译」为患者易懂的话语。对应框 10.2。</div>
+  <pre class="mermaid">
+flowchart TD
+  NK["不知立场"]
+  NK --> SR["关键: 咨询师自我调节<br/>(精神病性表现可引发恐惧/混乱/思维阻断/疲惫)"]
+  NK --> ET["认知信任 (epistemic trust) 框架"]
+  ET --> RC["以反思性好奇调入患者体验:<br/>'对患者而言这体验如何? 实际影响?'"]
+  RC --> TW["将好奇'翻译'为患者易懂的话语<br/>使对心智状态的好奇与患者相关"]
+  NK --> Role["立场 = 好奇 + 尊重患者体验<br/>+ 观察核心自我紊乱的影响"]
+  NK --> Box2["框10.2: 监测唤醒与心智化能力 / 调入好奇 / 使好奇相关 /<br/>注意 失去↔重获 + 资源 / 观察精神病性叙事影响 / 不解释不可解释之事"]
+  </pre>
+
+  <h3 id="s4c">③ 心智化过程 · The Mentalizing Process</h3>
+  <div class="lead">由「安全」向「激活」搭建支架的四大实践要素：共同注意、标记、有节制的游戏性、显化思维过程。对应框 10.3。</div>
+  <pre class="mermaid">
+flowchart TD
+  MP["心智化过程<br/>(4要素 由'安全'向'激活'搭建支架)"]
+  MP --> JA["① 共同注意 (joint attention)<br/>经元沟通(meta-communication)达成<br/>以咨询师标记为来源更有效"]
+  MP --> MK["② 标记 (marking)<br/>标记咨询师自身视角 = 多数干预的关键起点"]
+  MP --> PL["③ 有节制的游戏性 (playfulness)<br/>最被低估的维度; 校准使用以调节唤醒"]
+  MP --> EX["④ 显化思维过程<br/>真诚 + 简洁; 建模 非言语↔思维 的联系"]
+  MP --> Sum["小结: 链接 可感知行为 ↔ 心智状态思考"]
+  MP --> Box3["框10.3: 用中介工具与游戏性 / 显化咨询师思维过程 / 真诚简洁 / 建模 非言语↔思维 的联系"]
+  </pre>
+
+  <h3 id="s4d">④ 非心智化模式 · Non-Mentalizing Modes</h3>
+  <div class="lead">在共建概念化与临床新信息之间保持辩证；当患者日益无法理解替代视角时识别非心智化模式（图 10.3 六原则），并将焦点由妄想内容转向其内容的影响。对应框 10.4。</div>
+  <pre class="mermaid">
+flowchart TD
+  NM["非心智化模式"]
+  NM --> Dial["与患者的共建概念化 ↔ 临床新信息<br/>保持辩证(持续确认+更新概念化)"]
+  NM --> Det["从特异触发(图10.3)与初期损害(要点1)出发<br/>当患者日益无法理解替代视角时识别"]
+  Det --> Int["以开放心智状态原则:<br/>显化自身思维过程(要点2)<br/>验证体验 + 标记替代视角(要点3)"]
+  NM --> Shift["焦点由妄想内容 → 其内容的影响<br/>避免复杂/过度象征语言(要点4)"]
+  NM --> Ret["若退缩→症状维持/加重:<br/>非威胁反馈 + 安全容纳(要点5,6)"]
+  NM --> Fig3["图10.3: 核心自我紊乱后非心智化干预框架与六原则"]
+  NM --> Box4["框10.4: 追踪触发 / 验证共情 / 避免过度象征心智化 / 精神病发作时执行危机计划"]
+  </pre>
+
+  <h3 id="s4e">⑤ 情感叙事 · Affective Narrative</h3>
+  <div class="lead">风险是过度反思；保障是在概念化中保持清晰焦点，用心智化功能分析 + 逐帧描述事件整合体验两极。「房间的大象」＝对自我的不信任与对他人的敌意感知。对应框 10.5。</div>
+  <pre class="mermaid">
+flowchart TD
+  AN["情感叙事"]
+  AN --> Risk["风险: 过度反思 (hyper-reflectivity)"]
+  AN --> Focus["保障: 概念化中保持清晰焦点<br/>提供叙事工作框架"]
+  AN --> MFA["心智化功能分析 + 逐帧描述事件<br/>整合日常体验的两极"]
+  AN --> Ele["房间的'大象'(隐性情感叙事):<br/>对自我: 不信任自身承压/缺乏自我同情/过度反思<br/>对他人: 意图被感知为敌意(非抛弃, 而是疏离)"]
+  AN --> Goal["目标: 提升真实能动性(治疗与日常生活)"]
+  AN --> Box5["框10.5: 将叙事工作嵌入概念化 / 整合各维度 / 觉察 对自我的不信任 / 对他人的不信任"]
+  </pre>
+
+  <h3 id="s4f">⑥ 心智化关系 · Mentalizing the Relationship</h3>
+  <div class="lead">提供心理教育用关系促进自我/他人觉察，链接团体关系体验与咨访关系。最安全的是「在关系中工作」而非对关系表征工作。关键仍是咨询师自我调节——患者对他人唤醒变化极敏感 [45]。</div>
+  <pre class="mermaid">
+flowchart TD
+  MR["心智化关系"]
+  MR --> Risk["风险同情感叙事: 触发核心自我紊乱"]
+  MR --> PE["提供心理教育: 用关系促进 自我/他人 觉察"]
+  MR --> Link["链接 团体中人际关系体验 ↔ 与咨询师的关系"]
+  MR --> In["最安全: 在关系中工作<br/>(而非对关系表征工作)"]
+  MR --> Mark["标记+建模 咨询师的思维过程<br/>使个体治疗在团体中保持安全"]
+  MR --> Interv["必要时介入关系: 处理信任/安全 + 治疗僵局"]
+  MR --> Key["关键: 咨询师自我调节<br/>患者对他人唤醒变化极敏感 [45]"]
+  </pre>
+</section>
+
+<!-- ============ 结语 ============ -->
+<section id="s5">
+  <h2>结语 Concluding Remarks</h2>
+  <div class="lead">本章勾勒出涵盖临床原理、关键治疗参考点与 MBT 干预领域的框架，并指出仍需在研究与实践上持续推进，以帮助患者在不可预测且可怕的精神病体验面前维持心智化。</div>
+  <pre class="mermaid">
+flowchart LR
+  C["结语"]
+  C --> F["框架涵盖:<br/>临床原理 + 关键治疗参考点 + MBT 干预领域"]
+  C --> R["需进一步研究:<br/>治疗过程/技术适配 + 多学科设置中的干预整合"]
+  C --> V["价值: MBT 理论+临床框架<br/>助患者与咨询师在面对可怕的精神病体验时<br/>维持心智化"]
+  </pre>
+</section>
+
+<!-- ============ 参考文献 ============ -->
+<section id="s6">
+  <h2>参考文献 References（45 条）</h2>
+  <div class="lead">原 md 含连续完整的 45 条文献（APA 格式，含 Bleuler、Freud、Lysaker、Debbané、Schultze-Lutter 等）。下方以结构化卡片呈现其组织方式；完整引文见源 md 的 References 节。</div>
+  <pre class="mermaid">
+flowchart TD
+  Ref["参考文献 (共 45 条, 连续完整)"]
+  Ref --> R1["理论与历史<br/>Bleuler / Freud / 现象学 / Lysaker 元认知"]
+  Ref --> R2["发育与分期<br/>Meehl / 精神分裂症谱系研究 / 临床高风险评估"]
+  Ref --> R3["神经科学<br/>感觉-认知先验 / 反馈回路 / 自我监控 [39-41]"]
+  Ref --> R4["MBT 实践与验证<br/>心理教育 / 团体 / 个体 / 心智化功能分析 [42-45]"]
+  </pre>
+</section>
+
+<div class="foot">Cambridge Guide to Mentalization-Based Treatment (MBT) · Chapter 10 Psychosis — 可视化目录导航 · 由第十章 md 生成</div>
+
+</div>
+</body>
+</html>
