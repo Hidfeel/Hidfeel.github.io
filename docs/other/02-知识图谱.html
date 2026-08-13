@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>精神分析知识图谱 · 课程依赖拓扑</title>
+<style>
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  :root{
+    --bg:#0d1117; --bg2:#161b22; --line:#2a3441; --txt:#e6edf3; --dim:#8b949e;
+    --freud:#5b8ff9; --dev:#5ad8a6; --school:#9270ca; --tech:#f6903d;
+    --clin:#e8684a; --soc:#5ad0e8; --res:#6dc8ec; --meta:#f2c94c; --pillar:#ff99c8;
+  }
+  html,body{margin:0;padding:0;height:100%;background:var(--bg);color:var(--txt);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+  #app{display:flex;flex-direction:column;height:100vh;overflow:hidden}
+
+  header{padding:10px 14px 8px;border-bottom:1px solid var(--line);background:var(--bg2);flex:0 0 auto}
+  h1{margin:0 0 2px;font-size:15px;font-weight:600;letter-spacing:.3px}
+  .sub{font-size:11px;color:var(--dim);line-height:1.5}
+  .toolbar{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;align-items:center}
+  .btn{font-size:11px;padding:5px 10px;border-radius:14px;border:1px solid var(--line);
+    background:#1c232c;color:var(--dim);cursor:pointer;transition:.15s;white-space:nowrap}
+  .btn:hover{border-color:#3d4a5c;color:var(--txt)}
+  .btn.on{background:#243044;border-color:#4c7cf0;color:#cfe0ff}
+  #search{font-size:11px;padding:5px 10px;border-radius:14px;border:1px solid var(--line);
+    background:#1c232c;color:var(--txt);width:120px;outline:none}
+  #search:focus{border-color:#4c7cf0}
+  .chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+  .chip{font-size:10px;padding:3px 8px;border-radius:10px;cursor:pointer;
+    border:1px solid transparent;opacity:.4;transition:.15s;user-select:none}
+  .chip.on{opacity:1}
+  .chip i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px;vertical-align:middle}
+
+  main{flex:1 1 auto;display:flex;min-height:0;position:relative}
+  #canvasWrap{flex:1 1 auto;position:relative;overflow:hidden;touch-action:none}
+  svg{width:100%;height:100%;display:block;cursor:grab}
+  svg.dragging{cursor:grabbing}
+  .lyr-label{fill:#4a5568;font-size:9px;font-weight:600;letter-spacing:1px}
+  .lyr-line{stroke:#1a222c;stroke-width:1}
+  .edge{fill:none;stroke:#2f3b4a;stroke-width:1.1;transition:.2s}
+  .edge.inst{stroke-dasharray:3 3;stroke:#4a3a52}
+  .edge.up{stroke:#4c7cf0;stroke-width:2;opacity:1}
+  .edge.down{stroke:#f6903d;stroke-width:1.8;opacity:.95}
+  .edge.mute{opacity:.07}
+  .node{cursor:pointer}
+  .node rect{stroke-width:1.2;transition:.2s}
+  .node text{font-size:9.5px;fill:#dbe4ee;pointer-events:none;dominant-baseline:middle}
+  .node.mute{opacity:.13}
+  .node.sel rect{stroke:#fff;stroke-width:2.2}
+  .node.up rect{stroke:#7aa5ff;stroke-width:1.8}
+  .node.down rect{stroke:#ffb373;stroke-width:1.8}
+
+  aside{flex:0 0 320px;border-left:1px solid var(--line);background:var(--bg2);
+    overflow-y:auto;padding:14px 16px 40px}
+  aside h2{margin:0 0 3px;font-size:14px}
+  .tag{display:inline-block;font-size:10px;padding:2px 7px;border-radius:8px;margin:0 4px 6px 0}
+  .sec{margin-top:14px}
+  .sec h3{margin:0 0 5px;font-size:10px;color:var(--dim);letter-spacing:1px;font-weight:600}
+  .sec p{margin:0;font-size:12px;line-height:1.65;color:#c9d5e2}
+  .lst{list-style:none;padding:0;margin:0}
+  .lst li{font-size:11.5px;line-height:1.5;padding:4px 0 4px 8px;border-left:2px solid var(--line);
+    margin-bottom:3px;color:#b9c6d4;cursor:pointer}
+  .lst li:hover{border-left-color:#4c7cf0;color:#fff}
+  .lst li.no{cursor:default;border-left-color:#20272f;color:var(--dim)}
+  .txtbox{font-size:11.5px;line-height:1.7;color:#a9b8c8;background:#12181f;
+    padding:9px 11px;border-radius:7px;border:1px solid #1f2731}
+  .empty{color:var(--dim);font-size:12px;line-height:1.8;margin-top:8px}
+  .hint{font-size:10.5px;color:#6b7684;line-height:1.7;margin-top:16px;
+    border-top:1px solid var(--line);padding-top:12px}
+  #close{display:none}
+
+  @media (max-width:820px){
+    main{flex-direction:column}
+    aside{flex:0 0 auto;position:absolute;left:0;right:0;bottom:0;max-height:56%;
+      border-left:none;border-top:1px solid var(--line);border-radius:14px 14px 0 0;
+      box-shadow:0 -8px 24px rgba(0,0,0,.5);transform:translateY(101%);transition:transform .25s;z-index:20}
+    aside.show{transform:translateY(0)}
+    #close{display:block;position:absolute;top:10px;right:12px;font-size:18px;color:var(--dim);
+      cursor:pointer;line-height:1}
+    #search{width:88px}
+    h1{font-size:14px}
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>精神分析知识图谱 · 课程依赖拓扑</h1>
+    <div class="sub"><span id="stat"></span> · 综合 NCP、WAWI、NIP、Columbia、SPSI、PINC、BPAS、Tavistock、SBPSP、CAPA 等机构公开课程表归纳</div>
+    <div class="toolbar">
+      <button class="btn on" data-view="layer">分层路径</button>
+      <button class="btn" data-view="cluster">域聚类</button>
+      <button class="btn" data-view="critical">关键主干</button>
+      <button class="btn" id="reset">重置视图</button>
+      <input id="search" placeholder="搜索节点…">
+    </div>
+    <div class="chips" id="chips"></div>
+  </header>
+  <main>
+    <div id="canvasWrap">
+      <svg id="svg"><g id="scene">
+        <g id="gLayers"></g><g id="gEdges"></g><g id="gNodes"></g>
+      </g></svg>
+    </div>
+    <aside id="panel">
+      <span id="close">×</span>
+      <div id="pc">
+        <h2>如何使用</h2>
+        <div class="empty">
+          <b>点击任意节点</b>：蓝色高亮 = 它的全部前置知识链（不学会误读），橙色高亮 = 它支撑的后续内容。<br><br>
+          <b>分层路径</b>：纵轴 = 认知阶段，从弗洛伊德文本逐层推进到分析师风格的形成。<br>
+          <b>域聚类</b>：按九大知识域径向排布，看各域体量与交叉。<br>
+          <b>关键主干</b>：全球课程共识中不可跳过的最小路径（约 11 个阶段）。<br><br>
+          双指/滚轮缩放，拖拽平移。
+        </div>
+      </div>
+    </aside>
+  </main>
+</div>
+<script>
+const DOM={
+  freud:{n:"弗洛伊德与元心理学",c:"var(--freud)"},
+  dev:{n:"发展与观察",c:"var(--dev)"},
+  school:{n:"学派理论",c:"var(--school)"},
+  tech:{n:"技术序列",c:"var(--tech)"},
+  clin:{n:"精神病理与临床",c:"var(--clin)"},
+  soc:{n:"伦理·社会·文化",c:"var(--soc)"},
+  res:{n:"研究与跨学科",c:"var(--res)"},
+  meta:{n:"书写与元技能",c:"var(--meta)"},
+  pillar:{n:"训练支柱（制度）",c:"var(--pillar)"}
+};
+const LYR=["训练支柱","方法的诞生","基本文本","技术地基","结构与防御","位置与客体","反移情转向","整合与前沿","个人风格"];
+
+// id, 标签, 域, 层, 要点, 核心文本, 开设该内容的机构举例
+const N=[
+["P1","个人训练分析","pillar",0,"四支柱之首。全球无一例外：没有个人分析的精神分析学习是关于游泳的文献综述。BPAS 要求分析满一年、经分析师认可才能开始上课。","频次：英国 5 次/周、北美与挪威 4 次/周、法德 3 次/周","BPAS 5次/周；BPSI 累计300h；PINC 累计450h；SBPSP ≥5年"],
+["P2","理论与技术课程","pillar",0,"占训练约 1/3。APsA 规定 450 学时下限但不规定内容；法国 APF 明言教学'既非正规、亦非教条、亦非分阶'。","各机构 syllabus","SPSI 558学时；WAWI 360节；SBPSP 176研讨+选修100"],
+["P3","督导下的控制个案","pillar",0,"在他人心智的监督下实践。乌拉圭模式规定：必须先完成 4 门弗洛伊德基础课才获准开始。","过程记录 + 督导","APsA ≥3例/200-225h；BPAS 2例；CFAR 2例各18月；SBPSP 每例80h"],
+["P4","临床研讨与观察","pillar",0,"连续个案研讨 + 婴儿观察 + Work Discussion。集体思考的场所，也是承受不确定的训练场。","过程记录、présentation de malades","NCP Case Conference I–VIII；CAPA 每周CCS；拉康派患者展示"],
+["P5","书写（第五支柱）","pillar",0,"近三十年被普遍制度化：不写，就不算学过。把体验概念化是训练的终点动作。","毕业论文、个案报告、Credo","NCP Getting It On Paper I&II；WAWI 221 Credo；CFAR 4篇论文；SFCP 写作工作坊"],
+
+["F0","癔症研究与方法诞生","freud",1,"看方法如何从催眠、宣泄走向自由联想。读这里是为了理解精神分析是一次方法论革命，而非一套结论。","《癔症研究》(1895)选段、《科学心理学大纲》、《屏蔽记忆》(1899)","NCP Struggling with the Unconscious—Early Freud；WAWI 110a"],
+["F1","释梦与初级过程","freud",2,"全部元心理学的地基。第七章的地形学模型是后续一切（含拉康）的共同起点。","《释梦》(1900) 尤其第七章","所有机构第一年必修；CAPA Year3 全体推荐 SE 摘要"],
+["F2","性学三论与力比多发展","freud",2,"性心理发展阶段、多形性倒错、力比多经济学。也是性别与性倒错讨论的历史起点。","《性学三论》(1905)、《诙谐及其与无意识的关系》(1905)","NCP Later Freud I；WAWI 110b"],
+["F3","朵拉与移情的发现","freud",2,"精神分析史上最著名的技术失败。所有技术课程的真正起点：移情是被'漏掉'之后才被看见的。","《一例癔症分析片段》(1905)","SPSI Y1 弗洛伊德及同代案例；NCP Freud 系列"],
+["F4","技术论文组 1911–1915","freud",3,"精神分析技术的正典。开始治疗、移情动力学、重复与修通、移情之爱——四篇撑起整个技术传统。","《论治疗的开始》《移情的动力学》《回忆、重复与修通》《移情之爱的观察》","Columbia Theory of Technique I；NCP Clinical Practice II"],
+["F5","论自恋 1914","freud",3,"自恋、自我理想、客体选择。自体心理学与自恋人格研究的共同源头，也是'自恋不可分析'旧论的出处。","《论自恋：一篇导论》(1914)","Columbia Theory II；NCP Evolution of Theory"],
+["F6","压抑·无意识·本能","freud",3,"元心理学三篇。压抑的动力学是防御分析的直接前身。","《本能及其变化》《压抑》《无意识》(1915)","各机构第一至二年元心理学模块"],
+["F7","哀悼与忧郁 1917","freud",3,"内摄、认同、自我的分裂。整个客体关系传统由此长出——克莱因抑郁位、Fairbairn、结案理论都以它为轴。","《哀悼与忧郁》(1917)","Columbia Theory II；PINC Freud cluster"],
+["F8","超越快乐原则·死本能","freud",4,"重复强迫与死本能。克莱因派全盘接受、美国主流长期拒绝——这个分歧塑造了两个大陆的课程表。","《超越快乐原则》(1920)、《群体心理学与自我的分析》(1921)","NCP Later Freud II；WAWI 117 Freud III"],
+["F9","自我与本我 1923","freud",4,"结构理论。自我心理学、防御分析、诊断学的地基。","《自我与本我》(1923)","SPSI Y1 结构理论；NCP Ego Psychology 前置"],
+["F10","抑制、症状与焦虑 1926","freud",4,"信号焦虑理论——焦虑不再是压抑的产物而是其动因。这个反转是全部当代防御概念的枢轴。","《抑制、症状与焦虑》(1926)","Columbia；SPSI 现代结构理论"],
+["F11","文明及其不满","freud",5,"精神分析的社会维度。当代种族、阶级、文化课程的历史前身。","《文明及其不满》(1930)、《一个幻觉的未来》","WAWI 335 Psychoanalysis in Context"],
+["F12","可终止与不可终止的分析","freud",5,"晚期立场：分析的限度、性格阻抗、心理经济学的顽固。结案课程的必读。","《可终止与不可终止的分析》(1937)、《分析中的建构》(1937)、《精神分析纲要》(1938)","WAWI 417 Aspects of Termination；NCP Treatment Endings"],
+
+["D1","婴儿观察（Bick 法）","dev",2,"英国体系的心脏。1948 年 Esther Bick 创于 Tavistock：每周 1 小时到家观察至 2 岁生日，观察时不记笔记，事后书写，每周小组报告。训练的不是育儿知识，而是在不理解时保持在场。","Bick 1964；《婴儿观察的教学价值》","Tavistock、BPAS、Anna Freud、bpf、NCP Year1、CAPA 独立项目"],
+["D2","早期发展 0–18 月","dev",3,"从共生到分离个体化：Mahler、Spitz、Stern。婴儿研究与临床理论的接口。","Mahler《人类婴儿的心理诞生》、Stern《婴儿的人际世界》","SPSI Y2 婴儿观察 0–18月；NCP Reflecting on the Baby's Experience"],
+["D3","幼儿期与俄狄浦斯","dev",3,"18 月至 7 岁：三角关系的建立、性别认同、超我雏形。","《小汉斯》、A. Freud《正常与病态》","SPSI Y3 18月–7岁；NCP Studying the Growing Child"],
+["D4","潜伏期","dev",4,"升华、学习能力、同伴世界。临床上最被忽视的阶段。","Latency 相关文献","SPSI Y3 潜伏期"],
+["D5","青少年发展","dev",4,"身份认同危机、第二次个体化、身体的再度陌生化。进食障碍与自伤的主要发生期。","Blos、Laufer、Erikson","NCP Adolescence（Y2）；NIP Narrative of Adolescence；CAPA Y4 Unit3"],
+["D6","成人发展与老年","dev",5,"中年危机、生成性、丧失与有限性。晚期课程内容。","Adult Development 文献","NCP Adult Development（Y3）"],
+["D7","依恋理论","dev",4,"Bowlby、Ainsworth、Main：把内在客体关系变成可测量的表征系统。心智化理论的前置。","Bowlby 三部曲、成人依恋访谈（AAI）","NCP Styles of Attachment；Columbia Theory IV attachment"],
+["D8","Work Discussion","dev",2,"把职场与机构中的'此时此地'素材带入小组，训练对制度性无意识的觉察。英国 pre-clinical 必修。","Tavistock work discussion 传统","Tavistock M7（与婴儿观察并列为临床前双核）"],
+["D9","儿童精神分析","dev",4,"游戏作为自由联想的替代。Klein 与 A. Freud 的儿童技术之争是学派分裂的原点。","Klein《儿童精神分析》、A. Freud 儿童分析技术","NCP Introduction to Child Psychoanalysis；Tavistock M80；NYPSI 儿童整合课"],
+
+["S1","安娜·弗洛伊德与防御","school",4,"《自我与防御机制》(1936)：分析工作的着力点从内容转向形式——不是分析被压抑的什么，而是分析压抑本身。","A. Freud《自我与防御机制》(1936)","SPSI Y1 Anna Freud/结构理论；NCP Evolution of Theory I"],
+["S2","自我心理学","school",5,"Hartmann、Kris、Loewenstein、Rapaport：适应、自我的无冲突领域、精神装置的系统化。二十世纪北美主流。","Hartmann《自我心理学与适应问题》(1939)","NYPSI 现代自我心理学；NCP Evolution of Theory I；CAPA Y4 Classics Ego Psych"],
+["S3","Loewald 治疗作用","school",6,"分析关系本身具有结构建构功能——把自我心理学推向关系转向的枢纽人物。","Loewald 'On the Therapeutic Action of Psychoanalysis' (1960)","Columbia Theory III: Loewald & Kernberg"],
+["S4","克莱因：抑郁位","school",5,"整体客体、内疚、修复。把哀悼从事件变成心理位置。","Klein 1935、1940 两篇躁郁状态论文","NCP Evolution of Theory II；Columbia Theory II；PINC Klein cluster"],
+["S5","克莱因：PS 位与投射性认同","school",5,"1946 年《略论某些分裂机制》。分裂、投射性认同——当代临床最常用也最常被误用的概念。理解比昂与场论的绝对前置。","Klein 'Notes on Some Schizoid Mechanisms' (1946)","所有机构；WAWI 310a；SBPSP 必修模块"],
+["S6","嫉羡与感恩","school",6,"原初嫉羡与死本能的临床形态。负性治疗反应的克莱因式解释。","Klein《嫉羡与感恩》(1957)","NCP Neo-Kleinians；SBPSP"],
+["S7","Fairbairn 客体关系","school",5,"力比多不是寻求快感而是寻求客体。内在结构的三分模型，成瘾与依赖病理的理论工具。","Fairbairn《人格的精神分析研究》(1952)","WAWI 310a；PINC Independent cluster"],
+["S8","温尼科特","school",6,"过渡客体、足够好的母亲、真假自体、独处的能力、反移情中的恨。需要克莱因作对照系，否则读成温情育儿学。","'Transitional Objects'(1953)、'Hate in the Counter-transference'(1949)、'The Capacity to be Alone'(1958)","NCP Winnicott I（Y2）；SPSI Y3；PINC Winnicott cluster"],
+["S9","Balint 与独立学派","school",6,"基本断层、退行的两种形式。英国独立学派的临床温度。","Balint《基本断层》","NCP British Middle School（Y3）；BPAS Independent group"],
+["S10","反移情转向 1950","school",6,"Heimann：反移情不是污染，而是最重要的工具。这一年是精神分析技术史的分水岭。","Heimann 'On Counter-Transference'(1950)、Racker《移情与反移情》","NCP Clinical Practice IV；Columbia Process 模块"],
+["S11","比昂：容器与 α 功能","school",7,"容器-被容纳、β 元素向 α 元素的转化、对链接的攻击、无记忆无欲望。若无投射性认同做前置，字面上无法理解——这是所有机构把比昂放在第三、四年的原因。","'Attacks on Linking'(1959)、《经验中的学习》(1962)、'Notes on Memory and Desire'(1967)","NCP Evolution of Theory IX（Y4）；Columbia Theory III；WAWI 412a"],
+["S12","比昂：群体与思维","school",7,"基本假设团体、工作团体。团体动力学与机构分析的理论源头。","《团体中的经验》(1961)","NCP；IGA 团体分析训练"],
+["S13","现代克莱因学派","school",8,"Betty Joseph 的'心理平衡'、Steiner 的'心灵退缩'、Feldman：把全部工作压缩到此时此地的移情。当代英国临床的主流。","Joseph《心理平衡与心理变化》、Steiner《心灵退缩》","NCP Neo-Kleinians（Y4）；WAWI 412a Contemporary Kleinian"],
+["S14","Kohut 自体心理学","school",6,"共情-内省的观察位置、自恋移情（镜映/理想化/孪生）、自体客体。必须先读弗洛伊德 1914 才知道他在反对什么。","《自体的分析》(1971)、《自体的重建》(1977)、'The Two Analyses of Mr Z'(1979)","NCP Evolution of Theory VI；WAWI 313；CAPA Y4 Unit5 Self Psychology"],
+["S15","Sullivan 人际学派","school",4,"人际情境、参与式观察、详尽探询。WAWI 把它与弗洛伊德并列放在第一年——这是人际学派的宣言。","Sullivan《精神病学的人际理论》","WAWI 114a Sullivan in Time；NIP Interpersonal Theory I"],
+["S16","Fromm 与社会精神分析","school",5,"性格的社会形塑、逃避自由。精神分析社会批判传统的代表。","Fromm《逃避自由》《精神分析的危机》","WAWI 114b Erich Fromm"],
+["S17","Mitchell 关系精神分析","school",7,"从驱力/结构模式转向关系/冲突模式。需要 Sullivan + 英国客体关系双重前置，否则读成'对病人好一点'。","Mitchell《精神分析中的关系概念》(1988)","WAWI 232 Stephen Mitchell: Catalyst；NIP Relational Theory I&II；NCP Relational I&II"],
+["S18","Bromberg 解离与多重自体","school",8,"'站在空间里'：自体状态的不连续与解离。创伤临床的关系学派方案。","Bromberg《站在空间里》","WAWI 216 Standing in the Spaces；NIP Y4"],
+["S19","Ogden 分析第三方","school",8,"主体间分析第三、自闭-毗连位置、reverie。比昂 + 温尼科特 + 关系学派的合成物。","Ogden 'The Analytic Third'(1994)","Columbia Theory III Field；PINC Intersubjectivities II"],
+["S20","Benjamin 承认与主体间","school",8,"承认的悖论、施受关系的第三方出路。性别理论与关系学派的交汇。","Benjamin《爱的关系》《超越主客体》","Columbia；NIP Intersubjectivity（Y4）"],
+["S21","Stolorow 主体间场","school",7,"主体间性系统理论：从自体心理学推出的现象学转向。","Stolorow & Atwood《精神分析现象学的语境》","NCP Evolution of Theory VII；PINC Intersubjectivities I"],
+["S22","拉康：镜像与象征","school",6,"镜像阶段、想象-象征-实在三界、无意识如语言般结构。前置是弗洛伊德原文 + 索绪尔语言学，否则只能玩弄术语。","《文集》选篇：镜像阶段、罗马报告、'无意识中文字的动因'","Columbia Theory III Lacan（Y3）；NCP Evolution of Theory XI（Y4）；CFAR；ECF Sections Cliniques"],
+["S23","拉康：欲望与话语","school",7,"需要-要求-欲望、对象 a、四种话语、分析家的欲望。Seminar XI 是临床入口。","Seminar XI《精神分析的四个基本概念》、Seminar XVII","CFAR 临床训练；Sections Cliniques 三年制；Paris 8"],
+["S24","Laplanche 诱惑理论","school",7,"普遍诱惑理论、他者的信息之谜。与《精神分析辞汇》一起构成法国当代的概念工具箱。","Laplanche《精神分析中的生与死》、Laplanche & Pontalis《精神分析辞汇》","Columbia Theory III: Lacan & Laplanche；NCP 后研讨选修"],
+["S25","Baranger / Ferro 场论","school",8,"分析情境作为双人动力场、bastion（堡垒）、Ferro 的叙事转化。拉美对世界精神分析的核心贡献。","Baranger & Baranger 'The Analytic Situation as a Dynamic Field'(1961/2008)、Ferro《精神分析场论》","Columbia Theory III Field；SBPSP；APA"],
+["S26","Kernberg 结构诊断与 TFP","school",7,"人格组织三层次（神经症/边缘/精神病）、身份弥散、移情焦点治疗。诊断学与边缘临床的标准工具。","Kernberg《边缘状态与病理性自恋》","Columbia Theory III: Loewald & Kernberg；CAPA Y4 Personality Disorders"],
+["S27","Green 与法国当代","school",7,"死母亲情结、否定的工作、原初第三方。法国临床对抑郁与空白状态的独特贡献。","Green 'The Dead Mother'、《否定的工作》","Columbia Theory III；WAWI 412b Non-Anglophone Psychoanalysis"],
+["S28","荣格分析心理学","school",6,"原型、个体化、自性。作为对照系而非替代品——bpf 与 Anna Freud 均设 Jungian pathway。","荣格《原型与集体无意识》","SAP 九模块；bpf Jungian 轨；NCP 后研讨选修 Jung"],
+
+["T1","评估与初始访谈","tech",3,"可分析性判断、动力学诊断、频次与形式的选择。技术序列的第一课。","Freud《论治疗的开始》、评估文献","WAWI 711 Initial Consultation Practicum；Tavistock Assessments seminar；SPSI Process Y1"],
+["T2","设置与框架","tech",3,"频次、躺椅、时间、费用、缺席、休假。框架不是行政条款，而是移情得以显形的容器。","Bleger《精神分析框架》、Winnicott setting 相关","SPSI Y1–2 起始技术/框架；WAWI 731 Frame Issues"],
+["T3","自由联想与分析性倾听","tech",3,"均匀悬浮注意、详尽探询、第三只耳朵。这门课的成效几乎完全取决于你自己的分析。","Freud 1912 技术论文、Reik《以第三只耳倾听》","WAWI 118 Analytic Listening；115 Detailed Inquiry and Free Association"],
+["T4","阻抗与防御分析","tech",5,"从内容到形式：先分析'怎么说'，再分析'说了什么'。前置是结构理论与信号焦虑。","A. Freud (1936)、Gray《自我与分析过程》、Busch","SPSI Process；NCP Clinical Practice III"],
+["T5","诠释：措辞·分寸·时机","tech",5,"Columbia 把 'Tone, Tact, Timing' 单列为一门课——这是一个立场：诠释的时机与措辞不是天赋，是可训练的技艺。","Strachey 'The Nature of the Therapeutic Action'(1934)","Columbia Process: Tone, Tact, Timing；NCP Interpretative Process"],
+["T6","移情分析","tech",5,"移情神经症的建立与利用。技术的核心，也是所有学派分歧的战场。","Freud 1912；Gill《移情分析》","NCP Clinical Practice IV；NIP Transference/Countertransference I&II"],
+["T7","反移情的使用","tech",6,"从'污染'到'工具'。若不先掌握投射性认同与 Heimann 的转向，极易沦为分析师的自我宣泄。","Heimann(1950)、Racker、Bollas","Columbia Process 模块；NCP Clinical Practice IV；NIP Y2"],
+["T8","梦的临床运用","tech",5,"不是解梦，而是梦在此刻的移情中做什么。","Freud 1900；Sharpe；Ogden 论梦","NCP Advanced Dreams（Y3）；WAWI 332 Dreams；CAPA Y4 Unit1 Dreams；NIP Dreams I&II"],
+["T9","见诸行动与僵局","tech",7,"行动化、负性治疗反应、治疗僵局。督导最常处理的实际问题。","Freud 1914 重复；Klein 嫉羡；Steiner 退缩","NCP；WAWI 415 Difficult Patients/Difficult Dyads"],
+["T10","此时此地的移情工作","tech",8,"现代克莱因、关系学派、场论在技术上的汇流点：一切材料都被读作当下关系的表达。","Joseph、Ferro、Mitchell","WAWI 312 Working Psychoanalytically；NCP Advanced Technique"],
+["T11","结案","tech",8,"分析的终点是哀悼一种关系。需要移情神经症、哀悼理论与 1937 年论文三重前置。","Freud(1937)；Novick；结案文献","WAWI 417 Aspects of Termination；NCP Treatment Endings；Columbia Process: Termination"],
+["T12","参数与技术修正","tech",7,"面对不能使用标准技术的个案：支持性介入、频次调整、辅助设置。","Eissler 参数理论；Kernberg TFP","CAPA Y4 Deepening the Treatment；NCP"],
+
+["C1","神经症与性格病理","clin",4,"经典适应症。精神病理课程序列的第一站，与'标准技术'严格对应。","Fenichel、Shapiro《神经症性格》、McWilliams","SPSI Y1 神经症性格/症状；WAWI 215a Character and Psychopathology"],
+["C2","自恋人格","clin",6,"Kohut 与 Kernberg 的著名分歧：缺陷还是防御？两条治疗路线由此分叉。","Kohut(1971) vs Kernberg(1975)","PINC Psychic Organizations: Narcissism；NCP"],
+["C3","边缘状态","clin",6,"分裂、身份弥散、投射性认同的主战场。前置：克莱因 PS 位 + Kernberg 结构诊断。","Kernberg《边缘状态与病理性自恋》、Bateman & Fonagy","SPSI Y2 边缘性格；CAPA Y4 Personality Disorders 1&2"],
+["C4","精神病性状态","clin",7,"象征功能的崩解。比昂、Rosenfeld、Searles、拉康的精神病理论。","Bion 'Attacks on Linking'、Rosenfeld、Lacan Seminar III","SPSI Y3 重症性格与精神病；PINC Psychosis"],
+["C5","创伤与解离","clin",7,"近二十年增长最快的课程模块。关系学派与创伤研究的交汇。","Bromberg、Herman、Ferenczi 重估","NCP Trauma and Dissociation（Y3）；WAWI 413；NIP Y4；SAP 模块"],
+["C6","进食障碍","clin",7,"身体作为战场。青少年发展 + 边缘病理 + 创伤三重交叉。","相关临床文献","CAPA Y4 Unit Eating Disorders（三个 Site 均设）"],
+["C7","身心与述情障碍","clin",7,"心理化失败的躯体出口。法国学派（Marty、McDougall、Green）的主场。","McDougall《心灵的剧场》、巴黎心身学派","DPV/DPG 心身模块；SBPSP 心身选修；Tavistock M1"],
+["C8","抑郁与自杀风险","clin",5,"从《哀悼与忧郁》到当代风险评估。伦理与技术的交界。","Freud(1917)；Klein(1940)","SPSI；各机构风险评估模块"],
+["C9","性与性欲化","clin",7,"倒错结构、性欲化防御。与性别课程既相关又必须区分。","Freud(1905)；Stoller；当代文献","NCP Sex and Gender；Columbia Sexuality, Gender, Diversity"],
+["C10","团体与伴侣","clin",8,"从比昂的团体理论到伴侣的无意识契约。","Bion(1961)；Foulkes；伴侣治疗文献","IGA；PINC Group Process；NIP Writing/Couples"],
+
+["G1","伦理与专业边界","soc",2,"最早被教、最持久被讨论。PINC 分两阶：Ethics I 讲越界，Ethics II 讲分析的正直。","各学会伦理守则","WAWI 301 Ethics and Professional Boundaries；NCP Ethics（Y2）；PINC Ethics I&II"],
+["G2","越界与权力","soc",6,"性越界、双重关系、训练分析师制度中的权力。Kernberg 批评的核心地带。","Gabbard & Lester《精神分析中的边界》","PINC Ethics I: Boundary Violations"],
+["G3","性与性别","soc",6,"从弗洛伊德 1905 到当代酷儿理论。多数机构近十年新设或重写的模块。","Butler；Dimen；当代性别文献","NCP Sex and Gender（Y2）；WAWI 416；Columbia Y4；NIP Y4；SAP Otherness"],
+["G4","种族·族裔·文化","soc",5,"放在第几年就是态度：NCP 第一年（Diversities）、WAWI 第二年（220 How Psychoanalysts Gaze）、Columbia 第四年。","Fanon；Altman；当代种族精神分析","WAWI 220；NCP Diversities（Y1）；Columbia Theory IV race and otherness"],
+["G5","阶级与社会脉络","soc",5,"SFCP 把 'Psyche and Social Context' 贯穿四年，PINC 设 'Psyche and Society' 集群。","Fromm；社会精神分析文献","SFCP 全程；PINC Psyche and Society"],
+["G6","精神分析思想史","soc",4,"学派分裂的历史与制度史。知道谁在反对谁，才能读懂课程表的排序。","Makari《心灵革命》、Kernberg 教育批评三篇","WAWI 335 Psychoanalysis in Context: History of Ideas"],
+
+["R1","精神分析研究方法","res",6,"单个案研究、过程研究、概念研究。Columbia 把 Research 列为六大主轴之一。","IPA 研究方法文献","Columbia Research 主轴；NCP Research Methods（Y4）；Tavistock DPsych 研究项目"],
+["R2","疗效与循证研究","res",7,"长程动力性治疗的疗效证据、剂量-反应关系。精神分析最脆弱也最需要的战场。","Leichsenring & Rabung；Shedler","各机构循证模块（多为选修）"],
+["R3","神经精神分析","res",7,"Solms 与 Kandel 的整合纲领，以及 Blass & Carmeli (2007) 对其'谬误'的著名批评——这个争论本身值得进课堂。","Solms《大脑与内在世界》、Kandel(2005)、Blass & Carmeli(2007)","WAWI 411 Neuroscience and Psychoanalysis；SPSI Y4；NCP 选修"],
+["R4","心智化与 MBT","res",7,"Fonagy 把依恋研究、客体关系与边缘临床焊成一个可操作、可检验的模型。多数机构列为第四年或选修。","Fonagy & Target《心智化》、Bateman & Fonagy MBT","NCP Mentalization（选修）；Anna Freud Centre 核心"],
+["R5","婴儿研究","res",5,"Stern、Beebe、Tronick 的微观互动研究，为主体间理论提供实证支撑。","Stern《婴儿的人际世界》、Beebe & Lachmann","SFCP/PINC 发展集群；NIP Development I"],
+
+["M1","过程记录","meta",2,"精神分析教育的基本数据格式。写记录本身就是一种回忆-遗忘的分析。","process notes 训练","所有机构督导与个案研讨的基础；CAPA 升级材料要求"],
+["M2","个案概念化","meta",4,"把散乱材料组织成动力学假设。CAPA 的毕业条件之一。","精神动力学个案formulation 文献","CAPA psychodynamic case formulation；各机构 case write-up"],
+["M3","个案报告写作","meta",6,"毕业级别的书写：既要临床细节，也要理论承担。","毕业论文规范","BPSI/APsA case write-up；SFCP 写作工作坊；CFAR 4篇论文"],
+["M4","论文与发表","meta",8,"Kernberg 批评的重灾区：机构常以'资历不足'压制候选人发表。书单里近 20 年文献占比是机构活力的硬指标。","期刊写作","Columbia Writing 主轴；NCP Getting It On Paper II"],
+["M5","督导的使用","meta",3,"如何带素材、如何不表演、如何区分督导与治疗。好督导会讲出自己的思考过程。","督导文献","CAPA Supervision Training Program（毕业后）；各机构督导规范"],
+["M6","卡特尔与小组学习","meta",1,"拉康 1964 年设计的 4+1 结构：4 名成员 + 1 名'加一'（不占据假定知者的位置），期限一年最多续一次，到期强制解散以防黏着成宗派。被严重低估的学习技术。","拉康《创建行动》、ECF cartel 说明","ECF / Sections Cliniques；可自组"],
+["M7","我的信条（Credo）","meta",7,"WAWI 把它设在第二年——在你还没学完所有学派之前，先逼你暴露自己相信什么，然后让理论来冲击它。","自述写作","WAWI 221 Credo: My Psychoanalysis"],
+["M8","分析师身份与风格","meta",8,"训练的真正终点。拉康派用 la passe（通过程序）来评估的正是这个：你的分析发生了什么。","la passe / AE 任命机制；PINC Analytic Identity","PINC Experiential: Analytic Identity；ECF Commission de la passe"]
+];
+
+const E=[
+["P1","P2","inst"],["P2","P3","inst"],["P4","P3","inst"],["P1","P3","inst"],
+["P3","P5","inst"],["P4","P5","inst"],["P2","F0","inst"],["P4","D1","inst"],
+["P4","M1","inst"],["P1","M8","inst"],["P3","M5","inst"],["P5","M3","inst"],
+["P5","M7","inst"],["M6","P2","inst"],["P1","T3","inst"],
+["F0","F1"],["F0","T3"],["F1","F2"],["F1","T8"],["F1","S22"],["F1","F6"],
+["F2","F3"],["F2","D3"],["F2","F5"],["F2","F8"],["F2","C9"],["F2","G3"],
+["F3","F4"],["F4","T1"],["F4","T2"],["F4","T6"],["F4","T5"],
+["F5","F7"],["F5","S14"],["F5","C2"],["F6","F7"],["F6","T4"],["F6","F9"],
+["F7","F9"],["F7","S4"],["F7","S5"],["F7","S7"],["F7","T11"],["F7","C8"],["F7","S27"],
+["F8","F9"],["F8","S6"],["F9","F10"],["F9","S1"],["F10","S1"],["F10","C1"],
+["F11","G5"],["F11","F12"],["F12","T11"],
+["S1","S2"],["S1","T4"],["S1","C1"],["S1","S26"],["S2","S3"],["S2","T5"],
+["S3","S17"],["S4","S5"],["S4","S8"],["S4","D9"],["S5","S6"],["S5","S10"],
+["S5","S11"],["S5","C3"],["S5","C4"],["S5","S13"],["S5","T7"],["S5","S26"],
+["S6","S13"],["S7","S8"],["S7","S17"],["S8","S9"],["S8","S19"],["S8","S27"],
+["S9","S13"],["S10","T7"],["S10","S25"],["S10","M8"],["S11","S12"],["S11","S13"],
+["S11","S19"],["S11","S25"],["S11","C4"],["S11","R3"],["S12","C10"],
+["S13","T10"],["S14","S17"],["S14","S21"],["S14","C2"],["S15","S16"],["S15","S17"],
+["S16","G5"],["S17","S18"],["S17","S19"],["S17","S20"],["S17","T10"],
+["S18","C5"],["S21","S20"],["S22","S23"],["S22","S24"],["S22","C4"],["S23","S25"],
+["S25","T10"],["S26","C3"],["S26","T12"],["S26","C2"],["S27","C7"],
+["T1","T2"],["T2","T9"],["T2","G1"],["T3","T4"],["T4","T5"],["T5","T6"],
+["T6","T7"],["T6","T10"],["T7","T9"],["T8","T6"],["T9","T12"],["T10","T11"],
+["T11","M8"],
+["D1","D2"],["D1","S11"],["D1","M1"],["D2","D3"],["D2","D7"],["D2","R5"],
+["D3","D4"],["D3","D9"],["D4","D5"],["D5","D6"],["D5","C6"],["D7","R4"],
+["D8","M1"],["R5","D7"],
+["C1","C3"],["C1","C8"],["C3","C4"],["C3","C5"],["C3","C6"],["C5","C6"],["C5","C7"],
+["G1","G2"],["G4","G5"],["G6","S15"],["G6","G4"],["G3","C9"],
+["R1","R2"],["R3","R2"],["R4","R2"],["R4","C3"],
+["M1","M2"],["M2","M3"],["M3","M4"],["M3","M7"],["M5","T5"],["M7","M8"]
+];
+
+const CRITICAL=["F0","F1","F2","F3","F4","F5","F6","F7","F9","F10","S1","S4","S5","S10","S11","S8","T6","T10","M8"];
+
+/* ---------- 构建 ---------- */
+const nodes=N.map(a=>({id:a[0],label:a[1],dom:a[2],lyr:a[3],why:a[4],txt:a[5],inst:a[6]}));
+const byId={}; nodes.forEach(n=>byId[n.id]=n);
+const edges=E.filter(e=>byId[e[0]]&&byId[e[1]]).map(e=>({s:e[0],t:e[1],k:e[2]||"cog"}));
+const IN={},OUT={}; nodes.forEach(n=>{IN[n.id]=[];OUT[n.id]=[]});
+edges.forEach(e=>{OUT[e.s].push(e.t);IN[e.t].push(e.s)});
+
+const svg=document.getElementById("svg"), scene=document.getElementById("scene");
+const gL=document.getElementById("gLayers"), gE=document.getElementById("gEdges"), gN=document.getElementById("gNodes");
+const panel=document.getElementById("panel"), pc=document.getElementById("pc");
+const W=1500,H=1150;
+let view="layer", active=new Set(Object.keys(DOM)), sel=null;
+
+/* 文字宽度估算 */
+function wOf(s){let w=0;for(const c of s)w+=(c.charCodeAt(0)>255?9.8:5.4);return Math.max(46,w+16)}
+nodes.forEach(n=>{n.w=wOf(n.label);n.h=20});
+
+/* ---------- 布局 ---------- */
+const domOrder=["pillar","freud","dev","school","tech","clin","soc","res","meta"];
+function layoutLayer(){
+  const maxL=8, top=54, gap=(H-120)/maxL;
+  const groups={}; nodes.forEach(n=>{(groups[n.lyr]=groups[n.lyr]||[]).push(n)});
+  Object.keys(groups).forEach(k=>{
+    const arr=groups[k];
+    arr.sort((a,b)=>domOrder.indexOf(a.dom)-domOrder.indexOf(b.dom));
+    arr.forEach((n,i)=>{n.y=top+n.lyr*gap; n.x=80+(i+.5)*((W-160)/arr.length)});
+  });
+  // 水平松弛：父子靠近 + 同层排斥
+  for(let it=0;it<420;it++){
+    const f={}; nodes.forEach(n=>f[n.id]=0);
+    edges.forEach(e=>{
+      const a=byId[e.s],b=byId[e.t],d=b.x-a.x;
+      f[e.s]+=d*0.030; f[e.t]-=d*0.030;
+    });
+    Object.keys(groups).forEach(k=>{
+      const arr=groups[k];
+      for(let i=0;i<arr.length;i++)for(let j=i+1;j<arr.length;j++){
+        const a=arr[i],b=arr[j],min=(a.w+b.w)/2+13,d=b.x-a.x;
+        if(Math.abs(d)<min){const p=(min-Math.abs(d))*(d<0?-1:1)*0.5;f[a.id]-=p;f[b.id]+=p}
+      }
+    });
+    nodes.forEach(n=>{n.x=Math.max(50+n.w/2,Math.min(W-50-n.w/2,n.x+f[n.id]))});
+  }
+  return {mode:"layer",gap,top};
+}
+function layoutCluster(){
+  const cx=W/2, cy=H/2, doms=domOrder;
+  const cnt={}; nodes.forEach(n=>cnt[n.dom]=(cnt[n.dom]||0)+1);
+  const R=Math.min(W,H)/2-110;
+  doms.forEach((d,di)=>{
+    const arr=nodes.filter(n=>n.dom===d);
+    const a0=(di/doms.length)*Math.PI*2-Math.PI/2, span=(Math.PI*2/doms.length)*0.86;
+    arr.sort((a,b)=>a.lyr-b.lyr);
+    arr.forEach((n,i)=>{
+      const rows=Math.ceil(Math.sqrt(arr.length*1.6)), r=Math.floor(i/rows), c=i%rows;
+      const rad=200+r*72+(arr.length<6?60:0);
+      const ang=a0+span*((c+.5)/rows-.5);
+      n.x=cx+Math.cos(ang)*Math.min(rad,R); n.y=cy+Math.sin(ang)*Math.min(rad,R)*0.78;
+    });
+  });
+  return {mode:"cluster"};
+}
+function render(){
+  const meta = view==="cluster" ? layoutCluster() : layoutLayer();
+  // 层线
+  gL.innerHTML="";
+  if(meta.mode==="layer"){
+    for(let l=0;l<=8;l++){
+      const y=meta.top+l*meta.gap;
+      gL.insertAdjacentHTML("beforeend",
+        `<line class="lyr-line" x1="20" y1="${y+26}" x2="${W-20}" y2="${y+26}"/>
+         <text class="lyr-label" x="24" y="${y-13}">L${l} · ${LYR[l]}</text>`);
+    }
+  }
+  gE.innerHTML=edges.map((e,i)=>{
+    const a=byId[e.s],b=byId[e.t];
+    const mx=(a.x+b.x)/2, my=(a.y+b.y)/2+(meta.mode==="layer"?0:0);
+    const cx1=a.x+(mx-a.x)*.5, cy1=a.y+(b.y-a.y)*.35;
+    return `<path class="edge ${e.k}" data-i="${i}" d="M${a.x},${a.y} Q${cx1},${cy1} ${b.x},${b.y}"/>`;
+  }).join("");
+  gN.innerHTML=nodes.map(n=>
+    `<g class="node" data-id="${n.id}" transform="translate(${n.x},${n.y})">
+      <rect x="${-n.w/2}" y="-10" width="${n.w}" height="20" rx="9"
+        fill="${shade(n.dom)}" stroke="${DOM[n.dom].c}"/>
+      <text text-anchor="middle" x="0" y="0.5">${esc(n.label)}</text>
+    </g>`).join("");
+  gN.querySelectorAll(".node").forEach(g=>{
+    g.addEventListener("click",ev=>{ev.stopPropagation();pick(g.dataset.id)});
+  });
+  paint();
+}
+function shade(d){return {freud:"#1b2b48",dev:"#183a2e",school:"#2b2140",tech:"#3a2515",
+  clin:"#3a1d18",soc:"#123540",res:"#16333f",meta:"#3a3115",pillar:"#3d1f2e"}[d]}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+
+function anc(id,dir){
+  const m=dir==="up"?IN:OUT, seen=new Set(), st=[...m[id]];
+  while(st.length){const c=st.pop(); if(seen.has(c))continue; seen.add(c); m[c].forEach(x=>st.push(x))}
+  return seen;
+}
+function paint(){
+  const crit = view==="critical";
+  const vis = new Set(nodes.filter(n=>{
+    if(!active.has(n.dom))return false;
+    if(crit && !CRITICAL.includes(n.id) && n.dom!=="pillar")return false;
+    return true;
+  }).map(n=>n.id));
+  let up=new Set(), down=new Set();
+  if(sel){up=anc(sel,"up");down=anc(sel,"down")}
+  gN.querySelectorAll(".node").forEach(g=>{
+    const id=g.dataset.id;
+    g.classList.remove("mute","sel","up","down");
+    if(!vis.has(id)){g.classList.add("mute");return}
+    if(!sel)return;
+    if(id===sel)g.classList.add("sel");
+    else if(up.has(id))g.classList.add("up");
+    else if(down.has(id))g.classList.add("down");
+    else g.classList.add("mute");
+  });
+  gE.querySelectorAll(".edge").forEach(p=>{
+    const e=edges[+p.dataset.i];
+    p.classList.remove("mute","up","down");
+    if(!vis.has(e.s)||!vis.has(e.t)){p.classList.add("mute");return}
+    if(!sel)return;
+    const inUp=(up.has(e.s)||e.s===sel)&&(up.has(e.t)||e.t===sel);
+    const inDn=(down.has(e.s)||e.s===sel)&&(down.has(e.t)||e.t===sel);
+    if(inUp)p.classList.add("up"); else if(inDn)p.classList.add("down"); else p.classList.add("mute");
+  });
+}
+function pick(id){
+  sel=(sel===id)?null:id; paint();
+  if(!sel){panel.classList.remove("show");return}
+  const n=byId[id], pre=IN[id].map(x=>byId[x]), post=OUT[id].map(x=>byId[x]);
+  const allUp=anc(id,"up").size;
+  pc.innerHTML=`
+    <h2>${esc(n.label)}</h2>
+    <span class="tag" style="background:${shade(n.dom)};color:${DOM[n.dom].c}">${DOM[n.dom].n}</span>
+    <span class="tag" style="background:#1c232c;color:#8b949e">L${n.lyr} · ${LYR[n.lyr]}</span>
+    ${CRITICAL.includes(id)?'<span class="tag" style="background:#2d2413;color:#f2c94c">关键主干</span>':''}
+    <div class="sec"><h3>为什么在这个位置</h3><p>${esc(n.why)}</p></div>
+    <div class="sec"><h3>核心文本</h3><div class="txtbox">${esc(n.txt)}</div></div>
+    <div class="sec"><h3>开设该内容的机构（举例）</h3><div class="txtbox">${esc(n.inst)}</div></div>
+    <div class="sec"><h3>直接前置（共 ${allUp} 个上游节点）</h3>
+      <ul class="lst">${pre.length?pre.map(p=>`<li data-go="${p.id}">← ${esc(p.label)}</li>`).join(""):'<li class="no">无——这是一个起点</li>'}</ul></div>
+    <div class="sec"><h3>它支撑什么</h3>
+      <ul class="lst">${post.length?post.map(p=>`<li data-go="${p.id}">→ ${esc(p.label)}</li>`).join(""):'<li class="no">无——这是一个终点</li>'}</ul></div>
+    <div class="hint">蓝色 = 全部前置链（跳过则误读）；橙色 = 它支撑的后续内容。点击上方列表可跳转。</div>`;
+  pc.querySelectorAll("[data-go]").forEach(li=>li.addEventListener("click",()=>pick(li.dataset.go)));
+  panel.classList.add("show");
+}
+document.getElementById("close").onclick=()=>{panel.classList.remove("show");sel=null;paint()};
+svg.addEventListener("click",()=>{if(sel){sel=null;paint();panel.classList.remove("show")}});
+
+/* 图例 */
+const chips=document.getElementById("chips");
+chips.innerHTML=Object.keys(DOM).map(k=>{
+  const c=nodes.filter(n=>n.dom===k).length;
+  return `<span class="chip on" data-d="${k}" style="background:${shade(k)};color:${DOM[k].c};border-color:${DOM[k].c}">
+    <i style="background:${DOM[k].c}"></i>${DOM[k].n} ${c}</span>`}).join("");
+chips.querySelectorAll(".chip").forEach(ch=>ch.addEventListener("click",()=>{
+  const d=ch.dataset.d;
+  if(active.has(d)){active.delete(d);ch.classList.remove("on")}else{active.add(d);ch.classList.add("on")}
+  paint();
+}));
+
+/* 视图切换 */
+document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll("[data-view]").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on"); view=b.dataset.view;
+  if(view==="critical"){render();fit()}else{render();fit()}
+}));
+document.getElementById("reset").onclick=()=>{sel=null;fit();paint();panel.classList.remove("show")};
+
+/* 搜索 */
+document.getElementById("search").addEventListener("input",ev=>{
+  const q=ev.target.value.trim();
+  if(!q)return;
+  const hit=nodes.find(n=>n.label.includes(q)||n.id.toLowerCase()===q.toLowerCase()
+    ||n.why.includes(q)||n.txt.includes(q)||n.inst.includes(q));
+  if(hit){pick(hit.id);centerOn(hit)}
+});
+
+/* 缩放平移 */
+let tx=0,ty=0,k=1;
+function apply(){scene.setAttribute("transform",`translate(${tx},${ty}) scale(${k})`)}
+function fit(){
+  const r=svg.getBoundingClientRect();
+  k=Math.min(r.width/W,r.height/H)*0.97;
+  tx=(r.width-W*k)/2; ty=(r.height-H*k)/2; apply();
+}
+function centerOn(n){
+  const r=svg.getBoundingClientRect();
+  k=Math.max(k,0.75); tx=r.width/2-n.x*k; ty=r.height/2-n.y*k; apply();
+}
+let drag=false,px=0,py=0;
+svg.addEventListener("pointerdown",e=>{drag=true;px=e.clientX;py=e.clientY;svg.classList.add("dragging")});
+svg.addEventListener("pointermove",e=>{if(!drag)return;tx+=e.clientX-px;ty+=e.clientY-py;px=e.clientX;py=e.clientY;apply()});
+["pointerup","pointerleave","pointercancel"].forEach(t=>svg.addEventListener(t,()=>{drag=false;svg.classList.remove("dragging")}));
+svg.addEventListener("wheel",e=>{
+  e.preventDefault();
+  const r=svg.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top;
+  const f=e.deltaY<0?1.12:1/1.12,nk=Math.max(0.22,Math.min(3.2,k*f));
+  tx=mx-(mx-tx)*(nk/k); ty=my-(my-ty)*(nk/k); k=nk; apply();
+},{passive:false});
+let pts=new Map(),d0=0,k0=1;
+svg.addEventListener("pointerdown",e=>pts.set(e.pointerId,e));
+svg.addEventListener("pointermove",e=>{
+  if(!pts.has(e.pointerId))return; pts.set(e.pointerId,e);
+  if(pts.size===2){
+    drag=false;
+    const [a,b]=[...pts.values()];
+    const d=Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
+    if(!d0){d0=d;k0=k;return}
+    const r=svg.getBoundingClientRect();
+    const mx=(a.clientX+b.clientX)/2-r.left,my=(a.clientY+b.clientY)/2-r.top;
+    const nk=Math.max(0.22,Math.min(3.2,k0*(d/d0)));
+    tx=mx-(mx-tx)*(nk/k); ty=my-(my-ty)*(nk/k); k=nk; apply();
+  }
+});
+["pointerup","pointercancel","pointerleave"].forEach(t=>svg.addEventListener(t,e=>{pts.delete(e.pointerId);if(pts.size<2)d0=0}));
+
+document.getElementById("stat").textContent=
+  `${nodes.length} 个知识节点 / ${edges.length} 条依赖边`;
+render(); fit();
+window.addEventListener("resize",fit);
+</script>
+</body>
+</html>
