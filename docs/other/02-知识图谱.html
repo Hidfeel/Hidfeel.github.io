@@ -297,43 +297,44 @@ nodes.forEach(n=>{n.w=wOf(n.label);n.h=20});
 const domOrder=["pillar","freud","dev","school","tech","clin","soc","res","meta"];
 function layoutLayer(){
   const maxL=8, top=58, gap=(H-top-78)/maxL;
-  // 先按层分组
+  // 按层分组
   const groups={}; nodes.forEach(n=>{(groups[n.lyr]=groups[n.lyr]||[]).push(n)});
   Object.keys(groups).forEach(k=>{
     groups[k].sort((a,b)=>domOrder.indexOf(a.dom)-domOrder.indexOf(b.dom));
     groups[k].forEach(n=>n.y=top+ (+k)*gap);
   });
-  const marginL=70, marginR=70, usable=W-marginL-marginR;
-  // 每层展开系数：密集层铺满，稀疏层居中，保证同层零重叠
-  function expand(n){return n<=1?1:(n<=8?0.5: n<=18?0.82 : 0.97)}
-  // 确定性按层分列（中心向外），使子节点落到父节点间隙 → 层间水平错开
+  const marginL=60, marginR=60, usable=W-marginL-marginR;
+  // 确定性贪心排布：每层从左到右紧凑排列，保证零重叠
+  // 排序优先按域、再按宽度降序（宽的先放，减少行尾碎片）
   Object.keys(groups).forEach(k=>{
-    const arr=groups[k], n=arr.length, L=expand(n);
-    const step=usable/Math.max(1,n), half=(step*n)/2*L;
-    const cx=W/2; let li=0, ri=n-1;
-    arr.forEach((node,i)=>{
-      const idx = (i%2===0)? li++ : ri--;
-      node.x = (n===1)? cx : (cx - half + step*(idx+0.5));
-    });
-  });
-  // 迭代：同层硬排斥（消除任何残留重叠）+ 父子竖直吸引（保持对齐）
-  for(let it=0;it<700;it++){
-    const f={}; nodes.forEach(n=>f[n.id]=0);
-    // 同层排斥
-    Object.keys(groups).forEach(k=>{
-      const arr=groups[k];
-      for(let i=0;i<arr.length;i++)for(let j=i+1;j<arr.length;j++){
-        const a=arr[i],b=arr[j],min=(a.w+b.w)/2+10,d=b.x-a.x;
-        if(Math.abs(d)<min){const p=(min-Math.abs(d))*(d<0?-1:1)*0.5;f[a.id]-=p;f[b.id]+=p}
+    const arr=groups[k];
+    const gap=16;  // 节点间距 px
+    const totalW=arr.reduce((s,n)=>s+n.w+gap, 0)-gap; // 总宽度需求
+    if(totalW<=usable){
+      // 单行：居中排布
+      let x=marginL+(usable-totalW)/2;
+      arr.forEach(n=>{n.x=x+n.w/2; x+=n.w+gap});
+    } else {
+      // 需要两行：按域分两组，各自单行居中
+      const doms=domOrder.filter(d=>arr.some(n=>n.dom===d));
+      const mid=Math.ceil(doms.length/2);
+      const leftDoms=new Set(doms.slice(0,mid));
+      const left=arr.filter(n=>leftDoms.has(n.dom));
+      const right=arr.filter(n=>!leftDoms.has(n.dom));
+      function packRow(row,x0){
+        const tw=row.reduce((s,n)=>s+n.w+gap,0)-gap;
+        let x=x0+(usable/2-tw)/2;
+        row.forEach(n=>{n.x=x+n.w/2; x+=n.w+gap});
       }
-    });
-    // 父子竖直吸引（拉向父节点下方）
-    edges.forEach(e=>{
-      const a=byId[e.s],b=byId[e.t];
-      if(Math.abs(a.y-b.y)>=gap-1){const d=b.x-a.x; f[b.id]-=d*0.04; f[a.id]+=d*0.04}
-    });
-    nodes.forEach(n=>{n.x=Math.max(marginL+n.w/2,Math.min(W-marginR-n.w/2,n.x+f[n.id]))});
-  }
+      packRow(left, marginL);
+      packRow(right, marginL+usable/2);
+      // 两行 y 微偏
+      const dy=gap>0?gap*0.28:5; // 用变量名避免与外层gap冲突
+      const off=24; // 上下偏移量
+      left.forEach(n=>n.y-=off);
+      right.forEach(n=>n.y+=off);
+    }
+  });
   return {mode:"layer",gap,top};
 }
 function layoutCluster(){
