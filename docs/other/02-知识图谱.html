@@ -81,6 +81,22 @@
     #search{width:88px}
     h1{font-size:14px}
   }
+
+  .bibcard{background:#12181f;border:1px solid #1f2731;border-radius:8px;padding:9px 11px;margin-bottom:9px}
+  .bibtop{margin-bottom:6px}
+  .bibk{display:inline-block;font-size:9.5px;padding:1px 7px;border-radius:7px;
+    background:#15212e;color:#7aa5ff;border:1px solid #26405e;letter-spacing:.5px}
+  .bibr{font-size:12px;line-height:1.6;color:#e2ebf4;font-style:italic;
+    margin-bottom:7px;word-break:break-word}
+  .bibrow{display:flex;gap:8px;font-size:11px;line-height:1.6;margin-bottom:4px}
+  .bibrow .lbl{flex:0 0 56px;color:#6b7684;letter-spacing:.5px;flex-shrink:0}
+  .bibrow .val{color:#aebccb;word-break:break-word;flex:1}
+  .bibrow.biborg{background:#14110a;border-radius:6px;padding:5px 8px;margin:6px 0;
+    border:1px solid #3a2f12}
+  .bibrow.biborg .lbl{color:#f2c94c}
+  .bibrow.biborg .val{color:#f0dca0}
+  .bibn{font-size:10.5px;line-height:1.6;color:#7e8a99;margin-top:5px;
+    border-top:1px dashed #232c36;padding-top:6px}
 </style>
 </head>
 <body>
@@ -421,6 +437,2253 @@ function paint(){
     if(inUp)p.classList.add("up"); else if(inDn)p.classList.add("down"); else p.classList.add("mute");
   });
 }
+const BIB = {
+ "P1": [
+  {
+   "k": "原著",
+   "r": "Freud, S. (1912). Ratschläge für den Arzt bei der psychoanalytischen Behandlung. Zentralblatt für Psychoanalyse, 2.",
+   "s": "Recommendations to Physicians Practising Psycho-Analysis. SE XII, 109–120.",
+   "z": "《对从事精神分析治疗的医生的建议》，见《弗洛伊德文集》（车文博主编）",
+   "o": "Standard Edition：London: Hogarth Press and the Institute of Psycho-Analysis（1953–1974，James Strachey 主编 24 卷）；全文可经 PEP-Web（Psychoanalytic Electronic Publishing）检索",
+   "u": "所有 IPA 机构技术课程首篇；WAWI、NCP、Columbia 一年级",
+   "n": "训练分析制度的原始依据：分析师必须先成为被分析者"
+  },
+  {
+   "k": "制度文件",
+   "r": "Eitingon, M. (1926). Report of the International Training Commission. International Journal of Psycho-Analysis, 7, 130–134.",
+   "s": "",
+   "z": "未见通行中译",
+   "o": "International Journal of Psycho-Analysis（英国精神分析学会 Institute of Psychoanalysis 官方期刊，1920 年创刊）",
+   "u": "训练制度史课程；IPA 候选人导读",
+   "n": "「艾廷贡模式」（Eitingon model）的制度源头文件——柏林学院把训练标准化为分析＋课程＋督导三元结构"
+  },
+  {
+   "k": "批评文献",
+   "r": "Balint, M. (1948). On the psycho-analytic training system. International Journal of Psycho-Analysis, 29, 163–173.",
+   "s": "",
+   "z": "未见通行中译",
+   "o": "IJP／Institute of Psychoanalysis, London",
+   "u": "训练制度反思模块（BPAS、PINC、Columbia 选读）",
+   "n": "最早系统批评训练分析制度的文献：把候选人置于「超我认同」而非独立思考的位置"
+  },
+  {
+   "k": "制度文件",
+   "r": "International Psychoanalytical Association (n.d.). Three Models of Training: Eitingon, French and Uruguayan Models. IPA official website.",
+   "s": "https://www.ipa.world",
+   "o": "International Psychoanalytical Association（IPA，1910 年由 Freud、Ferenczi 等创立，全球训练标准制定机构）",
+   "u": "全体 IPA 候选人；本报告第二章依据",
+   "n": "三模式在频次、督导起点、准备度判定权上的制度差异"
+  }
+ ],
+ "P2": [
+  {
+   "k": "原著",
+   "r": "Freud, S. (1919). Soll die Psychoanalyse an der Universität gelehrt werden? (首刊匈牙利文译本, Budapest)",
+   "s": "On the Teaching of Psycho-Analysis in Universities. SE XVII, 169–173.",
+   "z": "《精神分析应否在大学讲授》，见《弗洛伊德文集》",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "精神分析教育学模块；WAWI 335 思想史",
+   "n": "精神分析教育学的起点文本：Freud 主张大学只能教理论，临床训练必须在学院内完成"
+  },
+  {
+   "k": "制度文件",
+   "r": "American Psychoanalytic Association (2019, rev.). Standards for Education and Training in Psychoanalysis. New York: APsA / Department of Psychoanalytic Education (DPE).",
+   "o": "American Psychoanalytic Association（APsA，1911 年成立）；2019 年起认证职能移交 Accreditation Council for Psychoanalytic Education (ACPE)",
+   "u": "全体北美 APsA 认证机构：NYPSI、BPSI、Chicago、SFCP、NCP",
+   "n": "规定 450 学时下限但不规定课程内容——「学时管制、内容自治」是北美课程多样性的制度根源"
+  },
+  {
+   "k": "工具书",
+   "r": "Auchincloss, E. L., & Samberg, E. (Eds.) (2012). Psychoanalytic Terms and Concepts (4th ed.). New Haven: Yale University Press.",
+   "o": "American Psychoanalytic Association 官方术语委员会编纂",
+   "z": "未见通行简体中译",
+   "u": "北美多数机构一年级指定参考工具书",
+   "n": "查概念定义的第一手工具书，避免用二手教材理解术语"
+  },
+  {
+   "k": "教材",
+   "r": "Auchincloss, E. L. (2015). The Psychoanalytic Model of the Mind. Washington, DC: American Psychiatric Publishing.",
+   "o": "American Psychiatric Association Publishing；作者为 Columbia 精神分析中心训练分析师",
+   "u": "Columbia、Cornell 一年级导论；CAPA 推荐",
+   "n": "当代最系统的「地形—结构—客体关系—自体」四模型综述教材"
+  }
+ ],
+ "P3": [
+  {
+   "k": "经典教材",
+   "r": "Ekstein, R., & Wallerstein, R. S. (1958). The Teaching and Learning of Psychotherapy. New York: Basic Books.",
+   "o": "Menninger Foundation 研究项目成果",
+   "z": "未见通行中译",
+   "u": "督导训练课程标准读物（APsA 机构、CAPA Supervision Training Program）",
+   "n": "提出「平行过程」（parallel process）概念的原始文献"
+  },
+  {
+   "k": "经典教材",
+   "r": "Fleming, J., & Benedek, T. F. (1966). Psychoanalytic Supervision: A Method of Clinical Teaching. New York: Grune & Stratton.",
+   "o": "Chicago Institute for Psychoanalysis",
+   "u": "督导方法论必读；Chicago、NYPSI 督导者培训",
+   "n": "「学习问题 vs 学习困难」的区分，至今是督导评估框架"
+  },
+  {
+   "k": "制度文件",
+   "r": "British Psychoanalytical Society (rev. annually). Training Handbook / Progression Requirements. London: Institute of Psychoanalysis.",
+   "o": "Institute of Psychoanalysis, London（英国精神分析学会训练机构，1924 年创立）",
+   "u": "BPAS 候选人",
+   "n": "规定 2 个训练个案、每周 5 次、最短持续时长与 Progression Committee 评审程序"
+  }
+ ],
+ "P4": [
+  {
+   "k": "原著",
+   "r": "Bick, E. (1964). Notes on infant observation in psycho-analytic training. International Journal of Psycho-Analysis, 45, 558–566.",
+   "o": "1963 年向 British Psychoanalytical Society 宣读；婴儿观察 1960 年正式纳入 Institute of Psychoanalysis（London）课程",
+   "z": "《精神分析训练中的婴儿观察笔记》，见台湾心灵工坊《婴儿观察》相关译介",
+   "u": "Tavistock、BPAS、Anna Freud Centre、bpf、NCP Year 1、CAPA 独立项目",
+   "n": "英国体系临床前训练的奠基文献；Harris Meltzer Trust 提供公开 PDF"
+  },
+  {
+   "k": "原著",
+   "r": "Balint, M. (1957). The Doctor, His Patient and the Illness. London: Pitman Medical.",
+   "z": "《医生、他的病人及其疾病》（繁体译介）",
+   "o": "Tavistock Clinic 研究项目；Balint Society（1969 年成立）延续其小组方法",
+   "u": "德语区 DPV/DPG 的 Balint-Gruppe 必修；英国 GP 训练",
+   "n": "Balint 小组：以医患关系为素材的团体式临床学习单元"
+  },
+  {
+   "k": "制度实践",
+   "r": "École de la Cause freudienne. La présentation de malades / Sections cliniques: programme. Paris: ECF.",
+   "o": "École de la Cause freudienne（ECF，Lacan 1981 年后由 Jacques-Alain Miller 主导）；Sections Cliniques 与 Institut du Champ freudien",
+   "u": "ECF、Collège Clinique de Paris、Sections Cliniques 三年制",
+   "n": "拉康派用「患者展示」取代北美「连续个案研讨」的功能位置"
+  }
+ ],
+ "P5": [
+  {
+   "k": "批评文献",
+   "r": "Kernberg, O. F. (1996). Thirty methods to destroy the creativity of psychoanalytic candidates. International Journal of Psycho-Analysis, 77(5), 1031–1040.",
+   "s": "重刊于 Kernberg, O. F. (2016). Psychoanalytic Education at the Crossroads. London: Routledge.",
+   "z": "《摧毁精神分析候选人创造力的三十种方法》（多种中文译介，散见公众号与培训讲义）",
+   "o": "IJP／Institute of Psychoanalysis；写作时作者即将就任 IPA 主席",
+   "u": "多数机构训练反思模块；本报告第八章依据",
+   "n": "第 26–30 条集中批评机构对候选人写作与发表的压制"
+  },
+  {
+   "k": "方法论",
+   "r": "Ogden, T. H. (2005). On psychoanalytic writing. International Journal of Psychoanalysis, 86(1), 15–29.",
+   "o": "IJP／Institute of Psychoanalysis",
+   "u": "写作工作坊：SFCP、NCP Getting It On Paper、Columbia Writing 主轴",
+   "n": "论「写作即思考的延续」——不是把已想清楚的写下来，而是靠写才想清楚"
+  },
+  {
+   "k": "制度文件",
+   "r": "Centre for Freudian Analysis and Research (CFAR). Training Requirements: Four Written Papers. London: CFAR.",
+   "o": "Centre for Freudian Analysis and Research（CFAR，伦敦拉康派训练机构）",
+   "u": "CFAR 候选人",
+   "n": "以四篇论文＋两例各满 18 个月的督导个案作为资格核心，写作是硬门槛"
+  }
+ ],
+ "M1": [
+  {
+   "k": "方法论",
+   "r": "Freud, S. (1912). Ratschläge für den Arzt bei der psychoanalytischen Behandlung. SE XII, 109–120.",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "所有机构过程记录训练的理论依据",
+   "n": "Freud 反对当场记录：记录会干扰均匀悬浮注意——这是「事后书写」传统的来源"
+  },
+  {
+   "k": "制度实践",
+   "r": "Tavistock and Portman NHS Foundation Trust. Observation and Work Discussion: Writing Up Guidelines (course handbook, M7 Psychoanalytic Studies).",
+   "o": "Tavistock Clinic（1920 年成立）／University of Essex 联合授予学位",
+   "u": "Tavistock M7 与 M80；BPAS 临床前",
+   "n": "观察时不记笔记、事后凭记忆书写、小组逐句讨论的标准流程"
+  },
+  {
+   "k": "制度文件",
+   "r": "China American Psychoanalytic Alliance (2025 rev.). Student Handbook: Process Notes and Advancement Materials. CAPA.",
+   "o": "China American Psychoanalytic Alliance（CAPA，2006 年成立，面向中国学员的远程训练机构）",
+   "u": "CAPA 全阶段升级材料要求",
+   "n": "对中文学员最具可操作性的过程记录规范"
+  }
+ ],
+ "M2": [
+  {
+   "k": "教材",
+   "r": "McWilliams, N. (1999). Psychoanalytic Case Formulation. New York: Guilford Press.",
+   "z": "《精神分析案例解析》，钟慧、刘忆非等译，中国轻工业出版社（万千心理）",
+   "o": "Guilford Press；作者为 Rutgers 大学与 NCP 训练分析师",
+   "u": "CAPA 毕业条件之一（psychodynamic case formulation）；各机构 case write-up",
+   "n": "中文可得性最好的个案概念化教材"
+  },
+  {
+   "k": "教材",
+   "r": "Perry, S., Cooper, A. M., & Michels, R. (1987). The psychodynamic formulation: Its purpose, structural characteristics, and clinical application. American Journal of Psychiatry, 144(5), 543–550.",
+   "o": "American Psychiatric Association；作者均为 Columbia／Cornell 精神分析中心成员",
+   "u": "Columbia 一年级；北美精神科住院医培训通用",
+   "n": "动力学概念化的经典四段结构（总结—非动力学因素—心理动力学解释—预测）"
+  }
+ ],
+ "M3": [
+  {
+   "k": "制度文件",
+   "r": "American Psychoanalytic Association. Guidelines for the Clinical Case Write-Up (Certification / Progression documents).",
+   "o": "APsA；2019 年后由 ACPE 与 American Board of Psychoanalysis 分担",
+   "u": "BPSI、NYPSI、SFCP 等 APsA 系机构毕业审核",
+   "n": "要求同时呈现临床细节与理论承担，是「书写作为第五支柱」的制度化形态"
+  },
+  {
+   "k": "方法论",
+   "r": "Klumpner, G. H., & Frank, A. (1991). On methods of reporting clinical material. Journal of the American Psychoanalytic Association, 39(2), 537–551.",
+   "o": "JAPA（APsA 官方期刊，1953 年创刊）",
+   "u": "写作工作坊选读",
+   "n": "讨论临床材料报告中的证据标准与失真机制"
+  }
+ ],
+ "M4": [
+  {
+   "k": "批评文献",
+   "r": "Kernberg, O. F. (2000). A concerned critique of psychoanalytic education. International Journal of Psychoanalysis, 81(1), 97–120.",
+   "o": "IJP／Institute of Psychoanalysis；发表于作者 IPA 主席任期内",
+   "u": "训练制度反思模块",
+   "n": "提出精神分析学院在「艺术学院／技术学校／研究型大学」三种模式间的错位"
+  },
+  {
+   "k": "批评文献",
+   "r": "Kernberg, O. F. (2012). Suicide prevention for psychoanalytic institutes and societies. Journal of the American Psychoanalytic Association, 60(4), 707–719.",
+   "o": "JAPA／American Psychoanalytic Association",
+   "u": "机构治理与训练政治模块",
+   "n": "把学院的封闭性、书单老化、发表压制诊断为「机构自杀」机制"
+  }
+ ],
+ "M5": [
+  {
+   "k": "教材",
+   "r": "Sarnat, J. E. (2016). Supervision Essentials for Psychodynamic Psychotherapies. Washington, DC: American Psychological Association.",
+   "o": "American Psychological Association（APA）Clinical Supervision Essentials 系列",
+   "u": "CAPA Supervision Training Program（毕业后）；PINC 督导者培训",
+   "n": "关系取向督导的操作手册，含逐字实录示范"
+  },
+  {
+   "k": "原著",
+   "r": "Ekstein, R., & Wallerstein, R. S. (1958). The Teaching and Learning of Psychotherapy. New York: Basic Books.",
+   "o": "Menninger Foundation",
+   "u": "督导训练标准读物",
+   "n": "如何区分「学习问题」与「个人困难」——督导与治疗的边界"
+  }
+ ],
+ "M6": [
+  {
+   "k": "原著",
+   "r": "Lacan, J. (1964). Acte de fondation (et Note adjointe). In Autres écrits (2001), Paris: Éditions du Seuil.",
+   "z": "《创建行动》，见《拉康：另类著作》（未见通行简体全译；部分见褚孝泉译介）",
+   "o": "Éditions du Seuil, Paris；文本由 École de la Cause freudienne 保存与刊行",
+   "u": "ECF／Sections Cliniques 全体；可自组学习",
+   "n": "卡特尔（cartel）4＋1 结构的原始定义：一年为期、最多续一次、到期强制解散以防结成宗派"
+  },
+  {
+   "k": "原著",
+   "r": "Lacan, J. (1980). D’écolage / Lettre de dissolution. In Autres écrits (2001), Paris: Seuil.",
+   "o": "Éditions du Seuil／ECF",
+   "u": "拉康派制度史课程",
+   "n": "以解散学派来防止团体黏着——理解「反机构的机构」逻辑的关键文本"
+  },
+  {
+   "k": "制度实践",
+   "r": "École de la Cause freudienne. Le cartel: mode d’emploi (Commission des cartels documents). Paris: ECF.",
+   "o": "ECF Commission des cartels",
+   "u": "ECF、NLS（New Lacanian School）",
+   "n": "当代卡特尔登记、运作与「加一」（plus-un）职责的操作规范"
+  }
+ ],
+ "M7": [
+  {
+   "k": "制度实践",
+   "r": "William Alanson White Institute. Course 221: Credo — My Psychoanalysis (curriculum syllabus, Year 2).",
+   "o": "William Alanson White Institute of Psychiatry, Psychoanalysis and Psychology（WAWI，1943 年由 Sullivan、Fromm、Thompson 等创立）",
+   "u": "WAWI 二年级必修",
+   "n": "在学完全部学派之前先逼学员写下自己相信什么——把隐性理论显性化"
+  },
+  {
+   "k": "方法论",
+   "r": "Sandler, J. (1983). Reflections on some relations between psychoanalytic concepts and psychoanalytic practice. International Journal of Psycho-Analysis, 64, 35–45.",
+   "o": "IJP／Institute of Psychoanalysis",
+   "u": "多数机构技术课程选读",
+   "n": "提出分析师的「私人理论」（private theory）概念——Credo 练习的理论依据"
+  }
+ ],
+ "M8": [
+  {
+   "k": "原著",
+   "r": "Lacan, J. (1967). Proposition du 9 octobre 1967 sur le psychanalyste de l’École. In Autres écrits (2001), Paris: Seuil.",
+   "z": "《关于学派精神分析家的 1967 年 10 月 9 日提议》（未见通行简体全译）",
+   "o": "Éditions du Seuil；程序由 ECF Commission de la passe 执行",
+   "u": "ECF、NLS、Sections Cliniques",
+   "n": "la passe（通过程序）与 AE／AME 任命机制的原始文本：评估的是「你的分析发生了什么」，而非学分"
+  },
+  {
+   "k": "研究文献",
+   "r": "Cabaniss, D. L., Glick, R. A., & Roose, S. P. (2001). The Columbia supervision project: Data from the dyad. Journal of the American Psychoanalytic Association, 49(1), 235–267.",
+   "o": "JAPA；Columbia University Center for Psychoanalytic Training and Research",
+   "u": "Columbia Research 主轴；督导研究选读",
+   "n": "少见的以实证方法研究「分析师如何形成」的项目"
+  },
+  {
+   "k": "制度实践",
+   "r": "Psychoanalytic Institute of Northern California (PINC). Experiential Course: Analytic Identity (curriculum).",
+   "o": "Psychoanalytic Institute of Northern California（PINC，1990 年代自 SFCP 分立）",
+   "u": "PINC 高年级",
+   "n": "把「分析师身份」设为独立课程而非附带结果"
+  }
+ ],
+ "F0": [
+  {
+   "k": "原著",
+   "r": "Breuer, J., & Freud, S. (1895). Studien über Hysterie. Leipzig & Wien: Franz Deuticke.",
+   "s": "Studies on Hysteria. SE II. London: Hogarth Press and the Institute of Psycho-Analysis, 1955.",
+   "z": "《癔症研究》，见《弗洛伊德文集》第 1 卷（车文博主编，长春出版社 2004／九州出版社 2014）",
+   "o": "德文原版 Franz Deuticke（维也纳医学出版社）；英译标准版由 Institute of Psycho-Analysis, London 与 Hogarth Press 合作刊行",
+   "u": "NCP「Struggling with the Unconscious—Early Freud」；WAWI 110a；BPAS 临床前 Freud Seminar 首篇",
+   "n": "读 Anna O.、Emmy von N. 与 Elisabeth von R. 三案，看方法如何从催眠、按额法走向自由联想"
+  },
+  {
+   "k": "原著",
+   "r": "Freud, S. (1950 [1895]). Entwurf einer Psychologie. In Aus den Anfängen der Psychoanalyse: Briefe an Wilhelm Fließ. London: Imago Publishing.",
+   "s": "Project for a Scientific Psychology. SE I, 281–397.",
+   "z": "《科学心理学大纲》，见《弗洛伊德文集》第 1 卷",
+   "o": "Imago Publishing, London（由 Ernst Kris、Marie Bonaparte、Anna Freud 编辑刊行 Fließ 通信）",
+   "u": "Columbia 一年级元心理学；神经精神分析课程前置（WAWI 411、SPSI Y4）",
+   "n": "Freud 生前未发表的神经科学式草稿——Solms 的神经精神分析纲领即以此为历史支点"
+  },
+  {
+   "k": "原著",
+   "r": "Freud, S. (1899). Über Deckerinnerungen. Monatsschrift für Psychiatrie und Neurologie, 6.",
+   "s": "Screen Memories. SE III, 301–322.",
+   "z": "《屏蔽记忆》，见《弗洛伊德文集》第 1 卷",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "记忆与建构主题选读；NCP 早期 Freud 系列",
+   "n": "与 1937《分析中的建构》对照读，可见 Freud 记忆观四十年的位移"
+  }
+ ],
+ "F1": [
+  {
+   "k": "原著",
+   "r": "Freud, S. (1900). Die Traumdeutung. Leipzig & Wien: Franz Deuticke.（实际发行于 1899 年 11 月）",
+   "s": "The Interpretation of Dreams. SE IV–V. London: Hogarth Press and the Institute of Psycho-Analysis, 1953.",
+   "z": "《释梦》，孙名之译，商务印书馆「汉译世界学术名著丛书」，1996；另见《弗洛伊德文集》第 2 卷",
+   "o": "德文原版 Franz Deuticke；德文全集 Gesammelte Werke Bd. II/III（London: Imago Publishing, 1942）；英译标准版 Institute of Psycho-Analysis",
+   "u": "全球机构第一年必修；CAPA Year 3 全体推荐；BPAS、Tavistock、SPP 一律列首",
+   "n": "必读第七章「梦过程的心理学」——地形学模型、初级／次级过程、愿望满足，是后续一切（含拉康「无意识如语言般结构」）的共同起点"
+  }
+ ],
+ "F2": [
+  {
+   "k": "原著",
+   "r": "Freud, S. (1905). Drei Abhandlungen zur Sexualtheorie. Leipzig & Wien: Franz Deuticke.",
+   "s": "Three Essays on the Theory of Sexuality. SE VII, 123–245.",
+   "z": "《性学三论》，见《弗洛伊德文集》第 2 卷；另有多种单行译本",
+   "o": "Franz Deuticke；1905–1925 年间经六次修订，SE 版以脚注标出全部增删",
+   "u": "NCP Later Freud I；WAWI 110b；Columbia 一年级；性与性别课程的历史前置",
+   "n": "读版本层次：1915 年才加入的「前生殖期组织」与「潜伏期」概念，是理解性理论演化的关键"
+  },
+  {
+   "k": "原著",
+   "r": "Freud, S. (1905). Der Witz und seine Beziehung zum Unbewußten. Leipzig & Wien: Franz Deuticke.",
+   "s": "Jokes and their Relation to the Unconscious. SE VIII.",
+   "z": "《诙谐及其与无意识的关系》，见《弗洛伊德文集》第 2 卷",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "WAWI 110b；拉康派语言学课程重点前置（ECF、CFAR）",
+   "n": "拉康派最重视的弗洛伊德文本之一：能指的运作机制在此比《释梦》更清晰"
+  }
+ ],
+ "F3": [
+  {
+   "k": "原著",
+   "r": "Freud, S. (1905 [1901]). Bruchstück einer Hysterie-Analyse. Monatsschrift für Psychiatrie und Neurologie, 18.",
+   "s": "Fragment of an Analysis of a Case of Hysteria. SE VII, 1–122.",
+   "z": "《一例癔症分析片段（朵拉）》，见《弗洛伊德文集》第 2 卷",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "SPSI Y1 弗洛伊德及同代案例；NCP Freud 系列；几乎所有机构技术课程首案",
+   "n": "技术史的真正起点：移情是在被「漏掉」之后（后记中）才被命名的。建议与 Lacan《对移情的干预》(1951) 并读"
+  }
+ ],
+ "F4": [
+  {
+   "k": "原著",
+   "r": "Freud, S. (1912). Zur Dynamik der Übertragung. Zentralblatt für Psychoanalyse, 2.",
+   "s": "The Dynamics of Transference. SE XII, 97–108.",
+   "z": "《移情的动力学》，见《弗洛伊德文集》第 6 卷",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis；SE XII 为「技术论文卷」",
+   "u": "Columbia Theory of Technique I；NCP Clinical Practice II；WAWI 技术序列",
+   "n": "移情作为阻抗与工具的双重性——此后所有学派分歧都从这个双重性中长出"
+  },
+  {
+   "k": "原著",
+   "r": "Freud, S. (1913). Zur Einleitung der Behandlung. Internationale Zeitschrift für ärztliche Psychoanalyse, 1.",
+   "s": "On Beginning the Treatment. SE XII, 121–144.",
+   "z": "《论治疗的开始》，见《弗洛伊德文集》第 6 卷",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "所有机构「设置与框架」课首篇；SPSI Y1；WAWI 731 Frame Issues",
+   "n": "棋类开局比喻、试分析、费用与时间的处理——框架议题的原始条文"
+  },
+  {
+   "k": "原著",
+   "r": "Freud, S. (1914). Erinnern, Wiederholen und Durcharbeiten. Internationale Zeitschrift für ärztliche Psychoanalyse, 2.",
+   "s": "Remembering, Repeating and Working-Through. SE XII, 145–156.",
+   "z": "《回忆、重复与修通》，见《弗洛伊德文集》第 6 卷",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "技术核心序列；见诸行动与僵局课程前置",
+   "n": "「行动化」概念的原始出处，也是「修通」为何需要时间的经济学解释"
+  },
+  {
+   "k": "原著",
+   "r": "Freud, S. (1915 [1914]). Bemerkungen über die Übertragungsliebe. Internationale Zeitschrift für ärztliche Psychoanalyse, 3.",
+   "s": "Observations on Transference-Love. SE XII, 157–171.",
+   "z": "《移情之爱的观察》，见《弗洛伊德文集》第 6 卷",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "伦理与越界课程共用文本：PINC Ethics I；WAWI 301",
+   "n": "技术论文中最直接谈欲望与节制的一篇，是伦理模块的历史根基"
+  }
+ ],
+ "F5": [
+  {
+   "k": "原著",
+   "r": "Freud, S. (1914). Zur Einführung des Narzißmus. Jahrbuch der Psychoanalyse, 6.",
+   "s": "On Narcissism: An Introduction. SE XIV, 67–102.",
+   "z": "《论自恋：一篇导论》，见《弗洛伊德文集》第 3 卷",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "Columbia Theory II；NCP Evolution of Theory；自体心理学与自恋人格课程的强制前置",
+   "n": "自我理想与自我力比多的引入。不先读这篇，Kohut(1971) 与 Kernberg(1975) 的分歧就无从定位"
+  }
+ ],
+ "F6": [
+  {
+   "k": "原著",
+   "r": "Freud, S. (1915). Triebe und Triebschicksale. Internationale Zeitschrift für ärztliche Psychoanalyse, 3.",
+   "s": "Instincts and their Vicissitudes. SE XIV, 109–140.",
+   "z": "《本能及其变化》，见《弗洛伊德文集》第 3 卷",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "各机构第一至二年元心理学模块",
+   "n": "Trieb（驱力）与 Instinkt（本能）的译名之争是英美与法国分歧的语言学根源"
+  },
+  {
+   "k": "原著",
+   "r": "Freud, S. (1915). Die Verdrängung. Internationale Zeitschrift für ärztliche Psychoanalyse, 3.",
+   "s": "Repression. SE XIV, 141–158.",
+   "z": "《压抑》，见《弗洛伊德文集》第 3 卷",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "防御分析课程前置（SPSI、NCP Clinical Practice III）",
+   "n": "原始压抑与后压抑的区分——防御概念史的第一层地基"
+  },
+  {
+   "k": "原著",
+   "r": "Freud, S. (1915). Das Unbewußte. Internationale Zeitschrift für ärztliche Psychoanalyse, 3.",
+   "s": "The Unconscious. SE XIV, 159–215.",
+   "z": "《无意识》，见《弗洛伊德文集》第 3 卷",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "元心理学模块；拉康派与 IPA 共用的核心文本",
+   "n": "描述性／动力性／系统性三种无意识的区分，是术语精确化的分水岭"
+  }
+ ],
+ "F7": [
+  {
+   "k": "原著",
+   "r": "Freud, S. (1917 [1915]). Trauer und Melancholie. Internationale Zeitschrift für ärztliche Psychoanalyse, 4.",
+   "s": "Mourning and Melancholia. SE XIV, 237–258.",
+   "z": "《哀悼与忧郁》，见《弗洛伊德文集》第 3 卷",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "Columbia Theory II；PINC Freud cluster；抑郁与结案课程双重必读",
+   "n": "内摄、认同、自我的分裂——整个客体关系传统（Klein 抑郁位、Fairbairn、结案理论）以此为轴"
+  }
+ ],
+ "F8": [
+  {
+   "k": "原著",
+   "r": "Freud, S. (1920). Jenseits des Lustprinzips. Leipzig, Wien & Zürich: Internationaler Psychoanalytischer Verlag.",
+   "s": "Beyond the Pleasure Principle. SE XVIII, 1–64.",
+   "z": "《超越快乐原则》，见《弗洛伊德文集》第 6 卷",
+   "o": "Internationaler Psychoanalytischer Verlag（IPA 自办出版社，1919 年由 Freud 与 Otto Rank 等创设）",
+   "u": "NCP Later Freud II；WAWI 117 Freud III；克莱因派与拉康派均列为核心",
+   "n": "死驱力假设：克莱因派全盘接受、北美主流长期拒绝——这一分歧直接塑造了两个大陆的课程表"
+  },
+  {
+   "k": "原著",
+   "r": "Freud, S. (1921). Massenpsychologie und Ich-Analyse. Leipzig, Wien & Zürich: Internationaler Psychoanalytischer Verlag.",
+   "s": "Group Psychology and the Analysis of the Ego. SE XVIII, 65–143.",
+   "z": "《群体心理学与自我的分析》，见《弗洛伊德文集》第 6 卷",
+   "o": "Internationaler Psychoanalytischer Verlag",
+   "u": "团体分析训练（IGA）；WAWI 社会精神分析序列；Bion(1961) 的前置",
+   "n": "认同机制与领袖—群体结构，是机构分析与团体动力学的共同源头"
+  }
+ ],
+ "F9": [
+  {
+   "k": "原著",
+   "r": "Freud, S. (1923). Das Ich und das Es. Leipzig, Wien & Zürich: Internationaler Psychoanalytischer Verlag.",
+   "s": "The Ego and the Id. SE XIX, 1–66.",
+   "z": "《自我与本我》，见《弗洛伊德文集》第 6 卷",
+   "o": "Internationaler Psychoanalytischer Verlag",
+   "u": "SPSI Y1 结构理论；NYPSI 自我心理学序列的强制前置；CAPA Year 3",
+   "n": "结构理论。自我心理学、防御分析与全部动力学诊断学的地基；注意 Strachey 的 Ich／Es 译名决定对英美接受史的影响"
+  }
+ ],
+ "F10": [
+  {
+   "k": "原著",
+   "r": "Freud, S. (1926). Hemmung, Symptom und Angst. Wien: Internationaler Psychoanalytischer Verlag.",
+   "s": "Inhibitions, Symptoms and Anxiety. SE XX, 75–175.",
+   "z": "《抑制、症状与焦虑》，见《弗洛伊德文集》第 6 卷",
+   "o": "Internationaler Psychoanalytischer Verlag",
+   "u": "Columbia；SPSI 现代结构理论；NCP Ego Psychology",
+   "n": "信号焦虑理论的反转：焦虑不再是压抑的产物，而是其动因——当代全部防御概念的枢轴"
+  }
+ ],
+ "F11": [
+  {
+   "k": "原著",
+   "r": "Freud, S. (1930). Das Unbehagen in der Kultur. Wien: Internationaler Psychoanalytischer Verlag.",
+   "s": "Civilization and its Discontents. SE XXI, 57–145.",
+   "z": "《文明及其不满》（另译《文明及其缺憾》），见《弗洛伊德文集》第 5 卷",
+   "o": "Internationaler Psychoanalytischer Verlag",
+   "u": "WAWI 335 Psychoanalysis in Context；PINC Psyche and Society；SFCP 全程社会脉络主轴",
+   "n": "当代种族、阶级、文化模块的历史前身；与 Fromm、Fanon 并读效果最好"
+  },
+  {
+   "k": "原著",
+   "r": "Freud, S. (1927). Die Zukunft einer Illusion. Wien: Internationaler Psychoanalytischer Verlag.",
+   "s": "The Future of an Illusion. SE XXI, 1–56.",
+   "z": "《一个幻觉的未来》，见《弗洛伊德文集》第 5 卷",
+   "o": "Internationaler Psychoanalytischer Verlag",
+   "u": "社会与文化模块选读",
+   "n": "宗教批判文本，也是精神分析自身「世界观」问题的自我审视"
+  }
+ ],
+ "F12": [
+  {
+   "k": "原著",
+   "r": "Freud, S. (1937). Die endliche und die unendliche Analyse. Internationale Zeitschrift für Psychoanalyse, 23.",
+   "s": "Analysis Terminable and Interminable. SE XXIII, 209–253.",
+   "z": "《可终止与不可终止的分析》，见《弗洛伊德文集》第 8 卷",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "WAWI 417 Aspects of Termination；NCP Treatment Endings；Columbia Process: Termination",
+   "n": "晚期立场：分析的限度、性格阻抗、「心理经济学的顽固」。同时是训练分析制度的重要依据文本"
+  },
+  {
+   "k": "原著",
+   "r": "Freud, S. (1937). Konstruktionen in der Analyse. Internationale Zeitschrift für Psychoanalyse, 23.",
+   "s": "Constructions in Analysis. SE XXIII, 255–269.",
+   "z": "《分析中的建构》，见《弗洛伊德文集》第 8 卷",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "诠释理论课程；叙事与历史真实议题",
+   "n": "从「重建历史」转向「建构」——当代诠释学转向的原始许可证"
+  },
+  {
+   "k": "原著",
+   "r": "Freud, S. (1940 [1938]). Abriß der Psychoanalyse. Internationale Zeitschrift für Psychoanalyse und Imago, 25.",
+   "s": "An Outline of Psycho-Analysis. SE XXIII, 139–207.",
+   "z": "《精神分析纲要》，见《弗洛伊德文集》第 8 卷",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "多数机构作为理论收尾复习读物",
+   "n": "Freud 最后的自我综述，适合在读完全部序列后回看，检验自己的理解地图"
+  }
+ ],
+ "D1": [
+  {
+   "k": "原著",
+   "r": "Bick, E. (1964). Notes on infant observation in psycho-analytic training. International Journal of Psycho-Analysis, 45, 558–566.",
+   "o": "1963 年向 British Psychoanalytical Society 宣读；婴儿观察于 1960 年正式纳入 Institute of Psychoanalysis（London）儿童分析课程；公开 PDF 由 Harris Meltzer Trust 提供",
+   "z": "见台湾心灵工坊相关婴儿观察译介",
+   "u": "Tavistock M7、BPAS 临床前、Anna Freud Centre、bpf、NCP Year 1、CAPA 独立项目",
+   "n": "方法条文：每周 1 小时到家观察至 2 岁生日、观察时不记笔记、事后书写、每周小组报告"
+  },
+  {
+   "k": "原著",
+   "r": "Bick, E. (1968). The experience of the skin in early object relations. International Journal of Psycho-Analysis, 49, 484–486.",
+   "o": "IJP／Institute of Psychoanalysis, London",
+   "u": "Tavistock、BPAS、SBPSP 婴儿观察理论配套",
+   "n": "「第二层皮肤」防御概念的出处——观察方法产出理论的范例"
+  },
+  {
+   "k": "教材",
+   "r": "Miller, L., Rustin, M., Rustin, M., & Shuttleworth, J. (Eds.) (1989). Closely Observed Infants. London: Duckworth.",
+   "o": "Tavistock Clinic 婴儿观察教学团队集体编写",
+   "u": "Tavistock、bpf、Anna Freud Centre 指定教材",
+   "n": "含完整观察记录实例，是自学者理解「观察到什么算够」的唯一可靠参照"
+  },
+  {
+   "k": "教材",
+   "r": "Sternberg, J. (2005). Infant Observation at the Heart of Training. London: Karnac Books.",
+   "o": "Karnac／Tavistock Clinic Series",
+   "u": "英国体系督导者培训",
+   "n": "以实证方式追问：婴儿观察究竟训练了受训者的哪些能力"
+  }
+ ],
+ "D2": [
+  {
+   "k": "原著",
+   "r": "Mahler, M. S., Pine, F., & Bergman, A. (1975). The Psychological Birth of the Human Infant: Symbiosis and Individuation. New York: Basic Books.",
+   "o": "Masters Children’s Center, New York 纵向观察研究项目",
+   "u": "SPSI Y2 婴儿观察 0–18 月；NCP Reflecting on the Baby’s Experience；NYPSI 发展序列",
+   "n": "分离—个体化四亚阶段。注意：其「共生」假设已被 Stern 的婴儿研究证伪，课程上应作对照读"
+  },
+  {
+   "k": "原著",
+   "r": "Spitz, R. A. (1945). Hospitalism: An inquiry into the genesis of psychiatric conditions in early childhood. The Psychoanalytic Study of the Child, 1, 53–74.",
+   "o": "The Psychoanalytic Study of the Child（1945 年由 Anna Freud、Heinz Hartmann、Ernst Kris 创刊，Yale University Press 刊行）",
+   "u": "发展序列首篇；剥夺与创伤模块",
+   "n": "精神分析最早的实证性婴儿研究之一，直接影响战后收容制度改革"
+  },
+  {
+   "k": "原著",
+   "r": "Stern, D. N. (1985). The Interpersonal World of the Infant: A View from Psychoanalysis and Developmental Psychology. New York: Basic Books.",
+   "o": "Cornell／Geneva 婴儿研究实验室；作者兼具实验与临床身份",
+   "u": "SFCP／PINC 发展集群；NIP Development I；主体间理论前置",
+   "n": "以实验证据重写发展阶段论：自体感从出生即有，无「共生期」"
+  }
+ ],
+ "D3": [
+  {
+   "k": "原著",
+   "r": "Freud, S. (1909). Analyse der Phobie eines fünfjährigen Knaben. Jahrbuch für psychoanalytische und psychopathologische Forschungen, 1.",
+   "s": "Analysis of a Phobia in a Five-Year-Old Boy. SE X, 1–147.",
+   "z": "《小汉斯（一例五岁男孩恐怖症的分析）》，见《弗洛伊德文集》第 4 卷",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "SPSI Y3 18 月–7 岁；NCP Studying the Growing Child；儿童分析导论首案",
+   "n": "史上第一例儿童分析（经父亲中介进行），俄狄浦斯结构的原始临床材料"
+  },
+  {
+   "k": "原著",
+   "r": "Freud, A. (1965). Normality and Pathology in Childhood: Assessments of Development. New York: International Universities Press.",
+   "s": "The Writings of Anna Freud, Vol. 6.",
+   "z": "未见通行简体全译",
+   "o": "Hampstead Child-Therapy Course and Clinic（今 Anna Freud Centre）；International Universities Press 刊行《安娜·弗洛伊德文集》",
+   "u": "Anna Freud Centre 核心；SPSI、NCP 发展序列",
+   "n": "「发展线」（developmental lines）与诊断剖面图——把发展评估工具化的原始文献"
+  },
+  {
+   "k": "经典论文",
+   "r": "Loewald, H. W. (1979). The waning of the Oedipus complex. Journal of the American Psychoanalytic Association, 27, 751–775.",
+   "o": "JAPA／American Psychoanalytic Association",
+   "u": "Columbia Theory III；高年级俄狄浦斯专题",
+   "n": "把俄狄浦斯的消退读作「对父母权威的必要谋杀」与随之而来的内疚——成年发展议题的接口"
+  }
+ ],
+ "D4": [
+  {
+   "k": "经典论文",
+   "r": "Bornstein, B. (1951). On latency. The Psychoanalytic Study of the Child, 6.",
+   "o": "The Psychoanalytic Study of the Child（Anna Freud 等创刊）",
+   "u": "SPSI Y3 潜伏期；儿童分析训练",
+   "n": "潜伏期两阶段划分的经典依据"
+  },
+  {
+   "k": "教材",
+   "r": "Sarnoff, C. A. (1976). Latency. New York: Jason Aronson.",
+   "o": "Jason Aronson（精神分析专业出版社，1960–1990 年代北美主力）",
+   "u": "儿童精神分析训练（NCP、Tavistock M80）",
+   "n": "临床上最被忽视阶段的少数系统专著：升华、学习能力与幻想的结构化"
+  }
+ ],
+ "D5": [
+  {
+   "k": "原著",
+   "r": "Blos, P. (1962). On Adolescence: A Psychoanalytic Interpretation. New York: Free Press.",
+   "o": "New York Psychoanalytic Institute（作者为 NYPSI 训练分析师）",
+   "u": "NCP Adolescence（Y2）；NIP Narrative of Adolescence；CAPA Y4 Unit 3",
+   "n": "青少年期分期的经典框架"
+  },
+  {
+   "k": "经典论文",
+   "r": "Blos, P. (1967). The second individuation process of adolescence. The Psychoanalytic Study of the Child, 22, 162–186.",
+   "o": "The Psychoanalytic Study of the Child",
+   "u": "青少年模块核心论文",
+   "n": "「第二次个体化」概念的出处，与 Mahler 的第一次个体化构成对偶"
+  },
+  {
+   "k": "原著",
+   "r": "Laufer, M., & Laufer, M. E. (1984). Adolescence and Developmental Breakdown: A Psychoanalytic View. New Haven: Yale University Press.",
+   "o": "Brent Consultation Centre／Centre for Research into Adolescent Breakdown, London",
+   "u": "英国青少年训练；自伤与自杀风险模块",
+   "n": "「发展性崩解」概念：把青春期精神病理读作身体—性成熟无法整合的后果"
+  },
+  {
+   "k": "参照文献",
+   "r": "Erikson, E. H. (1968). Identity: Youth and Crisis. New York: W. W. Norton.",
+   "z": "《同一性：青少年与危机》，孙名之译，浙江教育出版社／中央编译出版社",
+   "o": "W. W. Norton；作者受训于 Vienna Psychoanalytic Institute（Anna Freud 为其分析师）",
+   "u": "多数机构青少年与身份认同模块",
+   "n": "把发展阶段扩展至全生命周期的社会心理版本"
+  }
+ ],
+ "D6": [
+  {
+   "k": "教材",
+   "r": "Colarusso, C. A., & Nemiroff, R. A. (1981). Adult Development: A New Dimension in Psychodynamic Theory and Practice. New York: Plenum Press.",
+   "o": "San Diego Psychoanalytic Institute",
+   "u": "NCP Adult Development（Y3）；高年级选修",
+   "n": "提出「成年期发展任务」序列，把发展观从童年中心解放出来"
+  },
+  {
+   "k": "参照文献",
+   "r": "Erikson, E. H. (1950). Childhood and Society. New York: W. W. Norton.",
+   "z": "《童年与社会》，高丹妮、李妮译，世界图书出版公司",
+   "o": "W. W. Norton",
+   "u": "发展序列通用参照",
+   "n": "八阶段论中的「生成性对停滞」是中年临床的常用坐标"
+  },
+  {
+   "k": "经典论文",
+   "r": "Pollock, G. H. (1961). Mourning and adaptation. International Journal of Psycho-Analysis, 42, 341–361.",
+   "o": "Chicago Institute for Psychoanalysis",
+   "u": "丧失与老年模块；与 F7 并读",
+   "n": "把哀悼从病理事件转为终生适应过程"
+  }
+ ],
+ "D7": [
+  {
+   "k": "原著",
+   "r": "Bowlby, J. (1969, 1973, 1980). Attachment and Loss, Vols. 1–3. London: Hogarth Press and the Institute of Psycho-Analysis (International Psycho-Analytical Library).",
+   "z": "《依恋三部曲：依恋／分离／丧失》，汪智艳、王婉等译，世界图书出版公司",
+   "o": "Tavistock Clinic 研究部；由 Institute of Psycho-Analysis 的 International Psycho-Analytical Library 系列刊行——尽管作者当年在 BPAS 内部备受排斥",
+   "u": "NCP Styles of Attachment；Columbia Theory IV；Anna Freud Centre 核心",
+   "n": "三部曲不必全读，但第 1 卷第 11–12 章与第 2 卷分离反应章节是理论骨架"
+  },
+  {
+   "k": "实证研究",
+   "r": "Ainsworth, M. D. S., Blehar, M. C., Waters, E., & Wall, S. (1978). Patterns of Attachment: A Psychological Study of the Strange Situation. Hillsdale, NJ: Lawrence Erlbaum.",
+   "o": "Johns Hopkins University 婴儿实验室",
+   "u": "依恋模块实证部分；研究方法课程",
+   "n": "陌生情境程序与 A／B／C 分类的原始报告"
+  },
+  {
+   "k": "研究工具",
+   "r": "George, C., Kaplan, N., & Main, M. (1985, rev. 1996). The Adult Attachment Interview Protocol (unpublished manuscript). Berkeley: University of California, Department of Psychology.",
+   "o": "University of California, Berkeley 社会发展项目；评分手册仅经认证培训流通",
+   "u": "Anna Freud Centre／UCL；心智化训练前置",
+   "n": "AAI 把内在客体关系变成可编码的叙事变量——精神分析与实证研究的最重要接口"
+  },
+  {
+   "k": "整合文献",
+   "r": "Fonagy, P. (2001). Attachment Theory and Psychoanalysis. New York: Other Press.",
+   "z": "《依恋理论与精神分析》，付琳、鲁小华等译，中国轻工业出版社",
+   "o": "University College London Psychoanalysis Unit／Anna Freud Centre",
+   "u": "NCP、Columbia、CAPA 依恋与心智化模块",
+   "n": "逐派清算依恋理论与各精神分析学派的兼容性，适合作为进入 R4 的桥梁"
+  }
+ ],
+ "D8": [
+  {
+   "k": "教材",
+   "r": "Rustin, M., & Bradley, J. (Eds.) (2008). Work Discussion: Learning from Reflective Practice in Work with Children and Families. London: Karnac Books (Tavistock Clinic Series).",
+   "o": "Tavistock Clinic Series（Tavistock and Portman NHS Foundation Trust 官方书系）",
+   "u": "Tavistock M7 必修（与婴儿观察并列为临床前双核）",
+   "n": "Work Discussion 的方法学正典：把职场与机构素材带入小组，训练对制度性无意识的觉察"
+  },
+  {
+   "k": "前置文献",
+   "r": "Bion, W. R. (1961). Experiences in Groups and Other Papers. London: Tavistock Publications.",
+   "z": "《团体中的经验》，中文译介散见团体治疗教材",
+   "o": "Tavistock Institute of Human Relations",
+   "u": "Work Discussion 与团体课程共用前置",
+   "n": "基本假设团体／工作团体的区分，是理解小组何以「跑偏」的工具"
+  }
+ ],
+ "D9": [
+  {
+   "k": "原著",
+   "r": "Klein, M. (1932). Die Psychoanalyse des Kindes. Wien: Internationaler Psychoanalytischer Verlag.（同年英译 The Psycho-Analysis of Children. London: Hogarth Press）",
+   "s": "The Writings of Melanie Klein, Vol. 2. London: Hogarth Press, 1975.",
+   "z": "《儿童精神分析》，林玉华译（台湾译本）／简体译介散见",
+   "o": "Melanie Klein Trust 授权；Hogarth Press 与 Institute of Psycho-Analysis 刊行《克莱因文集》4 卷",
+   "u": "NCP Introduction to Child Psychoanalysis；Tavistock M80；BPAS 儿童训练",
+   "n": "游戏技术作为自由联想的替代物；与下一条并读才能理解学派分裂的技术起点"
+  },
+  {
+   "k": "原著",
+   "r": "Freud, A. (1927). Einführung in die Technik der Kinderanalyse. Wien: Internationaler Psychoanalytischer Verlag.",
+   "s": "Introduction to the Technique of Child Analysis. The Writings of Anna Freud, Vol. 1.",
+   "z": "未见通行简体全译",
+   "o": "Vienna Psychoanalytic Society；International Universities Press 刊行文集",
+   "u": "儿童分析训练与学派史模块",
+   "n": "与 Klein 相反的立场：儿童分析需先经教育性预备阶段——1927 年伦敦交流会的争议焦点"
+  },
+  {
+   "k": "一手档案",
+   "r": "King, P., & Steiner, R. (Eds.) (1991). The Freud–Klein Controversies 1941–45. London: Routledge (New Library of Psychoanalysis).",
+   "o": "British Psychoanalytical Society 会议档案；New Library of Psychoanalysis 系列由 Institute of Psychoanalysis 与 Routledge 合作出版",
+   "u": "BPAS 三派结构史必读；WAWI 335；Columbia 思想史",
+   "n": "英国学会「三派并存」结构的诞生记录——读课程表政治的最佳一手材料"
+  }
+ ],
+ "S1": [
+  {
+   "k": "原著",
+   "r": "Freud, A. (1936). Das Ich und die Abwehrmechanismen. Wien: Internationaler Psychoanalytischer Verlag.",
+   "s": "The Ego and the Mechanisms of Defence. London: Hogarth Press, 1937; rev. ed. 1966 = The Writings of Anna Freud, Vol. 2.",
+   "z": "《自我与防御机制》，有简体中译流通（华东师范大学出版社等）",
+   "o": "Vienna Psychoanalytic Society；英译由 Hogarth Press and the Institute of Psycho-Analysis 刊行；作者后创办 Hampstead Clinic（今 Anna Freud Centre）",
+   "u": "SPSI Y1 Anna Freud／结构理论；NCP Evolution of Theory I；北美防御分析序列起点",
+   "n": "分析着力点从内容转向形式：不是分析被压抑的什么，而是分析压抑本身"
+  }
+ ],
+ "S2": [
+  {
+   "k": "原著",
+   "r": "Hartmann, H. (1939). Ich-Psychologie und Anpassungsproblem. Internationale Zeitschrift für Psychoanalyse und Imago, 24.",
+   "s": "Ego Psychology and the Problem of Adaptation. New York: International Universities Press, 1958.",
+   "z": "未见通行简体全译",
+   "o": "Vienna Psychoanalytic Society → New York Psychoanalytic Institute；International Universities Press 为北美精神分析主力出版社",
+   "u": "NYPSI 现代自我心理学；NCP Evolution of Theory I；CAPA Y4 Classics of Ego Psychology",
+   "n": "「自我的无冲突领域」与适应概念——二十世纪北美主流范式的奠基文本"
+  },
+  {
+   "k": "经典论文",
+   "r": "Hartmann, H., Kris, E., & Loewenstein, R. M. (1946). Comments on the formation of psychic structure. The Psychoanalytic Study of the Child, 2, 11–38.",
+   "o": "The Psychoanalytic Study of the Child（Anna Freud、Hartmann、Kris 创刊）",
+   "u": "自我心理学序列核心论文",
+   "n": "「三人组」的系统化纲领，也是后来被关系学派集中批评的对象"
+  },
+  {
+   "k": "原著",
+   "r": "Rapaport, D. (1960). The Structure of Psychoanalytic Theory: A Systematizing Attempt. New York: International Universities Press (Psychological Issues Monograph 6).",
+   "o": "Austen Riggs Center, Stockbridge",
+   "u": "高年级元心理学；理论方法论选读",
+   "n": "把精神分析形式化为公理系统的最彻底尝试——也因此暴露了元心理学的可证伪性问题"
+  }
+ ],
+ "S3": [
+  {
+   "k": "原著",
+   "r": "Loewald, H. W. (1960). On the therapeutic action of psycho-analysis. International Journal of Psycho-Analysis, 41, 16–33.",
+   "s": "重刊于 Loewald, H. W. (1980). Papers on Psychoanalysis. New Haven: Yale University Press.",
+   "z": "未见通行简体中译",
+   "o": "IJP／Institute of Psychoanalysis；作者为 New York Psychoanalytic Institute 训练分析师",
+   "u": "Columbia Theory III: Loewald & Kernberg；PINC、NCP 高年级",
+   "n": "分析关系本身具有结构建构功能——自我心理学通向关系转向的枢纽文本"
+  }
+ ],
+ "S4": [
+  {
+   "k": "原著",
+   "r": "Klein, M. (1935). A contribution to the psychogenesis of manic-depressive states. International Journal of Psycho-Analysis, 16, 145–174.",
+   "s": "The Writings of Melanie Klein, Vol. 1: Love, Guilt and Reparation. London: Hogarth Press, 1975.",
+   "z": "参见繁体译本《愛、罪惡與修復》（台湾心灵工坊）",
+   "o": "IJP／Institute of Psychoanalysis, London；文集版权由 Melanie Klein Trust 管理",
+   "u": "NCP Evolution of Theory II；Columbia Theory II；PINC Klein cluster；BPAS Kleinian group 核心",
+   "n": "抑郁位（depressive position）的提出：把哀悼从事件变成心理位置"
+  },
+  {
+   "k": "原著",
+   "r": "Klein, M. (1940). Mourning and its relation to manic-depressive states. International Journal of Psycho-Analysis, 21, 125–153.",
+   "s": "The Writings of Melanie Klein, Vol. 1.",
+   "o": "IJP／Institute of Psychoanalysis",
+   "u": "与 Freud《哀悼与忧郁》配对讲授（Columbia、NCP、SBPSP）",
+   "n": "必须与 F7 并读：Klein 在此处与 Freud 的分歧正是客体关系传统的分水岭"
+  }
+ ],
+ "S5": [
+  {
+   "k": "原著",
+   "r": "Klein, M. (1946). Notes on some schizoid mechanisms. International Journal of Psycho-Analysis, 27, 99–110.",
+   "s": "The Writings of Melanie Klein, Vol. 3: Envy and Gratitude and Other Works 1946–1963. London: Hogarth Press, 1975.",
+   "z": "参见繁体译本《嫉羨和感恩》（台湾心灵工坊）",
+   "o": "IJP／Institute of Psychoanalysis；Melanie Klein Trust",
+   "u": "几乎所有机构必修；WAWI 310a；SBPSP 必修模块；BPAS 全部三派共同读物",
+   "n": "偏执—分裂位与投射性认同的原始定义。理解比昂、场论、当代边缘临床的绝对前置"
+  },
+  {
+   "k": "读本",
+   "r": "Spillius, E. B. (Ed.) (1988). Melanie Klein Today: Developments in Theory and Practice, Vols. 1–2. London: Routledge (New Library of Psychoanalysis).",
+   "o": "New Library of Psychoanalysis：Institute of Psychoanalysis（London）与 Routledge 合作书系",
+   "u": "英国体系与北美克莱因课程标准读本",
+   "n": "投射性认同概念在 1946 年之后四十年的临床演化史，含 Rosenfeld、Joseph、Segal 关键论文"
+  }
+ ],
+ "S6": [
+  {
+   "k": "原著",
+   "r": "Klein, M. (1957). Envy and Gratitude: A Study of Unconscious Sources. London: Tavistock Publications.",
+   "s": "The Writings of Melanie Klein, Vol. 3.",
+   "z": "参见繁体译本《嫉羨和感恩》（台湾心灵工坊）",
+   "o": "Tavistock Publications；Melanie Klein Trust",
+   "u": "NCP Neo-Kleinians；SBPSP；BPAS Kleinian group",
+   "n": "原初嫉羡与死驱力的临床形态，是负性治疗反应的克莱因式解释"
+  }
+ ],
+ "S7": [
+  {
+   "k": "原著",
+   "r": "Fairbairn, W. R. D. (1952). Psychoanalytic Studies of the Personality. London: Tavistock Publications / Routledge & Kegan Paul.",
+   "z": "未见通行简体全译",
+   "o": "Scottish Institute of Human Relations, Edinburgh（作者长期在爱丁堡独立执业，未属伦敦主流）",
+   "u": "WAWI 310a；PINC Independent cluster；BPAS Independent group",
+   "n": "「力比多不是寻求快感而是寻求客体」——驱力范式向客体范式的最彻底改写"
+  },
+  {
+   "k": "经典论文",
+   "r": "Fairbairn, W. R. D. (1944). Endopsychic structure considered in terms of object-relationships. International Journal of Psycho-Analysis, 25, 70–92.",
+   "o": "IJP／Institute of Psychoanalysis",
+   "u": "客体关系理论核心论文",
+   "n": "内在结构三分模型（中心自我／力比多自我／反力比多自我），成瘾与依赖病理的理论工具"
+  }
+ ],
+ "S8": [
+  {
+   "k": "原著",
+   "r": "Winnicott, D. W. (1953). Transitional objects and transitional phenomena. International Journal of Psycho-Analysis, 34, 89–97.",
+   "s": "重刊于 Playing and Reality. London: Tavistock Publications, 1971.",
+   "z": "《游戏与现实》，有简体中译流通；繁体本《遊戲與現實》（台湾心灵工坊）",
+   "o": "IJP／Institute of Psychoanalysis；作者为 BPAS Independent group 代表、两任学会主席",
+   "u": "NCP Winnicott I（Y2）；SPSI Y3；PINC Winnicott cluster；Tavistock、bpf",
+   "n": "过渡现象＝第三区域（既非内部也非外部）。需以 Klein 作对照系，否则易读成温情育儿学"
+  },
+  {
+   "k": "原著",
+   "r": "Winnicott, D. W. (1949). Hate in the counter-transference. International Journal of Psycho-Analysis, 30, 69–74.",
+   "s": "重刊于 Through Paediatrics to Psycho-Analysis. London: Tavistock Publications, 1958.",
+   "o": "IJP／Institute of Psychoanalysis",
+   "u": "反移情课程与困难个案模块（WAWI 415、NCP Clinical Practice IV）",
+   "n": "比 Heimann(1950) 更早直面分析师的恨——反移情转向的前哨文本"
+  },
+  {
+   "k": "原著",
+   "r": "Winnicott, D. W. (1958). The capacity to be alone. International Journal of Psycho-Analysis, 39, 416–420.",
+   "s": "重刊于 The Maturational Processes and the Facilitating Environment. London: Hogarth Press and the Institute of Psycho-Analysis, 1965.",
+   "o": "IJP／Institute of Psychoanalysis",
+   "u": "英国体系发展理论序列",
+   "n": "与「真假自体」（1960，同书）并读，构成 Winnicott 临床观的双柱"
+  }
+ ],
+ "S9": [
+  {
+   "k": "原著",
+   "r": "Balint, M. (1968). The Basic Fault: Therapeutic Aspects of Regression. London: Tavistock Publications.",
+   "z": "未见通行简体全译",
+   "o": "Tavistock Clinic；作者出自布达佩斯学派（Ferenczi 传统）",
+   "u": "NCP British Middle School（Y3）；BPAS Independent group",
+   "n": "基本断层与「良性／恶性退行」的区分——英国独立学派临床温度的来源"
+  },
+  {
+   "k": "读本",
+   "r": "Kohon, R. (Ed.) (1986). The British School of Psychoanalysis: The Independent Tradition. London: Free Association Books.",
+   "o": "Free Association Books, London",
+   "u": "独立学派专题读本（NCP、PINC、WAWI）",
+   "n": "把「独立」从「折中」中区分出来：以经验为先、拒绝理论闭合"
+  },
+  {
+   "k": "综述",
+   "r": "Rayner, E. (1991). The Independent Mind in British Psychoanalysis. London: Free Association Books.",
+   "o": "Free Association Books；作者为 BPAS Independent group 成员",
+   "u": "英国三派结构课程",
+   "n": "理解 BPAS 三派并存制度的最佳单册导论"
+  }
+ ],
+ "S10": [
+  {
+   "k": "原著",
+   "r": "Heimann, P. (1950). On counter-transference. International Journal of Psycho-Analysis, 31, 81–84.",
+   "o": "1949 年 IPA 苏黎世大会宣读；IJP／Institute of Psychoanalysis, London",
+   "z": "《论反移情》，中文译介散见培训讲义",
+   "u": "NCP Clinical Practice IV；Columbia Process 模块；几乎所有机构技术序列",
+   "n": "仅四页，却是技术史的分水岭：反移情不是污染，而是最重要的工具"
+  },
+  {
+   "k": "原著",
+   "r": "Racker, H. (1960). Estudios sobre técnica psicoanalítica. Buenos Aires: Paidós.",
+   "s": "Transference and Countertransference. London: Hogarth Press and the Institute of Psycho-Analysis / New York: International Universities Press, 1968.",
+   "z": "未见通行简体全译",
+   "o": "Asociación Psicoanalítica Argentina（APA，布宜诺斯艾利斯）——拉美对全球技术理论的首个重大输出",
+   "u": "Columbia Process；PINC；SBPSP、APA 必修",
+   "n": "一致性认同／互补性认同的区分，至今是督导中最实用的反移情分类工具"
+  },
+  {
+   "k": "经典论文",
+   "r": "Little, M. (1951). Counter-transference and the patient’s response to it. International Journal of Psycho-Analysis, 32, 32–40.",
+   "o": "IJP／Institute of Psychoanalysis",
+   "u": "反移情专题选读",
+   "n": "与 Heimann 同期的独立推进，讨论分析师失误后的坦承限度"
+  }
+ ],
+ "S11": [
+  {
+   "k": "原著",
+   "r": "Bion, W. R. (1959). Attacks on linking. International Journal of Psycho-Analysis, 40, 308–315.",
+   "s": "重刊于 Second Thoughts: Selected Papers on Psycho-Analysis. London: William Heinemann, 1967.",
+   "z": "《对连接的攻击》，中文译介散见讲义；《再思考》繁体译介",
+   "o": "IJP／Institute of Psychoanalysis；作者为 BPAS Kleinian group、1962–65 年学会主席",
+   "u": "NCP Evolution of Theory IX（Y4）；Columbia Theory III；WAWI 412a；SBPSP 核心",
+   "n": "若无 S5（投射性认同）作前置，字面上无法理解——这是各机构一律把比昂放在第三、四年的原因"
+  },
+  {
+   "k": "原著",
+   "r": "Bion, W. R. (1962). Learning from Experience. London: William Heinemann.",
+   "z": "《从经验中学习》，繁体译介（台湾）；简体译介散见",
+   "o": "William Heinemann Medical Books；后由 Karnac 接续刊行 Bion 全集",
+   "u": "高年级比昂专题；SBPSP、APdeBA 必修",
+   "n": "容器—被容纳、α 功能与 β 元素：把「思考」本身当作需要被发展的功能"
+  },
+  {
+   "k": "原著",
+   "r": "Bion, W. R. (1967). Notes on memory and desire. Psychoanalytic Forum, 2(3), 271–280.",
+   "o": "Psychoanalytic Forum（Los Angeles Psychoanalytic Society 相关刊物）",
+   "u": "技术课程高阶；「无记忆无欲望」议题",
+   "n": "两页篇幅的技术革命：反对以记忆与愿望组织临床注意力"
+  },
+  {
+   "k": "原著",
+   "r": "Bion, W. R. (1970). Attention and Interpretation. London: Tavistock Publications.",
+   "o": "Tavistock Publications",
+   "u": "比昂晚期专题（NCP、PINC 选修）",
+   "n": "O、K 与 −K，以及「变形」概念；建议放在全部序列之后再读"
+  }
+ ],
+ "S12": [
+  {
+   "k": "原著",
+   "r": "Bion, W. R. (1961). Experiences in Groups and Other Papers. London: Tavistock Publications.",
+   "z": "《团体中的经验》，中文译介散见团体治疗教材",
+   "o": "Tavistock Institute of Human Relations（二战期间 Northfield 军队实验的直接产物）",
+   "u": "IGA 团体分析训练；WAWI；NCP 团体模块",
+   "n": "基本假设团体（依赖／配对／战逃）与工作团体——机构分析与团体动力学的共同源头"
+  },
+  {
+   "k": "参照文献",
+   "r": "Foulkes, S. H. (1948). Introduction to Group-Analytic Psychotherapy. London: William Heinemann.",
+   "o": "Institute of Group Analysis, London（1971 年成立，源自 Foulkes 传统）",
+   "u": "IGA 训练核心",
+   "n": "与 Bion 并列的另一条团体路线：以「矩阵」而非「基本假设」为中心概念"
+  }
+ ],
+ "S13": [
+  {
+   "k": "原著",
+   "r": "Joseph, B. (1989). Psychic Equilibrium and Psychic Change: Selected Papers of Betty Joseph (M. Feldman & E. B. Spillius, Eds.). London: Routledge (New Library of Psychoanalysis).",
+   "z": "未见通行简体全译",
+   "o": "New Library of Psychoanalysis（Institute of Psychoanalysis, London × Routledge）",
+   "u": "NCP Neo-Kleinians（Y4）；WAWI 412a Contemporary Kleinian；BPAS 当代临床",
+   "n": "「心理平衡」与「全部材料皆为当下移情」的彻底化——当代英国临床主流的技术宣言"
+  },
+  {
+   "k": "原著",
+   "r": "Steiner, J. (1993). Psychic Retreats: Pathological Organisations in Psychotic, Neurotic and Borderline Patients. London: Routledge (New Library of Psychoanalysis).",
+   "z": "《心灵的退缩》，有简体中译流通",
+   "o": "New Library of Psychoanalysis；作者为 Tavistock／BPAS 训练分析师",
+   "u": "NCP Neo-Kleinians；边缘与僵局模块",
+   "n": "「心灵退缩」与「以分析师为中心／以病人为中心的诠释」区分，实用性极高"
+  },
+  {
+   "k": "原著",
+   "r": "Feldman, M. (2009). Doubt, Conviction and the Analytic Process: Selected Papers. London: Routledge (New Library of Psychoanalysis).",
+   "o": "New Library of Psychoanalysis",
+   "u": "高年级技术专题",
+   "n": "分析师的确信如何变成临床阻碍——督导层面的自我审查工具"
+  }
+ ],
+ "S14": [
+  {
+   "k": "原著",
+   "r": "Kohut, H. (1971). The Analysis of the Self. New York: International Universities Press (Monograph Series of the Psychoanalytic Study of the Child, No. 4).",
+   "z": "《自体的分析》，有简体中译流通",
+   "o": "Chicago Institute for Psychoanalysis（作者基地）；International Universities Press",
+   "u": "NCP Evolution of Theory VI；WAWI 313；CAPA Y4 Unit 5 Self Psychology",
+   "n": "必须先读 F5（论自恋 1914）才知道他在反对什么：镜映／理想化／孪生三类自恋移情"
+  },
+  {
+   "k": "原著",
+   "r": "Kohut, H. (1977). The Restoration of the Self. New York: International Universities Press.",
+   "z": "《自体的重建》，有简体中译流通",
+   "o": "International Universities Press；Chicago Institute for Psychoanalysis",
+   "u": "自体心理学序列第二篇",
+   "n": "从「自恋的诊断类别」转向「自体的普遍心理学」——学派独立的宣言"
+  },
+  {
+   "k": "原著",
+   "r": "Kohut, H. (1979). The two analyses of Mr Z. International Journal of Psycho-Analysis, 60, 3–27.",
+   "o": "IJP／Institute of Psychoanalysis",
+   "u": "几乎所有自体心理学课程的教学案例",
+   "n": "同一病人的两次分析对照（后被证实为作者本人的自述性材料）——范式转换的最生动示范"
+  },
+  {
+   "k": "原著",
+   "r": "Kohut, H. (1959). Introspection, empathy, and psychoanalysis: An examination of the relationship between mode of observation and theory. Journal of the American Psychoanalytic Association, 7, 459–483.",
+   "o": "JAPA／American Psychoanalytic Association",
+   "u": "自体心理学方法论前置",
+   "n": "共情—内省作为精神分析的定义性观察位置——整个学派的方法论地基"
+  }
+ ],
+ "S15": [
+  {
+   "k": "原著",
+   "r": "Sullivan, H. S. (1953). The Interpersonal Theory of Psychiatry (H. S. Perry & M. L. Gawel, Eds.). New York: W. W. Norton.",
+   "z": "《精神病学的人际理论》，有简体中译流通",
+   "o": "William Alanson White Institute（作者为创始人之一）与 Washington School of Psychiatry；学派机关刊物 Psychiatry（1938 年创刊）",
+   "u": "WAWI 114a Sullivan in Time；NIP Interpersonal Theory I",
+   "n": "WAWI 把它与 Freud 并列放在第一年——这个课表位置本身就是人际学派的宣言"
+  },
+  {
+   "k": "原著",
+   "r": "Sullivan, H. S. (1954). The Psychiatric Interview (H. S. Perry & M. L. Gawel, Eds.). New York: W. W. Norton.",
+   "o": "William Alanson White Institute",
+   "u": "WAWI 115 Detailed Inquiry；初始访谈课程",
+   "n": "「详尽探询」（detailed inquiry）的操作手册——人际学派对技术最具体的贡献"
+  }
+ ],
+ "S16": [
+  {
+   "k": "原著",
+   "r": "Fromm, E. (1941). Escape from Freedom. New York: Farrar & Rinehart.（英国版题名 The Fear of Freedom, 1942）",
+   "z": "《逃避自由》，刘林海译，上海译文出版社",
+   "o": "Frankfurt Institute for Social Research（法兰克福学派）→ William Alanson White Institute",
+   "u": "WAWI 114b Erich Fromm；社会精神分析序列",
+   "n": "性格的社会形塑：把精神分析从家庭三角推向社会结构"
+  },
+  {
+   "k": "批评文献",
+   "r": "Fromm, E. (1970). The Crisis of Psychoanalysis: Essays on Freud, Marx and Social Psychology. New York: Holt, Rinehart & Winston.",
+   "z": "《精神分析的危机》，有中译流通",
+   "o": "Holt, Rinehart & Winston",
+   "u": "WAWI 社会精神分析；训练制度批评模块",
+   "n": "对精神分析职业化与官僚化的早期批评，与 Kernberg 的制度批评互为呼应"
+  }
+ ],
+ "S17": [
+  {
+   "k": "原著",
+   "r": "Mitchell, S. A. (1988). Relational Concepts in Psychoanalysis: An Integration. Cambridge, MA: Harvard University Press.",
+   "z": "未见通行简体全译",
+   "o": "作者创办 Psychoanalytic Dialogues（1991）与 Relational Perspectives Book Series；执教于 NYU Postdoctoral Program 与 WAWI",
+   "u": "WAWI 232 Stephen Mitchell: Catalyst；NIP Relational Theory I & II；NCP Relational I & II",
+   "n": "驱力／结构模式 → 关系／冲突模式。需 Sullivan ＋ 英国客体关系双重前置，否则读成「对病人好一点」"
+  },
+  {
+   "k": "原著",
+   "r": "Greenberg, J. R., & Mitchell, S. A. (1983). Object Relations in Psychoanalytic Theory. Cambridge, MA: Harvard University Press.",
+   "o": "Harvard University Press",
+   "u": "关系学派课程的标准前置读物；多数机构理论史课指定",
+   "n": "以「驱力模式 vs 关系模式」重写整部精神分析史——学派地图的最佳单册导论"
+  }
+ ],
+ "S18": [
+  {
+   "k": "原著",
+   "r": "Bromberg, P. M. (1998). Standing in the Spaces: Essays on Clinical Process, Trauma, and Dissociation. Hillsdale, NJ: Analytic Press.",
+   "z": "未见通行简体全译",
+   "o": "William Alanson White Institute（作者为训练分析师）；Analytic Press 为关系学派主要出版社",
+   "u": "WAWI 216 Standing in the Spaces；NIP Y4；创伤模块",
+   "n": "自体状态的不连续与解离：把「多重自体」从病理概念改造为常态心理结构"
+  },
+  {
+   "k": "原著",
+   "r": "Bromberg, P. M. (2011). The Shadow of the Tsunami and the Growth of the Relational Mind. New York: Routledge.",
+   "o": "Routledge Relational Perspectives Book Series",
+   "u": "高年级创伤与解离专题",
+   "n": "把「安全的意外」（safe surprises）作为治疗性变化的机制"
+  }
+ ],
+ "S19": [
+  {
+   "k": "原著",
+   "r": "Ogden, T. H. (1994). The analytic third: Working with intersubjective clinical facts. International Journal of Psycho-Analysis, 75, 3–19.",
+   "o": "IJP／Institute of Psychoanalysis；作者为 Psychoanalytic Institute of Northern California (PINC) 训练分析师",
+   "z": "中文译介散见讲义",
+   "u": "Columbia Theory III（场论单元）；PINC Intersubjectivities II",
+   "n": "「分析第三」概念：比昂 ＋ 温尼科特 ＋ 关系学派的合成物"
+  },
+  {
+   "k": "原著",
+   "r": "Ogden, T. H. (1989). The Primitive Edge of Experience. Northvale, NJ: Jason Aronson.",
+   "o": "Jason Aronson",
+   "u": "PINC、NCP 高年级",
+   "n": "自闭—毗连位置（autistic-contiguous position）：在 PS 位之前再加一层的争议性提案"
+  },
+  {
+   "k": "原著",
+   "r": "Ogden, T. H. (1994). Subjects of Analysis. Northvale, NJ: Jason Aronson / London: Karnac Books.",
+   "o": "Karnac Books, London",
+   "u": "主体间性专题",
+   "n": "reverie（沉思／遐想）作为临床数据的合法化"
+  }
+ ],
+ "S20": [
+  {
+   "k": "原著",
+   "r": "Benjamin, J. (1988). The Bonds of Love: Psychoanalysis, Feminism, and the Problem of Domination. New York: Pantheon Books.",
+   "z": "《爱的关系》，有中译流通",
+   "o": "New York University Postdoctoral Program in Psychotherapy and Psychoanalysis（作者为教师）",
+   "u": "Columbia；NIP Intersubjectivity（Y4）；性别与关系学派交汇课程",
+   "n": "承认（recognition）的悖论：主体既需要他者承认，又倾向否认他者的主体性"
+  },
+  {
+   "k": "原著",
+   "r": "Benjamin, J. (2018). Beyond Doer and Done To: Recognition Theory, Intersubjectivity and the Third. London: Routledge (Relational Perspectives Book Series).",
+   "o": "Routledge",
+   "u": "当代主体间性与社会创伤课程",
+   "n": "「道德第三」（moral third）概念，被广泛用于种族与集体创伤议题"
+  }
+ ],
+ "S21": [
+  {
+   "k": "原著",
+   "r": "Stolorow, R. D., Brandchaft, B., & Atwood, G. E. (1987). Psychoanalytic Treatment: An Intersubjective Approach. Hillsdale, NJ: Analytic Press.",
+   "z": "未见通行简体全译",
+   "o": "Analytic Press；作者群源自 Kohut 自体心理学传统的现象学分支",
+   "u": "NCP Evolution of Theory VII；PINC Intersubjectivities I",
+   "n": "从自体心理学推出的现象学转向：取消「客观分析师」的位置"
+  },
+  {
+   "k": "原著",
+   "r": "Stolorow, R. D., & Atwood, G. E. (1992). Contexts of Being: The Intersubjective Foundations of Psychological Life. Hillsdale, NJ: Analytic Press.",
+   "o": "Analytic Press",
+   "u": "主体间系统理论专题",
+   "n": "「无意识组织原则」概念，是主体间场论的核心工具"
+  }
+ ],
+ "S22": [
+  {
+   "k": "原著",
+   "r": "Lacan, J. (1966). Écrits. Paris: Éditions du Seuil.",
+   "s": "英译：Écrits: The First Complete Edition in English (B. Fink, Trans.). New York: W. W. Norton, 2006.",
+   "z": "《拉康选集》，褚孝泉译，上海三联书店，2001（选译本）",
+   "o": "Éditions du Seuil, Paris；早期论文首刊于 Revue française de psychanalyse 与 La Psychanalyse（SFP 机关刊物，1956–1964）",
+   "u": "Columbia Theory III: Lacan（Y3）；NCP Evolution of Theory XI（Y4）；CFAR；ECF Sections Cliniques",
+   "n": "必读三篇：镜像阶段（1949）、罗马报告《言语与语言的功能与场域》（1953）、《无意识中文字的动因》（1957）。前置＝Freud 原文 ＋ 索绪尔语言学，否则只能玩弄术语"
+  },
+  {
+   "k": "工具书",
+   "r": "Evans, D. (1996). An Introductory Dictionary of Lacanian Psychoanalysis. London: Routledge.",
+   "o": "Routledge",
+   "u": "多数机构拉康单元指定辅助工具",
+   "n": "读《文集》时的解毒剂：逐词给出概念在不同时期的语义变迁"
+  }
+ ],
+ "S23": [
+  {
+   "k": "原著",
+   "r": "Lacan, J. (1973). Le Séminaire, Livre XI: Les quatre concepts fondamentaux de la psychanalyse (1964) (J.-A. Miller, Ed.). Paris: Éditions du Seuil.",
+   "s": "英译：The Four Fundamental Concepts of Psycho-Analysis (A. Sheridan, Trans.). London: Hogarth Press and the Institute of Psycho-Analysis, 1977 (International Psycho-Analytical Library).",
+   "z": "《精神分析的四个基本概念》，中文译介流通，未见权威简体全译",
+   "o": "研讨班文本由 Jacques-Alain Miller 建立并经 ECF 授权刊行；Éditions du Seuil",
+   "u": "CFAR 临床训练；ECF／Sections Cliniques 三年制；Paris 8 精神分析系",
+   "n": "拉康派的临床入口：无意识、重复、移情、驱力四概念，也是与 IPA 对话最多的一册"
+  },
+  {
+   "k": "原著",
+   "r": "Lacan, J. (1991). Le Séminaire, Livre XVII: L’envers de la psychanalyse (1969–1970) (J.-A. Miller, Ed.). Paris: Éditions du Seuil.",
+   "s": "英译：The Other Side of Psychoanalysis (R. Grigg, Trans.). New York: W. W. Norton, 2007.",
+   "o": "Éditions du Seuil／ECF",
+   "u": "拉康派高阶；四种话语与机构批判",
+   "n": "「四种话语」（主人／大学／癔症／分析家）——分析制度自我批判的理论工具"
+  }
+ ],
+ "S24": [
+  {
+   "k": "原著",
+   "r": "Laplanche, J. (1970). Vie et mort en psychanalyse. Paris: Flammarion.",
+   "s": "英译：Life and Death in Psychoanalysis (J. Mehlman, Trans.). Baltimore: Johns Hopkins University Press, 1976.",
+   "z": "未见通行简体全译",
+   "o": "Association Psychanalytique de France (APF)；作者兼任 Université Paris 7 教授，主持 Freud 法文全集（OCF-P, PUF）翻译工程",
+   "u": "Columbia Theory III: Lacan & Laplanche；NCP 后研讨选修",
+   "n": "普遍诱惑理论（théorie de la séduction généralisée）：他者的「信息之谜」先于主体"
+  },
+  {
+   "k": "工具书",
+   "r": "Laplanche, J., & Pontalis, J.-B. (1967). Vocabulaire de la psychanalyse. Paris: Presses Universitaires de France.",
+   "s": "英译：The Language of Psycho-Analysis (D. Nicholson-Smith, Trans.). London: Hogarth Press and the Institute of Psycho-Analysis, 1973.",
+   "z": "《精神分析辞汇》，沈志中、王文基译，台北：行人出版社，2000",
+   "o": "Presses Universitaires de France；由 Sorbonne 精神分析教席项目支持编纂",
+   "u": "全球机构公认的概念工具书；法国、拉美体系必备",
+   "n": "每个词条附 Freud 原文出处与译名史——用它核对二手教材的误读，效率最高"
+  }
+ ],
+ "S25": [
+  {
+   "k": "原著",
+   "r": "Baranger, M., & Baranger, W. (1961–1962). La situación analítica como campo dinámico. Revista Uruguaya de Psicoanálisis, 4(1).",
+   "s": "英译：The analytic situation as a dynamic field. International Journal of Psychoanalysis, 89(4), 795–826, 2008.",
+   "z": "《作为动力场的分析情境》，中文译介散见讲义",
+   "o": "Asociación Psicoanalítica del Uruguay（APU）机关刊物；英译刊于 IJP，迟至 2008 年才进入英语世界",
+   "u": "Columbia Theory III（场论单元）；SBPSP、APdeBA、APA 必修",
+   "n": "双人动力场与 bastion（堡垒）概念——拉美对世界精神分析的核心贡献，比北美关系转向早三十年"
+  },
+  {
+   "k": "原著",
+   "r": "Ferro, A. (1996). Nella stanza d’analisi: Emozioni, racconti, trasformazioni. Milano: Raffaello Cortina Editore.",
+   "s": "英译：In the Analyst’s Consulting Room. London: Routledge, 2002.",
+   "o": "Società Psicoanalitica Italiana (SPI)；Raffaello Cortina 为意大利精神分析主力出版社",
+   "u": "意大利、拉美体系核心；Columbia、PINC 场论选读",
+   "n": "叙事转化与「角色」（personaggi）概念：把比昂的场论操作化为可教的技术"
+  }
+ ],
+ "S26": [
+  {
+   "k": "原著",
+   "r": "Kernberg, O. F. (1975). Borderline Conditions and Pathological Narcissism. New York: Jason Aronson.",
+   "z": "《边缘状态与病理性自恋》，有简体中译流通",
+   "o": "作者时任 New York State Psychiatric Institute／Columbia；后主持 Personality Disorders Institute, Weill Cornell Medical College",
+   "u": "Columbia Theory III: Loewald & Kernberg；CAPA Y4 Personality Disorders；SPSI Y2",
+   "n": "人格组织三层次（神经症／边缘／精神病）与结构性访谈——诊断学的标准工具"
+  },
+  {
+   "k": "原著",
+   "r": "Kernberg, O. F. (1984). Severe Personality Disorders: Psychotherapeutic Strategies. New Haven: Yale University Press.",
+   "o": "Yale University Press",
+   "u": "边缘病理与技术修正模块",
+   "n": "结构性访谈的操作细则，与 F9／F10 的结构理论直接对接"
+  },
+  {
+   "k": "手册",
+   "r": "Clarkin, J. F., Yeomans, F. E., & Kernberg, O. F. (2006). Psychotherapy for Borderline Personality: Focusing on Object Relations. Washington, DC: American Psychiatric Publishing.",
+   "z": "《移情焦点治疗》相关中译流通",
+   "o": "Personality Disorders Institute, Weill Cornell Medical College；APA Publishing",
+   "u": "TFP 训练；CAPA、Columbia 循证模块",
+   "n": "TFP 的正式治疗手册（含随机对照试验依据），是精神分析取向中可循证程度最高的分支之一"
+  }
+ ],
+ "S27": [
+  {
+   "k": "原著",
+   "r": "Green, A. (1983). Narcissisme de vie, narcissisme de mort. Paris: Éditions de Minuit.（含 La mère morte, 1980）",
+   "s": "英译：The Dead Mother. In On Private Madness. London: Hogarth Press and the Institute of Psycho-Analysis, 1986.",
+   "z": "《死母亲》，中文译介散见讲义",
+   "o": "Société Psychanalytique de Paris (SPP)；Éditions de Minuit",
+   "u": "Columbia Theory III；WAWI 412b Non-Anglophone Psychoanalysis；抑郁与空白状态模块",
+   "n": "死母亲情结：不是丧失客体，而是客体在场却情感撤离所留下的心理空洞"
+  },
+  {
+   "k": "原著",
+   "r": "Green, A. (1993). Le travail du négatif. Paris: Éditions de Minuit.",
+   "s": "英译：The Work of the Negative. London: Free Association Books, 1999.",
+   "o": "Éditions de Minuit；SPP",
+   "u": "法国当代理论专题",
+   "n": "否定的工作与「原初第三方」——法国临床对空白、去具象化状态的独特贡献"
+  }
+ ],
+ "S28": [
+  {
+   "k": "原著",
+   "r": "Jung, C. G. (1959). The Archetypes and the Collective Unconscious. Collected Works of C. G. Jung, Vol. 9, Part I. Princeton: Princeton University Press (Bollingen Series XX).",
+   "z": "《原型与集体无意识》，徐德林译，国际文化出版公司（荣格文集）",
+   "o": "英文全集由 Bollingen Foundation 资助、Princeton University Press 刊行；训练机构为 C. G. Jung Institute Zürich（1948 年成立）",
+   "u": "SAP 九模块；bpf Jungian 轨；Anna Freud Centre Jungian pathway；NCP 后研讨选修",
+   "n": "作为对照系而非替代品读：原型与个体化概念如何处理 Freud 用「本能」处理的问题"
+  },
+  {
+   "k": "原著",
+   "r": "Jung, C. G. (1953). Two Essays on Analytical Psychology. Collected Works, Vol. 7. Princeton: Princeton University Press.",
+   "o": "Princeton University Press／Bollingen Series",
+   "u": "荣格派训练入门",
+   "n": "含《论无意识心理学》与《自我与无意识的关系》，是与 Freud 分道的理论声明"
+  },
+  {
+   "k": "发展学派",
+   "r": "Fordham, M. (1957). New Developments in Analytical Psychology. London: Routledge & Kegan Paul.",
+   "o": "Society of Analytical Psychology (SAP, London, 1946 年成立)",
+   "u": "SAP 训练核心（发展学派路线）",
+   "n": "把荣格理论与 Klein／Winnicott 的婴儿观察传统嫁接——英国荣格派与欧陆古典派的分野所在"
+  }
+ ],
+ "T1": [
+  {
+   "k": "原著",
+   "r": "Freud, S. (1913). Zur Einleitung der Behandlung. SE XII, 121–144.",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "WAWI 711 Initial Consultation Practicum；Tavistock Assessments seminar；SPSI Process Y1",
+   "n": "试分析（trial analysis）的原始建议：先看能否工作，再谈能否分析"
+  },
+  {
+   "k": "操作文献",
+   "r": "Kernberg, O. F. (1981). Structural interviewing. Psychiatric Clinics of North America, 4(1), 169–195.",
+   "o": "W. B. Saunders；Personality Disorders Institute, Cornell",
+   "u": "Columbia、CAPA 评估模块；北美精神科培训通用",
+   "n": "把动力学诊断变成可复现的访谈流程：以澄清—面质—诠释三步测试现实检验能力"
+  },
+  {
+   "k": "经典短文",
+   "r": "Coltart, N. E. C. (1988). The assessment of psychological-mindedness in the diagnostic interview. British Journal of Psychiatry, 153, 819–820.",
+   "o": "Royal College of Psychiatrists；作者为 BPAS 训练分析师",
+   "u": "英国体系评估课程",
+   "n": "两页给出「心理感受性」的十项判断线索，是评估课最常被引用的实用清单"
+  },
+  {
+   "k": "参照文献",
+   "r": "Sullivan, H. S. (1954). The Psychiatric Interview. New York: W. W. Norton.",
+   "o": "William Alanson White Institute",
+   "u": "WAWI 初始访谈序列",
+   "n": "把访谈本身当作人际情境来观察，而非信息采集"
+  }
+ ],
+ "T2": [
+  {
+   "k": "原著",
+   "r": "Bleger, J. (1967). Psycho-analysis of the psycho-analytic frame. International Journal of Psycho-Analysis, 48, 511–519.",
+   "o": "Asociación Psicoanalítica Argentina (APA)；IJP 刊行",
+   "z": "《精神分析框架的精神分析》，中文译介散见讲义",
+   "u": "SPSI Y1–2 起始技术／框架；WAWI 731 Frame Issues；拉美体系必修",
+   "n": "框架不是行政条款，而是承载最原始（精神病性）移情的沉默容器——框架被打破时才显形"
+  },
+  {
+   "k": "原著",
+   "r": "Winnicott, D. W. (1954). Metapsychological and clinical aspects of regression within the psycho-analytical set-up. In Through Paediatrics to Psycho-Analysis. London: Tavistock Publications, 1958.",
+   "o": "IJP／Institute of Psychoanalysis",
+   "u": "英国体系框架与退行课程",
+   "n": "「set-up」（设置）作为环境供给：与 Bleger 并读可见英国与拉美两种框架观"
+  },
+  {
+   "k": "经典论文",
+   "r": "Milner, M. (1952). Aspects of symbolism in comprehension of the not-self. International Journal of Psycho-Analysis, 33, 181–195.",
+   "o": "IJP／Institute of Psychoanalysis；作者为 BPAS Independent group",
+   "u": "框架与象征化专题",
+   "n": "「画框」隐喻的来源：框架划出一个可以让幻觉合法存在的区域"
+  }
+ ],
+ "T3": [
+  {
+   "k": "原著",
+   "r": "Freud, S. (1912). Ratschläge für den Arzt bei der psychoanalytischen Behandlung. SE XII, 109–120.",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "WAWI 118 Analytic Listening；所有机构倾听课首篇",
+   "n": "均匀悬浮注意（gleichschwebende Aufmerksamkeit）的原始定义——注意其与「不记笔记」的内在关联"
+  },
+  {
+   "k": "原著",
+   "r": "Reik, T. (1948). Listening with the Third Ear: The Inner Experience of a Psychoanalyst. New York: Farrar, Straus.",
+   "z": "《以第三只耳倾听》，中文译介流通",
+   "o": "National Psychological Association for Psychoanalysis (NPAP, 纽约，作者创办的非医学背景训练机构)",
+   "u": "WAWI 118；NIP 倾听序列",
+   "n": "非医学背景分析师训练传统的代表作，也是「分析师的惊讶」这一主题的开端"
+  },
+  {
+   "k": "专著",
+   "r": "Kris, A. O. (1982). Free Association: Methods and Process. New Haven: Yale University Press.",
+   "o": "Boston Psychoanalytic Society and Institute (BPSI)",
+   "u": "BPSI、Columbia 技术序列",
+   "n": "把自由联想从「规则」重述为「共同工作方法」，并给出联想受阻的分类处理"
+  },
+  {
+   "k": "参照文献",
+   "r": "Sullivan, H. S. (1954). The Psychiatric Interview. New York: W. W. Norton.",
+   "o": "William Alanson White Institute",
+   "u": "WAWI 115 Detailed Inquiry and Free Association",
+   "n": "人际学派的对立方案：与其等联想，不如详尽探询"
+  }
+ ],
+ "T4": [
+  {
+   "k": "原著",
+   "r": "Freud, A. (1936/1966). The Ego and the Mechanisms of Defence. London: Hogarth Press.",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "SPSI Process；NCP Clinical Practice III",
+   "n": "防御分析的技术宪章：从内容转向形式"
+  },
+  {
+   "k": "原著",
+   "r": "Gray, P. (1982). Developmental lag in the evolution of technique for psychoanalysis of neurotic conflict. Journal of the American Psychoanalytic Association, 30, 621–655.",
+   "o": "JAPA／American Psychoanalytic Association",
+   "u": "北美防御分析（「近表面工作」）核心论文",
+   "n": "指出技术演化落后于理论演化：结构理论提出四十年后，临床仍在做内容诠释"
+  },
+  {
+   "k": "专著",
+   "r": "Gray, P. (1994). The Ego and Analysis of Defense. Northvale, NJ: Jason Aronson.",
+   "z": "未见通行简体全译",
+   "o": "Jason Aronson；Baltimore-Washington Institute",
+   "u": "Columbia、NYPSI 技术序列",
+   "n": "逐句示范如何在联想中断处工作——最可操作的防御分析教材"
+  },
+  {
+   "k": "专著",
+   "r": "Busch, F. (1995). The Ego at the Center of Clinical Technique. Northvale, NJ: Jason Aronson.",
+   "o": "Boston Psychoanalytic Society and Institute",
+   "u": "BPSI、CAPA 技术模块",
+   "n": "强调「病人须能观察自己的心智」——诠释深度的前提条件"
+  }
+ ],
+ "T5": [
+  {
+   "k": "原著",
+   "r": "Strachey, J. (1934). The nature of the therapeutic action of psycho-analysis. International Journal of Psycho-Analysis, 15, 127–159.",
+   "o": "IJP／Institute of Psychoanalysis；作者即 Standard Edition 主编",
+   "u": "Columbia Process: Tone, Tact and Timing；NCP Interpretative Process；几乎所有机构技术必读",
+   "n": "「变化性诠释」（mutative interpretation）概念：诠释必须落在当下移情的即时点上才有效"
+  },
+  {
+   "k": "经典论文",
+   "r": "Poland, W. S. (1975). Tact as a psychoanalytic function. International Journal of Psycho-Analysis, 56, 155–162.",
+   "o": "IJP／Institute of Psychoanalysis",
+   "u": "Columbia「Tone, Tact and Timing」指定读物",
+   "n": "把「分寸」（tact）论证为技术能力而非性格天赋——这门课得以存在的理由"
+  },
+  {
+   "k": "操作文献",
+   "r": "Steiner, J. (1993). Patient-centred and analyst-centred interpretations. In Psychic Retreats. London: Routledge.",
+   "o": "New Library of Psychoanalysis",
+   "u": "当代技术课程标准读物",
+   "n": "何时说「你在攻击我」、何时说「你觉得我在攻击你」——诠释措辞的分水岭"
+  }
+ ],
+ "T6": [
+  {
+   "k": "原著",
+   "r": "Freud, S. (1912). Zur Dynamik der Übertragung. SE XII, 97–108.",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "NCP Clinical Practice IV；NIP Transference/Countertransference I & II",
+   "n": "移情作为阻抗与工具的双重结构"
+  },
+  {
+   "k": "原著",
+   "r": "Joseph, B. (1985). Transference: The total situation. International Journal of Psycho-Analysis, 66, 447–454.",
+   "o": "IJP／Institute of Psychoanalysis；BPAS Kleinian group",
+   "u": "英美两地当代技术课程共同必读",
+   "n": "移情＝全部情境（而非零星的「移情性陈述」）——这是「此时此地」范式的技术宣言"
+  },
+  {
+   "k": "专著",
+   "r": "Gill, M. M. (1982). Analysis of Transference, Vol. 1: Theory and Technique. New York: International Universities Press (Psychological Issues Monograph 53).",
+   "o": "International Universities Press；作者为 Rapaport 学派转向者",
+   "u": "北美技术序列；关系学派前置",
+   "n": "主张移情永远包含分析师的真实参与——从内部推动北美走向关系转向"
+  }
+ ],
+ "T7": [
+  {
+   "k": "原著",
+   "r": "Heimann, P. (1950). On counter-transference. International Journal of Psycho-Analysis, 31, 81–84.",
+   "o": "IJP／Institute of Psychoanalysis",
+   "u": "Columbia Process；NCP Clinical Practice IV；NIP Y2",
+   "n": "必须与 S5（投射性认同）配对读，否则极易沦为分析师的自我宣泄"
+  },
+  {
+   "k": "原著",
+   "r": "Sandler, J. (1976). Countertransference and role-responsiveness. International Review of Psycho-Analysis, 3, 43–47.",
+   "o": "International Review of Psycho-Analysis（IPA 刊物，后并入 IJP）；作者为 BPAS 训练分析师、Freud Memorial 教席首任教授",
+   "u": "多数机构反移情序列核心论文",
+   "n": "「角色回应性」：分析师被无意识地推入某个角色——比「反移情」更可操作的描述"
+  },
+  {
+   "k": "原著",
+   "r": "Racker, H. (1968). Transference and Countertransference. London: Hogarth Press and the Institute of Psycho-Analysis.",
+   "o": "Asociación Psicoanalítica Argentina",
+   "u": "督导实务标准工具",
+   "n": "一致性认同／互补性认同的区分"
+  },
+  {
+   "k": "专著",
+   "r": "Bollas, C. (1987). The Shadow of the Object: Psychoanalysis of the Unthought Known. London: Free Association Books.",
+   "z": "《客体的阴影》，有中译流通",
+   "o": "Free Association Books；作者为 BPAS Independent group",
+   "u": "WAWI、NCP 高年级",
+   "n": "以分析师的主观体验（reverie、身体感）作为临床数据的英国独立学派方案"
+  }
+ ],
+ "T8": [
+  {
+   "k": "原著",
+   "r": "Freud, S. (1900). Die Traumdeutung. SE IV–V.",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "NCP Advanced Dreams（Y3）；WAWI 332 Dreams；CAPA Y4 Unit 1；NIP Dreams I & II",
+   "n": "课程重点不在解梦方法，而在梦工作机制（凝缩、移置、象征）"
+  },
+  {
+   "k": "专著",
+   "r": "Sharpe, E. F. (1937). Dream Analysis: A Practical Handbook for Psycho-Analysts. London: Hogarth Press and the Institute of Psycho-Analysis.",
+   "o": "Institute of Psycho-Analysis, London",
+   "u": "英国体系梦课程",
+   "n": "最早把梦从「文本」转向「移情中的行动」的技术手册"
+  },
+  {
+   "k": "经典论文",
+   "r": "Segal, H. (1981). The function of dreams. In The Work of Hanna Segal. New York: Jason Aronson.",
+   "o": "Jason Aronson；作者为 BPAS Kleinian group",
+   "u": "克莱因派梦理论",
+   "n": "梦作为投射性认同的排出通道——与 Freud 的愿望满足论形成对照"
+  },
+  {
+   "k": "当代文献",
+   "r": "Ogden, T. H. (2004). This art of psychoanalysis: Dreaming undreamt dreams and interrupted cries. International Journal of Psychoanalysis, 85, 857–877.",
+   "o": "IJP／Institute of Psychoanalysis",
+   "u": "当代梦与 reverie 专题（NCP、PINC）",
+   "n": "把整个分析过程重述为「共同做梦」——比昂式梦理论的当代版本"
+  }
+ ],
+ "T9": [
+  {
+   "k": "原著",
+   "r": "Freud, S. (1914). Erinnern, Wiederholen und Durcharbeiten. SE XII, 145–156.",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "WAWI 415 Difficult Patients／Difficult Dyads；NCP 僵局模块",
+   "n": "行动化的原始定义：不能被回忆的，就被重复"
+  },
+  {
+   "k": "原著",
+   "r": "Rosenfeld, H. (1987). Impasse and Interpretation. London: Tavistock Publications (New Library of Psychoanalysis).",
+   "z": "未见通行简体全译",
+   "o": "New Library of Psychoanalysis；作者为 BPAS Kleinian group",
+   "u": "困难个案与僵局课程核心",
+   "n": "少见地公开检讨自己造成僵局的临床报告——督导层面价值极高"
+  },
+  {
+   "k": "经典论文",
+   "r": "Joseph, B. (1982). Addiction to near-death. International Journal of Psycho-Analysis, 63, 449–456.",
+   "o": "IJP／Institute of Psychoanalysis",
+   "u": "负性治疗反应与自毁性专题",
+   "n": "对「病人为何黏附于痛苦」给出临床可辨识的描述"
+  }
+ ],
+ "T10": [
+  {
+   "k": "原著",
+   "r": "Joseph, B. (1985). Transference: The total situation. International Journal of Psycho-Analysis, 66, 447–454.",
+   "o": "IJP／Institute of Psychoanalysis",
+   "u": "WAWI 312 Working Psychoanalytically；NCP Advanced Technique",
+   "n": "当代克莱因、关系学派与场论在技术上的汇流点"
+  },
+  {
+   "k": "当代文献",
+   "r": "Roth, P. (2001). Mapping the landscape: Levels of transference interpretation. International Journal of Psychoanalysis, 82, 533–543.",
+   "o": "IJP／Institute of Psychoanalysis；British Psychoanalytical Society",
+   "u": "高年级技术课程",
+   "n": "把移情诠释分为四个层次，是「此时此地」工作的操作分级表"
+  },
+  {
+   "k": "对照文献",
+   "r": "Mitchell, S. A. (1988). Relational Concepts in Psychoanalysis. Cambridge, MA: Harvard University Press.",
+   "o": "Harvard University Press",
+   "u": "关系学派技术序列",
+   "n": "与 Joseph 并读：同样强调当下，但对分析师参与度的假设完全不同"
+  }
+ ],
+ "T11": [
+  {
+   "k": "原著",
+   "r": "Freud, S. (1937). Die endliche und die unendliche Analyse. SE XXIII, 209–253.",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "WAWI 417 Aspects of Termination；NCP Treatment Endings；Columbia Process: Termination",
+   "n": "需 T6（移情神经症）＋ F7（哀悼）＋ 本篇三重前置，缺一则结案课程无法理解"
+  },
+  {
+   "k": "研究专著",
+   "r": "Firestein, S. K. (1978). Termination in Psychoanalysis. New York: International Universities Press.",
+   "o": "New York Psychoanalytic Institute 结案研究项目",
+   "u": "北美结案课程标准读物",
+   "n": "以实证方式追踪已结案个案，检验「结案标准」在实践中是否成立"
+  },
+  {
+   "k": "当代专著",
+   "r": "Novick, J., & Novick, K. K. (2006). Good Goodbyes: Knowing How to End in Psychotherapy and Psychoanalysis. Lanham, MD: Jason Aronson.",
+   "o": "Michigan Psychoanalytic Institute",
+   "u": "结案模块；儿童与成人训练共用",
+   "n": "把结案视为贯穿全程的议题而非最后阶段——对短程与被迫中断尤其实用"
+  }
+ ],
+ "T12": [
+  {
+   "k": "原著",
+   "r": "Eissler, K. R. (1953). The effect of the structure of the ego on psychoanalytic technique. Journal of the American Psychoanalytic Association, 1, 104–143.",
+   "o": "JAPA／American Psychoanalytic Association；New York Psychoanalytic Institute",
+   "u": "CAPA Y4 Deepening the Treatment；NCP 技术修正模块",
+   "n": "「参数」（parameter）概念的原始定义：偏离标准技术的合法条件与撤回义务"
+  },
+  {
+   "k": "手册",
+   "r": "Clarkin, J. F., Yeomans, F. E., & Kernberg, O. F. (2006). Psychotherapy for Borderline Personality: Focusing on Object Relations. Washington, DC: American Psychiatric Publishing.",
+   "o": "Personality Disorders Institute, Weill Cornell Medical College",
+   "u": "TFP 训练；边缘个案技术修正",
+   "n": "把「参数」系统化为一整套治疗契约与优先顺序规则"
+  },
+  {
+   "k": "专著",
+   "r": "Gedo, J. E. (1979). Beyond Interpretation: Toward a Revised Theory for Psychoanalysis. New York: International Universities Press.",
+   "o": "Chicago Institute for Psychoanalysis",
+   "u": "技术修正与分层治疗模型选读",
+   "n": "提出按心理组织层级选择干预方式的「分层模型」"
+  }
+ ],
+ "C1": [
+  {
+   "k": "经典教材",
+   "r": "Fenichel, O. (1945). The Psychoanalytic Theory of Neurosis. New York: W. W. Norton.",
+   "o": "作者出自 Vienna 与 Berlin 学院，后为 Los Angeles Psychoanalytic Society",
+   "u": "SPSI Y1 神经症性格／症状；WAWI 215a Character and Psychopathology",
+   "n": "古典精神病理学的百科式总结，至今是查症状动力学的参照系"
+  },
+  {
+   "k": "经典专著",
+   "r": "Shapiro, D. (1965). Neurotic Styles. New York: Basic Books.",
+   "z": "《神经症性格》，有中译流通",
+   "o": "Austen Riggs Center",
+   "u": "性格病理课程标准读物",
+   "n": "以「认知—情感风格」而非症状清单描述性格类型，可读性极高"
+  },
+  {
+   "k": "当代教材",
+   "r": "McWilliams, N. (1994; 2nd ed. 2011). Psychoanalytic Diagnosis: Understanding Personality Structure in the Clinical Process. New York: Guilford Press.",
+   "z": "《精神分析诊断：理解人格结构》，鲁小华等译，中国轻工业出版社（万千心理）",
+   "o": "Guilford Press；作者为 NCP 与 Rutgers 训练分析师",
+   "u": "CAPA、NCP、多数机构一年级；中文学习者首选诊断教材",
+   "n": "把「组织层级 × 性格类型」做成二维表，是中文可得性最好的入门框架"
+  },
+  {
+   "k": "历史文献",
+   "r": "Reich, W. (1933). Charakteranalyse. Wien: Selbstverlag.（英译 Character Analysis, 1945）",
+   "o": "Vienna Psychoanalytic Society（作者后被 IPA 除名）",
+   "u": "性格分析史模块选读",
+   "n": "「性格盔甲」概念的来源，也是防御分析技术的另一条历史支线"
+  }
+ ],
+ "C2": [
+  {
+   "k": "原著",
+   "r": "Kohut, H. (1971). The Analysis of the Self. New York: International Universities Press.",
+   "o": "Chicago Institute for Psychoanalysis",
+   "u": "PINC Psychic Organizations: Narcissism；NCP 自恋专题",
+   "n": "自恋＝发展性缺陷，需以共情性镜映修复"
+  },
+  {
+   "k": "原著",
+   "r": "Kernberg, O. F. (1975). Borderline Conditions and Pathological Narcissism. New York: Jason Aronson.",
+   "o": "Personality Disorders Institute, Cornell",
+   "u": "同上课程的对立文本",
+   "n": "自恋＝对分裂客体关系的病理性防御，需面质与诠释——与 Kohut 的著名分歧，两条治疗路线由此分叉"
+  },
+  {
+   "k": "第三条路线",
+   "r": "Rosenfeld, H. (1971). A clinical approach to the psychoanalytic theory of the life and death instincts: An investigation into the aggressive aspects of narcissism. International Journal of Psycho-Analysis, 52, 169–178.",
+   "o": "IJP／Institute of Psychoanalysis；BPAS Kleinian group",
+   "u": "英国体系自恋课程核心",
+   "n": "「破坏性自恋」与自恋性组织——英国学派对同一议题的第三种回答"
+  }
+ ],
+ "C3": [
+  {
+   "k": "原著",
+   "r": "Kernberg, O. F. (1975). Borderline Conditions and Pathological Narcissism. New York: Jason Aronson.",
+   "o": "Jason Aronson；Cornell",
+   "u": "SPSI Y2 边缘性格；CAPA Y4 Personality Disorders 1 & 2",
+   "n": "前置：S5（PS 位与投射性认同）＋ F9（结构理论），否则「身份弥散」只是标签"
+  },
+  {
+   "k": "原著",
+   "r": "Bion, W. R. (1957). Differentiation of the psychotic from the non-psychotic personalities. International Journal of Psycho-Analysis, 38, 266–275.",
+   "o": "IJP／Institute of Psychoanalysis",
+   "u": "边缘与精神病性课程共用前置",
+   "n": "人格中并存的精神病性与非精神病性部分——比「边缘」更细的临床分辨工具"
+  },
+  {
+   "k": "循证手册",
+   "r": "Bateman, A., & Fonagy, P. (2004). Psychotherapy for Borderline Personality Disorder: Mentalization-Based Treatment. Oxford: Oxford University Press.",
+   "z": "《边缘人格障碍的心理治疗：心智化治疗》，有中译流通",
+   "o": "Anna Freud Centre／UCL；Halliwick Day Unit 随机对照试验",
+   "u": "多数机构循证模块；NCP、CAPA 选修",
+   "n": "精神分析取向中证据等级最高的边缘治疗方案之一"
+  }
+ ],
+ "C4": [
+  {
+   "k": "原著",
+   "r": "Rosenfeld, H. (1965). Psychotic States: A Psycho-Analytical Approach. London: Hogarth Press and the Institute of Psycho-Analysis (International Psycho-Analytical Library).",
+   "o": "Institute of Psycho-Analysis, London",
+   "u": "SPSI Y3 重症性格与精神病；PINC Psychosis",
+   "n": "克莱因派精神病临床的奠基之作：把移情精神病当作可分析的材料"
+  },
+  {
+   "k": "原著",
+   "r": "Bion, W. R. (1959). Attacks on linking. International Journal of Psycho-Analysis, 40, 308–315.",
+   "o": "IJP／Institute of Psychoanalysis",
+   "u": "精神病性状态课程核心",
+   "n": "象征功能崩解的机制描述：对连接（link）本身的攻击"
+  },
+  {
+   "k": "原著",
+   "r": "Searles, H. F. (1965). Collected Papers on Schizophrenia and Related Subjects. New York: International Universities Press.",
+   "o": "Chestnut Lodge, Rockville（与 Fromm-Reichmann、Sullivan 同一临床传统）",
+   "u": "WAWI、NIP 重症临床序列",
+   "n": "以极端诚实的反移情自述著称，是「用自己的疯狂理解病人的疯狂」这一路线的代表"
+  },
+  {
+   "k": "原著",
+   "r": "Lacan, J. (1981). Le Séminaire, Livre III: Les psychoses (1955–1956) (J.-A. Miller, Ed.). Paris: Éditions du Seuil.",
+   "s": "英译：The Psychoses (R. Grigg, Trans.). New York: W. W. Norton, 1993.",
+   "o": "Éditions du Seuil／ECF",
+   "u": "拉康派精神病理论核心（CFAR、Sections Cliniques）",
+   "n": "以「父姓的排除」（forclusion）解释精神病结构——与克莱因派完全不同的病因学"
+  }
+ ],
+ "C5": [
+  {
+   "k": "历史原著",
+   "r": "Ferenczi, S. (1949 [1933]). Confusion of tongues between adults and the child. International Journal of Psycho-Analysis, 30, 225–230.",
+   "o": "1932 年在 IPA 维斯巴登大会宣读、被压制十六年后才由 IJP 刊出；Budapest Psychoanalytical Society",
+   "z": "《成人与儿童之间语言的混乱》，中文译介散见讲义",
+   "u": "NCP Trauma and Dissociation（Y3）；WAWI 413；关系学派创伤序列",
+   "n": "创伤研究在精神分析内部的被压抑史本身就是教学内容——这篇的出版史即案例"
+  },
+  {
+   "k": "一手档案",
+   "r": "Ferenczi, S. (1988 [1932]). The Clinical Diary of Sándor Ferenczi (J. Dupont, Ed.). Cambridge, MA: Harvard University Press.",
+   "o": "Harvard University Press；手稿由 Michael Balint 保存、Judith Dupont 编订",
+   "u": "高年级创伤与技术实验专题",
+   "n": "相互分析实验的临床日记，也是关系学派追溯自身谱系的关键文献"
+  },
+  {
+   "k": "当代专著",
+   "r": "Herman, J. L. (1992). Trauma and Recovery. New York: Basic Books.",
+   "z": "《创伤与复原》，有简体中译流通",
+   "o": "Victims of Violence Program, Cambridge Hospital／Harvard Medical School",
+   "u": "创伤模块通用读物；NIP、NCP",
+   "n": "三阶段康复模型；与精神分析创伤观的张力本身值得讨论"
+  },
+  {
+   "k": "当代专著",
+   "r": "Bromberg, P. M. (1998). Standing in the Spaces. Hillsdale, NJ: Analytic Press.",
+   "o": "William Alanson White Institute",
+   "u": "WAWI 216；关系学派创伤方案",
+   "n": "解离作为常态心理组织，而非仅是创伤后遗症"
+  }
+ ],
+ "C6": [
+  {
+   "k": "经典专著",
+   "r": "Bruch, H. (1973). Eating Disorders: Obesity, Anorexia Nervosa, and the Person Within. New York: Basic Books.",
+   "o": "Baylor College of Medicine；作者受训于精神分析传统",
+   "u": "CAPA Y4 Eating Disorders（三个 Site 均设）",
+   "n": "「自体感缺失」而非体重问题——进食障碍精神分析理解的起点"
+  },
+  {
+   "k": "专著",
+   "r": "Williams, G. (1997). Internal Landscapes and Foreign Bodies: Eating Disorders and Other Pathologies. London: Duckworth (Tavistock Clinic Series).",
+   "o": "Tavistock Clinic Series",
+   "u": "英国体系进食障碍模块",
+   "n": "「无孔不入的客体」与 omega 功能：以比昂框架解释无法消化的投射"
+  },
+  {
+   "k": "专著",
+   "r": "Lawrence, M. (2008). The Anorexic Mind. London: Karnac Books (Tavistock Clinic Series).",
+   "o": "Tavistock Clinic Series",
+   "u": "Tavistock、bpf 相关模块",
+   "n": "厌食心智作为一种控制性内在组织——青少年发展 ＋ 边缘病理 ＋ 创伤三重交叉处的临床读物"
+  }
+ ],
+ "C7": [
+  {
+   "k": "原著",
+   "r": "Marty, P., & de M’Uzan, M. (1963). La pensée opératoire. Revue française de psychanalyse, 27 (suppl.), 345–356.",
+   "o": "École psychosomatique de Paris（巴黎心身学派）；Institut de Psychosomatique de Paris (IPSO)",
+   "u": "DPV／DPG 心身模块；法国体系必修",
+   "n": "「操作性思维」概念：情感与幻想生活的贫乏化，是述情障碍概念的法国前身"
+  },
+  {
+   "k": "专著",
+   "r": "McDougall, J. (1989). Theatres of the Body: A Psychoanalytic Approach to Psychosomatic Illness. New York: W. W. Norton.",
+   "z": "《心灵的剧场》相关中译流通",
+   "o": "Société Psychanalytique de Paris (SPP)",
+   "u": "SBPSP 心身选修；Tavistock 心身模块；PINC 选读",
+   "n": "「心理化失败的躯体出口」——以英语世界可读的方式传递法国心身传统"
+  },
+  {
+   "k": "实证文献",
+   "r": "Sifneos, P. E. (1973). The prevalence of ‘alexithymic’ characteristics in psychosomatic patients. Psychotherapy and Psychosomatics, 22(2–6), 255–262.",
+   "o": "Beth Israel Hospital, Boston／Harvard Medical School",
+   "u": "述情障碍概念史；研究模块",
+   "n": "alexithymia 一词的正式提出，是精神分析概念进入实证测量的少见案例"
+  }
+ ],
+ "C8": [
+  {
+   "k": "原著",
+   "r": "Freud, S. (1917 [1915]). Trauer und Melancholie. SE XIV, 237–258.",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "SPSI；各机构抑郁与风险评估模块",
+   "n": "抑郁动力学的起点：丧失的客体被内摄后成为超我攻击的对象"
+  },
+  {
+   "k": "经典论文",
+   "r": "Bibring, E. (1953). The mechanism of depression. In P. Greenacre (Ed.), Affective Disorders. New York: International Universities Press.",
+   "o": "Boston Psychoanalytic Society and Institute",
+   "u": "抑郁理论课程",
+   "n": "以「自尊的崩塌」而非攻击内转解释抑郁——自我心理学的替代方案"
+  },
+  {
+   "k": "临床必读",
+   "r": "Maltsberger, J. T., & Buie, D. H. (1974). Countertransference hate in the treatment of suicidal patients. Archives of General Psychiatry, 30(5), 625–633.",
+   "o": "American Medical Association 刊物；Harvard Medical School",
+   "u": "自杀风险与伦理交界模块（多数机构必读）",
+   "n": "直面治疗自杀病人时分析师的恨与厌恶——伦理与技术的真正交界处"
+  }
+ ],
+ "C9": [
+  {
+   "k": "原著",
+   "r": "Freud, S. (1905). Drei Abhandlungen zur Sexualtheorie. SE VII, 123–245.",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "NCP Sex and Gender；Columbia Sexuality, Gender, Diversity",
+   "n": "倒错与「多形性倒错」概念的原始框架，需与当代性别理论对照读"
+  },
+  {
+   "k": "经典专著",
+   "r": "Stoller, R. J. (1975). Perversion: The Erotic Form of Hatred. New York: Pantheon Books.",
+   "o": "UCLA Gender Identity Research Clinic；Los Angeles Psychoanalytic Society",
+   "u": "性倒错与性欲化课程",
+   "n": "「敌意的情欲化」：把倒错读作被脚本化的复仇"
+  },
+  {
+   "k": "技术文献",
+   "r": "Coen, S. J. (1981). Sexualization as a predominant mode of defense. Journal of the American Psychoanalytic Association, 29, 893–920.",
+   "o": "JAPA／American Psychoanalytic Association",
+   "u": "技术课程中的性欲化防御单元",
+   "n": "把性欲化当作防御功能来处理，是这门课与性别课程的关键区分点"
+  },
+  {
+   "k": "欧陆视角",
+   "r": "Chasseguet-Smirgel, J. (1985). Creativity and Perversion. New York: W. W. Norton.",
+   "o": "Société Psychanalytique de Paris (SPP)",
+   "u": "WAWI 412b Non-Anglophone Psychoanalysis",
+   "n": "倒错作为对代际与性别差异的否认——法国结构性视角"
+  }
+ ],
+ "C10": [
+  {
+   "k": "原著",
+   "r": "Bion, W. R. (1961). Experiences in Groups and Other Papers. London: Tavistock Publications.",
+   "o": "Tavistock Institute of Human Relations",
+   "u": "IGA；PINC Group Process",
+   "n": "团体的无意识组织：依赖／配对／战逃三种基本假设"
+  },
+  {
+   "k": "原著",
+   "r": "Foulkes, S. H. (1948). Introduction to Group-Analytic Psychotherapy. London: William Heinemann.",
+   "o": "Institute of Group Analysis, London",
+   "u": "IGA 训练核心",
+   "n": "团体矩阵（matrix）概念——与 Bion 并列的第二条团体路线"
+  },
+  {
+   "k": "伴侣治疗",
+   "r": "Ruszczynski, S. (Ed.) (1993). Psychotherapy with Couples: Theory and Practice at the Tavistock Institute of Marital Studies. London: Karnac Books.",
+   "o": "Tavistock Institute of Marital Studies（今 Tavistock Relationships）",
+   "u": "伴侣训练；NIP Couples",
+   "n": "「无意识契约」与投射性认同在伴侣中的循环——伴侣治疗的精神分析地基"
+  },
+  {
+   "k": "当代专著",
+   "r": "Morgan, M. (2019). A Couple State of Mind: Psychoanalysis of Couples and the Tavistock Relationships Model. London: Routledge.",
+   "o": "Tavistock Relationships, London",
+   "u": "当代伴侣训练标准教材",
+   "n": "把「伴侣心智状态」作为治疗对象，而非两个个体的叠加"
+  }
+ ],
+ "G1": [
+  {
+   "k": "制度文件",
+   "r": "American Psychoanalytic Association. Principles and Standards of Ethics for Psychoanalysts (rev.). New York: APsA.",
+   "o": "American Psychoanalytic Association Ethics Committee",
+   "u": "WAWI 301 Ethics and Professional Boundaries；NCP Ethics（Y2）；PINC Ethics I & II",
+   "n": "北美机构伦理课的正式依据；与 IPA Ethics Code 并读可见跨国差异"
+  },
+  {
+   "k": "原著",
+   "r": "Freud, S. (1915 [1914]). Bemerkungen über die Übertragungsliebe. SE XII, 157–171.",
+   "o": "Hogarth Press and the Institute of Psycho-Analysis",
+   "u": "伦理课程历史根基（PINC、WAWI）",
+   "n": "节制原则的原始表述——伦理规范的临床（而非法律）来源"
+  },
+  {
+   "k": "标准专著",
+   "r": "Gabbard, G. O., & Lester, E. P. (1995). Boundaries and Boundary Violations in Psychoanalysis. Washington, DC: American Psychiatric Press.",
+   "z": "未见通行简体全译",
+   "o": "American Psychiatric Press；Menninger Clinic",
+   "u": "PINC Ethics I: Boundary Violations；多数机构伦理必读",
+   "n": "区分「越界」（crossing）与「侵犯」（violation）：滑坡的临床解剖"
+  }
+ ],
+ "G2": [
+  {
+   "k": "标准专著",
+   "r": "Gabbard, G. O., & Lester, E. P. (1995). Boundaries and Boundary Violations in Psychoanalysis. Washington, DC: American Psychiatric Press.",
+   "o": "American Psychiatric Press",
+   "u": "PINC Ethics I",
+   "n": "含对施害分析师的康复与再执业争议——机构权力议题的入口"
+  },
+  {
+   "k": "专著",
+   "r": "Celenza, A. (2007). Sexual Boundary Violations: Therapeutic, Supervisory, and Academic Contexts. Lanham, MD: Jason Aronson.",
+   "o": "Boston Psychoanalytic Society and Institute",
+   "u": "高年级伦理与督导伦理",
+   "n": "把督导与教学场域的权力不对称一并纳入分析"
+  },
+  {
+   "k": "批评文献",
+   "r": "Kernberg, O. F. (1996). Thirty methods to destroy the creativity of psychoanalytic candidates. International Journal of Psycho-Analysis, 77(5), 1031–1040.",
+   "o": "IJP／Institute of Psychoanalysis",
+   "u": "训练分析师制度中的权力议题",
+   "n": "训练分析师同时是分析师、教师与评审者——三重角色的结构性越界"
+  }
+ ],
+ "G3": [
+  {
+   "k": "理论基础",
+   "r": "Butler, J. (1990). Gender Trouble: Feminism and the Subversion of Identity. New York: Routledge.",
+   "z": "《性别麻烦》，宋素凤译，上海三联书店",
+   "o": "Routledge",
+   "u": "NCP Sex and Gender（Y2）；WAWI 416；Columbia Y4；SAP Otherness",
+   "n": "性别作为表演性重复——多数机构近十年新设模块的理论支点"
+  },
+  {
+   "k": "精神分析内部",
+   "r": "Dimen, M. (2003). Sexuality, Intimacy, Power. Hillsdale, NJ: Analytic Press (Relational Perspectives Book Series).",
+   "o": "New York University Postdoctoral Program；Analytic Press",
+   "u": "关系学派性别序列（WAWI、NIP）",
+   "n": "把性别与权力带回临床材料层面，而非停留在理论批评"
+  },
+  {
+   "k": "临床研究",
+   "r": "Corbett, K. (2009). Boyhoods: Rethinking Masculinities. New Haven: Yale University Press.",
+   "o": "New York University Postdoctoral Program",
+   "u": "性别与发展交叉课程",
+   "n": "以临床材料重写男性气质发展，避免规范化叙事"
+  },
+  {
+   "k": "当代前沿",
+   "r": "Saketopoulou, A. (2023). Sexuality Beyond Consent: Risk, Race, Traumatophilia. New York: New York University Press.",
+   "o": "New York University Press；作者为 NYU Postdoc 与 Contemporary Freudian Society 成员",
+   "u": "最新性别与创伤模块（部分机构 2023 年后加入）",
+   "n": "检验一个机构书单是否活着的指标之一：近三年文献是否进入课表"
+  }
+ ],
+ "G4": [
+  {
+   "k": "奠基文本",
+   "r": "Fanon, F. (1952). Peau noire, masques blancs. Paris: Éditions du Seuil.",
+   "s": "英译：Black Skin, White Masks (C. L. Markmann, Trans.). New York: Grove Press, 1967.",
+   "z": "《黑皮肤，白面具》，万冰译，译林出版社",
+   "o": "Éditions du Seuil；作者为精神科医生，受训于法国精神病学与精神分析传统",
+   "u": "WAWI 220 How Psychoanalysts Gaze；NCP Diversities（Y1）；Columbia Theory IV",
+   "n": "殖民情境下的主体形成——种族精神分析的起点文本"
+  },
+  {
+   "k": "临床专著",
+   "r": "Altman, N. (1995). The Analyst in the Inner City: Race, Class, and Culture through a Psychoanalytic Lens. Hillsdale, NJ: Analytic Press.（2nd ed. 2010, Routledge）",
+   "o": "New York University Postdoctoral Program；Analytic Press",
+   "u": "NCP Diversities；WAWI 220；PINC Psyche and Society",
+   "n": "把阶级与种族当作临床材料而非背景变量的第一部系统临床专著"
+  },
+  {
+   "k": "经典论文",
+   "r": "Holmes, D. E. (1992). Race and transference in psychoanalysis and psychotherapy. International Journal of Psycho-Analysis, 73, 1–11.",
+   "o": "IJP／Institute of Psychoanalysis；Washington Psychoanalytic Institute",
+   "u": "种族与移情模块核心论文",
+   "n": "最早系统讨论种族如何进入移情—反移情的精神分析论文之一"
+  },
+  {
+   "k": "当代文献",
+   "r": "Leary, K. (2000). Racial enactments in dynamic treatment. Psychoanalytic Dialogues, 10(4), 639–653.",
+   "o": "Psychoanalytic Dialogues（Mitchell 创办，关系学派机关刊物）",
+   "u": "当代种族议题课程（Columbia、WAWI、NCP）",
+   "n": "「种族性行动化」概念：把race 从议题变成可工作的临床事件"
+  }
+ ],
+ "G5": [
+  {
+   "k": "理论基础",
+   "r": "Fromm, E. (1941). Escape from Freedom. New York: Farrar & Rinehart.",
+   "z": "《逃避自由》，刘林海译，上海译文出版社",
+   "o": "Frankfurt Institute for Social Research → WAWI",
+   "u": "PINC Psyche and Society；SFCP 全程社会脉络主轴",
+   "n": "社会性格概念：把阶级经验写进心理结构"
+  },
+  {
+   "k": "当代文献",
+   "r": "Layton, L. (2006). Racial identities, racial enactments, and normative unconscious processes. Psychoanalytic Quarterly, 75(1), 237–269.",
+   "o": "Psychoanalytic Quarterly；Boston 地区精神分析社群",
+   "u": "社会脉络与规范性无意识模块",
+   "n": "「规范性无意识过程」：社会等级如何在诊室内被无声复制"
+  },
+  {
+   "k": "专著",
+   "r": "Samuels, A. (1993). The Political Psyche. London: Routledge.",
+   "o": "Society of Analytical Psychology／荣格派社会批判路线",
+   "u": "SAP、bpf 社会议题模块",
+   "n": "以荣格派立场处理政治与心理的交叉，可作对照读物"
+  }
+ ],
+ "G6": [
+  {
+   "k": "标准史著",
+   "r": "Makari, G. (2008). Revolution in Mind: The Creation of Psychoanalysis. New York: HarperCollins.",
+   "z": "《心灵革命：精神分析的创造》，有中译流通",
+   "o": "HarperCollins；作者为 Weill Cornell DeWitt Wallace Institute for the History of Psychiatry 主任",
+   "u": "WAWI 335 Psychoanalysis in Context: History of Ideas；Columbia 思想史",
+   "n": "读课程表政治的最佳单册：知道谁在反对谁，才能读懂排序"
+  },
+  {
+   "k": "社会史",
+   "r": "Zaretsky, E. (2004). Secrets of the Soul: A Social and Cultural History of Psychoanalysis. New York: Alfred A. Knopf.",
+   "o": "Alfred A. Knopf；New School for Social Research",
+   "u": "思想史与社会脉络课程",
+   "n": "把精神分析的兴衰放进二十世纪资本主义与个人主义史中考察"
+  },
+  {
+   "k": "一手档案",
+   "r": "King, P., & Steiner, R. (Eds.) (1991). The Freud–Klein Controversies 1941–45. London: Routledge (New Library of Psychoanalysis).",
+   "o": "British Psychoanalytical Society 会议记录档案",
+   "u": "BPAS 三派史；各机构学派分裂专题",
+   "n": "制度史的一手材料：课程表如何成为学派妥协的产物"
+  },
+  {
+   "k": "法国视角",
+   "r": "Roudinesco, É. (1986). Histoire de la psychanalyse en France, 2 vols. Paris: Éditions du Seuil.",
+   "s": "英译：Jacques Lacan & Co.: A History of Psychoanalysis in France, 1925–1985. Chicago: University of Chicago Press, 1990.",
+   "o": "Éditions du Seuil；Université Paris 7",
+   "u": "法国体系与拉康派制度史",
+   "n": "理解法国四次分裂与「不设课程」传统的历史来源"
+  }
+ ],
+ "R1": [
+  {
+   "k": "官方综述",
+   "r": "Fonagy, P. (Ed.) (2002). An Open Door Review of Outcome Studies in Psychoanalysis (2nd ed.). London: International Psychoanalytical Association.",
+   "o": "International Psychoanalytical Association 研究委员会官方出版物",
+   "u": "Columbia Research 主轴；NCP Research Methods（Y4）；Tavistock DPsych",
+   "n": "IPA 官方对自身疗效证据的系统清点，也是研究课程的标准起点"
+  },
+  {
+   "k": "方法论专著",
+   "r": "Dreher, A. U. (2000). Foundations for Conceptual Research in Psychoanalysis. London: Karnac Books.",
+   "o": "Sigmund Freud Institut, Frankfurt",
+   "u": "概念研究方法模块（德语区与英国博士项目）",
+   "n": "「概念研究」作为独立研究类型：如何检验一个精神分析概念是否自洽"
+  },
+  {
+   "k": "方法论论文",
+   "r": "Midgley, N. (2006). The ‘inseparable bond between cure and research’: Clinical case study as a method of psychoanalytic inquiry. Journal of Child Psychotherapy, 32(2), 122–147.",
+   "o": "Journal of Child Psychotherapy（Association of Child Psychotherapists, UK）；Anna Freud Centre",
+   "u": "个案研究方法课程",
+   "n": "为「单个案研究」提供方法论辩护，是临床型研究者的必读"
+  }
+ ],
+ "R2": [
+  {
+   "k": "关键研究",
+   "r": "Leichsenring, F., & Rabung, S. (2008). Effectiveness of long-term psychodynamic psychotherapy: A meta-analysis. JAMA, 300(13), 1551–1565.",
+   "o": "American Medical Association；University of Giessen／University of Hamburg",
+   "u": "各机构循证模块（多为选修）；CAPA、Columbia",
+   "n": "引发大规模方法学争论的元分析——连同批评回应一起读，才是完整的科学训练"
+  },
+  {
+   "k": "后续研究",
+   "r": "Leichsenring, F., & Rabung, S. (2011). Long-term psychodynamic psychotherapy in complex mental disorders: Update of a meta-analysis. British Journal of Psychiatry, 199(1), 15–22.",
+   "o": "Royal College of Psychiatrists",
+   "u": "循证模块",
+   "n": "针对 2008 年批评的修订版分析，剂量—反应关系是重点"
+  },
+  {
+   "k": "综述论文",
+   "r": "Shedler, J. (2010). The efficacy of psychodynamic psychotherapy. American Psychologist, 65(2), 98–109. doi:10.1037/a0018378",
+   "o": "American Psychological Association",
+   "u": "多数机构循证入门读物",
+   "n": "面向非精神分析读者的证据综述，适合作为与外部对话的工具"
+  },
+  {
+   "k": "系统综述",
+   "r": "de Maat, S., de Jonghe, F., Schoevers, R., & Dekker, J. (2009). The effectiveness of long-term psychoanalytic therapy: A systematic review of empirical studies. Harvard Review of Psychiatry, 17(1), 1–23.",
+   "o": "Harvard Review of Psychiatry；Netherlands Psychoanalytic Institute",
+   "u": "研究方法与循证模块",
+   "n": "荷兰长程随访数据，是欧陆循证研究的重要补充"
+  }
+ ],
+ "R3": [
+  {
+   "k": "纲领性专著",
+   "r": "Solms, M., & Turnbull, O. (2002). The Brain and the Inner World: An Introduction to the Neuroscience of Subjective Experience. New York: Other Press.",
+   "z": "《脑与内部世界》，有中译流通",
+   "o": "作者创办 International Neuropsychoanalysis Society（2000）与期刊 Neuropsychoanalysis；主持 Revised Standard Edition of Freud 修订工程",
+   "u": "WAWI 411 Neuroscience and Psychoanalysis；SPSI Y4；NCP 选修",
+   "n": "神经精神分析纲领的标准入门"
+  },
+  {
+   "k": "关键论文",
+   "r": "Kandel, E. R. (1999). Biology and the future of psychoanalysis: A new intellectual framework for psychiatry revisited. American Journal of Psychiatry, 156(4), 505–524.",
+   "o": "American Psychiatric Association；作者为 2000 年诺贝尔生理学或医学奖得主、Columbia 教授",
+   "u": "神经科学模块核心论文",
+   "n": "来自外部的最有力支持：主张精神分析需要生物学框架才能存续"
+  },
+  {
+   "k": "批评文献",
+   "r": "Blass, R. B., & Carmeli, Z. (2007). The case against neuropsychoanalysis: On fallacies underlying psychoanalysis’ latest scientific trend and its negative impact on psychoanalytic discourse. International Journal of Psychoanalysis, 88(1).",
+   "o": "IJP／Institute of Psychoanalysis；Hebrew University of Jerusalem",
+   "u": "与上一条配对讲授（WAWI 411 等）",
+   "n": "这个争论本身值得进课堂：神经科学的支持是否以牺牲精神分析的解释层次为代价"
+  },
+  {
+   "k": "当代进展",
+   "r": "Solms, M. (2021). The Hidden Spring: A Journey to the Source of Consciousness. New York: W. W. Norton.",
+   "o": "W. W. Norton；University of Cape Town",
+   "u": "选修与后研讨",
+   "n": "把意识起源定位于脑干情感系统——与 1895《科学心理学大纲》形成一百二十年的呼应"
+  }
+ ],
+ "R4": [
+  {
+   "k": "理论专著",
+   "r": "Fonagy, P., Gergely, G., Jurist, E. L., & Target, M. (2002). Affect Regulation, Mentalization, and the Development of the Self. New York: Other Press.",
+   "z": "《心智化：情感调节与自体发展》相关中译流通",
+   "o": "Anna Freud Centre／University College London Psychoanalysis Unit",
+   "u": "NCP Mentalization（选修）；Anna Freud Centre 核心；CAPA 选修",
+   "n": "把依恋研究、客体关系与边缘临床焊成一个可操作、可检验的模型"
+  },
+  {
+   "k": "经典论文",
+   "r": "Fonagy, P., & Target, M. (1996). Playing with reality I: Theory of mind and the normal development of psychic reality. International Journal of Psycho-Analysis, 77, 217–233.",
+   "o": "IJP／Institute of Psychoanalysis",
+   "u": "心智化理论序列首篇",
+   "n": "「心理等同」与「假扮模式」——比整本专著更适合作为入口"
+  },
+  {
+   "k": "治疗手册",
+   "r": "Bateman, A., & Fonagy, P. (2016). Mentalization-Based Treatment for Personality Disorders: A Practical Guide. Oxford: Oxford University Press.",
+   "o": "Oxford University Press；Anna Freud Centre",
+   "u": "MBT 训练；循证模块",
+   "n": "含督导与忠诚度评估工具，是「可教可测」的精神分析衍生方案"
+  }
+ ],
+ "R5": [
+  {
+   "k": "原著",
+   "r": "Stern, D. N. (1985). The Interpersonal World of the Infant. New York: Basic Books.",
+   "o": "Cornell／University of Geneva",
+   "u": "SFCP／PINC 发展集群；NIP Development I",
+   "n": "以实验数据重写发展理论，为主体间取向提供实证支撑"
+  },
+  {
+   "k": "微观分析研究",
+   "r": "Beebe, B., & Lachmann, F. M. (2002). Infant Research and Adult Treatment: Co-constructing Interactions. Hillsdale, NJ: Analytic Press.",
+   "o": "New York State Psychiatric Institute 母婴互动实验室；Analytic Press",
+   "u": "NIP、WAWI 发展与关系交叉课程",
+   "n": "以逐帧录像分析证明「互动调节」的存在——把主体间性从隐喻变成数据"
+  },
+  {
+   "k": "实验原始文献",
+   "r": "Tronick, E., Als, H., Adamson, L., Wise, S., & Brazelton, T. B. (1978). The infant’s response to entrapment between contradictory messages in face-to-face interaction. Journal of the American Academy of Child Psychiatry, 17(1), 1–13.",
+   "o": "Harvard Medical School／Children’s Hospital Boston",
+   "u": "发展模块实证部分（多数机构以录像形式呈现）",
+   "n": "「静止面孔」（still-face）实验的原始报告——最常被引用的婴儿研究范式"
+  }
+ ]
+};
+
+function bibHtml(id){
+  const list=BIB[id];
+  if(!list||!list.length) return '';
+  return '<div class="sec"><h3>核心文献（标准引用）</h3>'+
+    list.map(b=>{
+      const rows=[];
+      if(b.s) rows.push(['SE / 标准版',b.s,false]);
+      if(b.z) rows.push(['中译',b.z,false]);
+      if(b.o) rows.push(['来源机构',b.o,true]);
+      if(b.u) rows.push(['课程收录',b.u,false]);
+      const rowHtml=rows.map(r=>`<div class="bibrow${r[2]?' biborg':''}"><span class="lbl">${esc(r[0])}</span><span class="val">${esc(r[1])}</span></div>`).join('');
+      const note=b.n?`<div class="bibn">${esc(b.n)}</div>`:'';
+      return `<div class="bibcard"><div class="bibtop"><span class="bibk">${esc(b.k||'')}</span></div>`+
+        `<div class="bibr">${esc(b.r||'')}</div>`+rowHtml+note+'</div>';
+    }).join('')+'</div>';
+}
+
 function pick(id){
   sel=(sel===id)?null:id; paint();
   if(!sel){panel.classList.remove("show");return}
@@ -432,7 +2695,7 @@ function pick(id){
     <span class="tag" style="background:#1c232c;color:#8b949e">L${n.lyr} · ${LYR[n.lyr]}</span>
     ${CRITICAL.includes(id)?'<span class="tag" style="background:#2d2413;color:#f2c94c">关键主干</span>':''}
     <div class="sec"><h3>为什么在这个位置</h3><p>${esc(n.why)}</p></div>
-    <div class="sec"><h3>核心文本</h3><div class="txtbox">${esc(n.txt)}</div></div>
+    ${bibHtml(id)}
     <div class="sec"><h3>开设该内容的机构（举例）</h3><div class="txtbox">${esc(n.inst)}</div></div>
     <div class="sec"><h3>直接前置（共 ${allUp} 个上游节点）</h3>
       <ul class="lst">${pre.length?pre.map(p=>`<li data-go="${p.id}">← ${esc(p.label)}</li>`).join(""):'<li class="no">无——这是一个起点</li>'}</ul></div>
