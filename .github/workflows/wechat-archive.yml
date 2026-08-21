@@ -1,0 +1,29 @@
+name: WeChat Archive to Gist
+
+on:
+  schedule:
+    - cron: "*/11 * * * *"   # 每 11 分钟（UTC）
+  workflow_dispatch: {}     # 允许手动触发
+
+permissions:
+  contents: read            # 仅用于 checkout 仓库
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Run archiver
+        run: node scripts/process.mjs
+        env:
+          RAINDROP_TOKEN: ${{ secrets.RAINDROP_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          CFB_SECRET: ${{ secrets.CFB_SECRET }}   # 缺省回退 "changfengbox.top"
+          MAX_PER_RUN: ${{ secrets.MAX_PER_RUN }}  # 单次最多处理条数；不设则脚本默认 3
