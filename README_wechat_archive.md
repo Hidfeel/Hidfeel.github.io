@@ -4,7 +4,7 @@
 
 1. 提交到 **archive.org**（Wayback Machine）保存，拿到存档快照地址；
 2. 通过 `changfengbox.top` 接口把文章转成 **Markdown**，存入一个**私密 Gist**；
-3. 把 Gist 地址和 Archive 地址写回该书签的 `media` 字段（每个地址作为一个 `{"link": url}` 项），并加上 `gist` 标签（作为「已处理」幂等标记，避免重复处理）。
+3. 把 Gist 的 **raw 地址**（`gist.githubusercontent.com/.../raw`，可直接获取 Markdown 文本）和 Archive 地址写回该书签的 `media` 字段（每个地址作为一个 `{"link": url}` 项），并加上 `gist` 标签（作为「已处理」幂等标记，避免重复处理）。
 
 ## 文件
 - `.github/workflows/wechat-archive.yml` — 定时触发的 Action（每 11 分钟 + 手动触发）

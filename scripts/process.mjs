@@ -197,7 +197,10 @@ async function createGist(title, markdown) {
     throw new Error(`GitHub Gist 创建失败: ${res.status} ${body}`);
   }
   const json = await res.json();
-  return json.html_url;
+  // 返回 raw 地址（gist.githubusercontent.com/.../raw），便于直接获取 Markdown 文本，
+  // 而非网页地址（gist.github.com/...）。取首个文件的 raw_url，回退到 html_url。
+  const firstFile = json.files ? Object.values(json.files)[0] : null;
+  return firstFile?.raw_url || json.html_url;
 }
 
 // ---------- 5. 回写 Raindrop media + 标签 ----------
