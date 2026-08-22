@@ -11,7 +11,7 @@ import crypto from "node:crypto";
 // ---------- 配置 ----------
 const RAINDROP_API = "https://api.raindrop.io/rest/v1";
 const WECHAT_DOMAIN = "mp.weixin.qq.com";
-const ARCHIVE_SAVE = "https://web.archive.org/save";
+const ARCHIVE_SAVE = "https://windy-lynx-23.chitagideon.deno.net/archive/save";
 const CFB_API = "https://changfengbox.top/api/download/wechat";
 const CFB_SECRET = process.env.CFB_SECRET || "changfengbox.top";
 const CFB_ORIGIN = "https://changfengbox.top";
