@@ -53,13 +53,18 @@ async function fetchWithTimeout(url, opts = {}, timeoutMs = 60000) {
 }
 
 // ---------- 1. 拉取 Raindrop 书签 ----------
+// 用 search 在服务端按域名 + 排除已处理标签过滤；
+// 文章页路径以 /s 开头（mp.weixin.qq.com/s...），专辑页 /mp/appmsgalbum 等排除（search 无路径前缀运算符，客户端兜底）
 async function fetchBookmarks() {
   if (!RAINDROP_TOKEN) throw new Error("缺少 RAINDROP_TOKEN");
   const todo = [];
   let page = 0;
   const perpage = 50;
+  const search = `domain:${WECHAT_DOMAIN} -tag:${GIST_TAG}`;
   while (true) {
-    const url = `${RAINDROP_API}/raindrops/0?page=${page}&perpage=${perpage}`;
+    const url = `${RAINDROP_API}/raindrops/0?search=${encodeURIComponent(
+      search
+    )}&page=${page}&perpage=${perpage}`;
     const res = await fetchWithTimeout(url, {
       headers: { Authorization: `Bearer ${RAINDROP_TOKEN}` },
     }, 30000);
@@ -67,12 +72,16 @@ async function fetchBookmarks() {
     const json = await res.json();
     const items = json.items || [];
     for (const it of items) {
+      // 双保险：服务端 search 可能未完全排除，客户端再校验
       const domain = (it.domain || "").toLowerCase();
       const tags = it.tags || [];
-      if (domain === WECHAT_DOMAIN && !tags.includes(GIST_TAG)) {
-        todo.push(it);
-        if (todo.length >= MAX_PER_RUN) return todo;
-      }
+      if (domain !== WECHAT_DOMAIN || tags.includes(GIST_TAG)) continue;
+      // 只处理文章页 /s...，排除专辑页 /mp/appmsgalbum 等
+      let pathname = "";
+      try { pathname = new URL(it.link || "").pathname; } catch {}
+      if (!pathname.startsWith("/s")) continue;
+      todo.push(it);
+      if (todo.length >= MAX_PER_RUN) return todo;
     }
     if (items.length < perpage) break; // 最后一页
     page++;
@@ -134,20 +143,29 @@ async function fetchMarkdown(url) {
   if (!res.ok) throw new Error(`changfengbox 接口返回 ${res.status}`);
 
   const text = await res.text();
-  let md = text;
+  // 接口返回 {"status":"completed","progress":100,"urls":["<markdown文件地址>"]}
+  // 取 urls[0]；兼容把 Markdown 直接放在 data/markdown/content 的字符串形式
+  let mdUrl;
   try {
     const json = JSON.parse(text);
-    // 优先取 data 字段，兼容其他常见字段
-    md =
-      json.data ??
-      json.markdown ??
-      json.content ??
-      json.result ??
+    mdUrl =
+      (Array.isArray(json.urls) && json.urls[0]) ||
+      (typeof json.data === "string" ? json.data : null) ||
+      (typeof json.markdown === "string" ? json.markdown : null) ||
+      (typeof json.content === "string" ? json.content : null) ||
       text;
   } catch {
-    // 纯文本回退
-    md = text;
+    mdUrl = text; // 纯文本回退
   }
+
+  // 若取到的是 URL，则再下载真正的 Markdown 内容；否则视为原始 Markdown
+  let md = mdUrl;
+  if (typeof mdUrl === "string" && /^https?:\/\//i.test(mdUrl.trim())) {
+    const r2 = await fetchWithTimeout(mdUrl.trim(), {}, 60000);
+    if (!r2.ok) throw new Error(`下载 Markdown 文件失败: ${r2.status}`);
+    md = await r2.text();
+  }
+
   if (!md || !String(md).trim()) throw new Error("changfengbox 返回的 Markdown 为空");
   return String(md);
 }
@@ -187,13 +205,14 @@ async function updateRaindrop(item, gistUrl, archiveUrl) {
   const existingMedia = Array.isArray(item.media) ? item.media : [];
   const existingTags = Array.isArray(item.tags) ? item.tags : [];
 
-  const appendLink = (media, link, title) => {
+  // Raindrop 的 media 数组官方格式为 [{"link":"url"}]，不接受 type 字段
+  const appendLink = (media, link) => {
     if (media.some((m) => m && m.link === link)) return media; // 去重
-    return [...media, { type: "link", link, title }];
+    return [...media, { link }];
   };
 
-  let media = appendLink(existingMedia, gistUrl, "Gist");
-  media = appendLink(media, archiveUrl, "Archive");
+  let media = appendLink(existingMedia, gistUrl);
+  media = appendLink(media, archiveUrl);
 
   const tags = existingTags.includes(GIST_TAG)
     ? existingTags
