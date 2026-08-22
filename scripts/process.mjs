@@ -53,14 +53,14 @@ async function fetchWithTimeout(url, opts = {}, timeoutMs = 60000) {
 }
 
 // ---------- 1. 拉取 Raindrop 书签 ----------
-// 用 search 在服务端按域名 + 排除已处理标签过滤；
+// 用 search 在服务端按域名 + 排除已处理标签（-#gist）过滤；
 // 文章页路径以 /s 开头（mp.weixin.qq.com/s...），专辑页 /mp/appmsgalbum 等排除（search 无路径前缀运算符，客户端兜底）
 async function fetchBookmarks() {
   if (!RAINDROP_TOKEN) throw new Error("缺少 RAINDROP_TOKEN");
   const todo = [];
   let page = 0;
   const perpage = 50;
-  const search = `domain:${WECHAT_DOMAIN} -tag:${GIST_TAG}`;
+  const search = `domain:${WECHAT_DOMAIN} -#${GIST_TAG}`;
   while (true) {
     const url = `${RAINDROP_API}/raindrops/0?search=${encodeURIComponent(
       search
